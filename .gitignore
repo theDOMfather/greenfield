@@ -38,4 +38,6 @@ Thumbs.db
 
 # Local Specific #
 ##################
+node_modules/
+bower_components/
 keys.js
