@@ -15,7 +15,7 @@ require('./auth/auth.js')(passport);
 
 var app = express();
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8000;
 
 //configuring database begin =========
 mongoose.connect('mongodb://localhost');
@@ -57,7 +57,7 @@ app.post('/submit', function(req, res) {
     password: req.body.password,
     phoneNumber: req.body.phoneNumber,
     goal: req.body.goal,
-    spamTime: req.body.spamTime
+    spamTime: req.body.spamTime,
     done: false
   }, function(err, user) {
     if (err) {
@@ -70,18 +70,10 @@ app.post('/submit', function(req, res) {
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook', {
   scope : 'email' }));
-<<<<<<< HEAD
-  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect : '/',
-    failureRedirect : '/fail',   // ********* REPLACE with working route once created ***********
-    session: false
-  }));
-=======
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect : '/',
   // failureRedirect : '/fail'
 }));
->>>>>>> Implement sessions
 
 //setting up listening
 app.listen(port);
