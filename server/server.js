@@ -9,9 +9,12 @@ var Schema = mongoose.Schema;
 //database set up end======
 
 
+var passport = require('passport');
+require('./auth/auth.js')(passport);
+
 var app = express();
 
-var port = process.env.PORT || 8000; 
+var port = process.env.PORT || 8080;
 
 //configuring database begin =========
 mongoose.connect('mongodb://localhost');
@@ -24,6 +27,7 @@ app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(passport.initialize());
 
 //defining schema=========
 var databaseSchema = new Schema({
@@ -61,9 +65,15 @@ app.post('/submit', function(req, res) {
   });
 })
 
+// authentication routes
+app.get('/auth/facebook', passport.authenticate('facebook', {
+  scope : 'email' }));
+  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    successRedirect : '/',
+    failureRedirect : '/fail',   // ********* REPLACE with working route once created ***********
+    session: false
+  }));
 
 //setting up listening
-app.listen(port); 
-console.log('Listening to port... ' + port ); 
-
-
+app.listen(port);
+console.log('Listening on port... ' + port );
