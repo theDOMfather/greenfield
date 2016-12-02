@@ -2,10 +2,20 @@ var http = require ('http');
 var path = require ('path');
 var express = require('express');
 var bodyParser = require('body-parser');
+//database set up begins=====
+var morgan = require('morgan');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+//database set up end======
+
 
 var app = express();
 
 var port = process.env.PORT || 8000; 
+
+//configuring database begin =========
+mongoose.connect('mongodb://localhost');
+app.use(morgan('dev')); //to log every request to the console
 
 
 app.use('/', express.static(path.join(__dirname, '../client')));
@@ -15,6 +25,18 @@ app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+//defining schema=========
+var databaseSchema = new Schema({
+  username: String,
+  password: String,
+  phoneNumber: String,
+  goal: String,
+  spamTime: String
+})
+
+//creating a model======
+var Table = mongoose.model('Table', databaseSchema);
+
 
 app.get('/', function(req, res) {
 	res.write('hello');
@@ -22,8 +44,8 @@ app.get('/', function(req, res) {
 });
 
 
-
+//setting up listening
 app.listen(port); 
-console.log('Listing to ....' + port ); 
+console.log('Listening to port... ' + port ); 
 
 
