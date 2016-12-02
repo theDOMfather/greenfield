@@ -43,6 +43,24 @@ app.get('/', function(req, res) {
 	res.end();
 });
 
+//specifying routes for database queries
+//submit is a place holder here.  can be changed when front-end is ready
+app.post('/submit', function(req, res) {
+  Table.create({
+    username: req.body.username,
+    password: req.body.password,
+    phoneNumber: req.body.phoneNumber,
+    goal: req.body.goal,
+    spamTime: req.body.spamTime
+    done: false
+  }, function(err, user) {
+    if (err) {
+      res.send (err);
+    }
+    res.send (user);
+  });
+})
+
 
 //setting up listening
 app.listen(port); 
