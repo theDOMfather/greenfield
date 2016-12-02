@@ -1,6 +1,7 @@
 var http = require ('http');
 var path = require ('path');
 var express = require('express');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 //database set up begins=====
 var morgan = require('morgan');
@@ -27,7 +28,9 @@ app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({ secret: 'squirrel' }));
 app.use(passport.initialize());
+app.use(passport.session());
 
 //defining schema=========
 var databaseSchema = new Schema({
@@ -40,7 +43,6 @@ var databaseSchema = new Schema({
 
 //creating a model======
 var Table = mongoose.model('Table', databaseSchema);
-
 
 app.get('/', function(req, res) {
 	res.write('hello');
@@ -68,11 +70,18 @@ app.post('/submit', function(req, res) {
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook', {
   scope : 'email' }));
+<<<<<<< HEAD
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect : '/',
     failureRedirect : '/fail',   // ********* REPLACE with working route once created ***********
     session: false
   }));
+=======
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect : '/',
+  // failureRedirect : '/fail'
+}));
+>>>>>>> Implement sessions
 
 //setting up listening
 app.listen(port);
