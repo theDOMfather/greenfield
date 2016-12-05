@@ -1,16 +1,34 @@
-//module name can be changed depending on what we decide
-angular.module('hassle', [
-  'hassle.login', 
-  'hassle.goal',
-  'ngRoute'
-  ])
-.config(function($routeProvider, $httpProvider) {
-  $routeProvider
-    .when('/goal', {  //this path can be changed to something more appropriate
-      templateUrl: 'client/goal.html',
-      controller: 'goalController'
-    })
-    .otherwise({
-      redirectTo:'/'
-    });
+angular.module('app', [
+	'app.AddBuddy',
+	'app.service',
+	'app.alert',
+	'app.account',
+	'ngRoute'
+	])
+.config(function($routeProvider) {
+	$routeProvider
+	.when('/buddy', {
+		templateUrl:"app/accountabilitybuddy/buddy.html",
+		controller:"buddyController"
+	})
+	.when('/alert', {
+		templateUrl:"app/alertTime/alert.html",
+		controller:"alertController"
+
+	})
+	.when('/account', {
+		templateUrl:"app/account/account.html",
+		controller:"accountController"
+	})
+	.when('/goal', {
+		templateUrl:"app/goal/goal.html"
+		//controller:"accountController"
+	})
+	.otherwise({
+		redirectTo: '/'
+	});
+
 });
+
+
+
