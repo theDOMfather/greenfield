@@ -27,7 +27,7 @@ app.use(passport.session());
 var twilioService = require('./sms/sms.js');
 
 //twilioService.sendWelcome(6468318760);
-//twilioService.periodicGoalPoll('6468318760', "Stop eating shit like I normally do :(");
+twilioService.periodicGoalPoll('6468318760', "Stop eating shit like I normally do :(");
 //twilioService.getAllMessages();
 //twilioService.getLastResponse();
 
