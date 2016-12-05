@@ -5,6 +5,7 @@ angular.module('app', [
 	'app.account',
 	'ngRoute'
 	])
+
 .config(function($routeProvider) {
 	$routeProvider
 	.when('/buddy', {
@@ -12,7 +13,7 @@ angular.module('app', [
 		controller:"buddyController"
 	})
 	.when('/alert', {
-		templateUrl:"app/alertTime/alert.html",
+		templateUrl:"app/alert/alert.html",
 		controller:"alertController"
 
 	})
