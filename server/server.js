@@ -8,7 +8,7 @@ var app = express();
 // configure database
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost');
+mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 app.use(morgan('dev')); //to log every request to the console
 
 // configure authenticartion
@@ -31,7 +31,6 @@ var twilioService = require('./sms/sms.js');
 //twilioService.getAllMessages();
 //twilioService.getLastResponse();
 
-// serve static files on client
 app.use('/', express.static(path.join(__dirname, '../client')));
 app.use('/fail', express.static(path.join(__dirname, '../client/assets/doNotWant.jpg')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
