@@ -41,6 +41,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.get('/messageToConsole', function(req, res) {
+  console.log(req, res);
+});
+
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook', {
   scope: 'email'
