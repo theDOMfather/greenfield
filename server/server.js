@@ -1,6 +1,7 @@
 var http = require ('http');
 var path = require ('path');
 var express = require('express');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 //database set up begins=====
 var morgan = require('morgan');
@@ -9,9 +10,12 @@ var Schema = mongoose.Schema;
 //database set up end======
 
 
+var passport = require('passport');
+require('./auth/auth.js')(passport);
+
 var app = express();
 
-var port = process.env.PORT || 8000; 
+var port = process.env.PORT || 8000;
 
 //configuring database begin =========
 mongoose.connect('mongodb://localhost');
@@ -24,6 +28,9 @@ app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({ secret: 'squirrel' }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //defining schema=========
 var databaseSchema = new Schema({
@@ -36,7 +43,6 @@ var databaseSchema = new Schema({
 
 //creating a model======
 var Table = mongoose.model('Table', databaseSchema);
-
 
 app.get('/', function(req, res) {
 	res.write('hello');
@@ -51,7 +57,7 @@ app.post('/submit', function(req, res) {
     password: req.body.password,
     phoneNumber: req.body.phoneNumber,
     goal: req.body.goal,
-    spamTime: req.body.spamTime
+    spamTime: req.body.spamTime,
     done: false
   }, function(err, user) {
     if (err) {
@@ -61,9 +67,14 @@ app.post('/submit', function(req, res) {
   });
 })
 
+// authentication routes
+app.get('/auth/facebook', passport.authenticate('facebook', {
+  scope : 'email' }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect : '/',
+  // failureRedirect : '/fail'
+}));
 
 //setting up listening
-app.listen(port); 
-console.log('Listening to port... ' + port ); 
-
-
+app.listen(port);
+console.log('Listening on port... ' + port );
