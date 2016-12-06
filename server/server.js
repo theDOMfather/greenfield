@@ -9,41 +9,35 @@ var app = express();
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
+var db = mongoose.connection;
+var User = require('./userModel.js');
 app.use(morgan('dev')); //to log every request to the console
 
-// configure authenticartion
+// configure authentication
 var session = require('express-session');
 var passport = require('passport');
 require('./auth.js')(passport);
 app.use(session({
   secret: 'squirrel',
   resave: false,
-  saveUnintialized: true
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-//=========== twilio ====================//
-
+// configure twilio
 var twilioService = require('./sms/sms.js');
 
-//twilioService.sendWelcome(6468318760); // sends welcome message
-twilioService.periodicGoalPoll('6468318760', "Stop eating shit like I normally do :("); // sends periodig goal question
-
-//twilio response to outbound text messages
-app.get('/messageToConsole', function(req, res) {
-  twilioService.responseMaker(req, res);
-  //link to model
-});
-
-//=========== END twilio ====================//
+// server static files
 app.use('/', express.static(path.join(__dirname, '../client')));
 //app.use('/fail', express.static(path.join(__dirname, '../client/assets/doNotWant.jpg')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 // parse requests
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook', {
@@ -53,20 +47,44 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: '/',
   failureRedirect: '/fail'
 }));
+
+// new user routes
 app.post('/goal', function(req, res) {
-  console.log("hello from inside the server" ,req.body );
-  // console.log(req.body);
-  var newUser = require('./userModel.js');
-  newUser.create(req.body, function (err, results) {
-    console.log('white shadow here ', req.body);
-    if (err) {
-      res.send(err);
-    }
-    res.send(results);
-  });
+  req.body.responses = Array(90);
+  req.body.responses.startDate = Date.now();
+  User.create(req.body);
+}, function(err, results) {
+  if (err) {
+    res.send(err);
+  }
+  console.log(req.body);
+  res.send(results);
+  //twilioService.sendWelcome(req.body.phoneNumber);
+});
+
+// twilio routes
+app.get('/messageToConsole', function(req, res) {
+  twilioService.responseMaker(req, res);
+  //link to model
 });
 
 
 // start server
 app.listen(port);
 console.log('Listening on port ' + port + '...');
+
+// spam routine
+exports.spam = function() {
+  // query database for all users
+  User.find((err, users) => {
+    // iterate through and apply periodic goal poll
+    users.forEach(user => {
+      // if it's their last day, drop their ass
+      twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
+    });
+    // celebrate completion
+    console.log('spammed the shit out of \'em');
+  });
+};
+
+exports.spam();
