@@ -6,11 +6,7 @@ angular.module('app', [
 
 .config(function($routeProvider) {
 	$routeProvider
-	// .when('/buddy', {
-	// 	templateUrl:"app/accountabilitybuddy/buddy.html",
-	// 	controller:"buddyController"
-	// })
-	.when('/goal', {
+	.when('/', {
 		templateUrl:"app/goal/goal.html",
 		controller:"goalController"
 	})
