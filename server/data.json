@@ -3,32 +3,36 @@
     "token": "1",
     "id": "1",
     "name": "Bartek",
-    "phoneNumber": "+16468318760",
+    "phoneNumber": "6468318760",
     "goal": "Stop eating shit",
-    "spamTime": 60000
+    "buddyName": "Bei",
+    "buddyPhone": "5104159543"
   },
   {
     "token": "2",
     "id": "2",
     "name": "Bei",
-    "phoneNumber": "+15104159543",
+    "phoneNumber": "5104159543",
     "goal": "Write some bomb ass angular",
-    "spamTime": 600000
+    "buddyName": "Abiy",
+    "buddyPhone": "2404391140"
   },
   {
     "token": "3",
     "id": "3",
     "name": "Abiy",
-    "phoneNumber": "+12404391140",
+    "phoneNumber": "2404391140",
     "goal": "Data the shit out of some bases",
-    "spamTime": 600000
+    "buddyName": "Collin",
+    "buddyPhone": "9252977451"
   },
   {
     "token": "4",
     "id": "4",
     "name": "Collin",
-    "phoneNumber": "+19252977451",
+    "phoneNumber": "9252977451",
     "goal": "Stack ca$h 4 guns + hoes",
-    "spamTime": 60000
+    "buddyName": "Bartek",
+    "buddyPhone": "6468318760"
   }
 ]
