@@ -1,0 +1,34 @@
+[
+  {
+    "token": "1",
+    "id": "1",
+    "name": "Bartek",
+    "phoneNumber": "+16468318760",
+    "goal": "Stop eating shit",
+    "spamTime": 60000
+  },
+  {
+    "token": "2",
+    "id": "2",
+    "name": "Bei",
+    "phoneNumber": "+15104159543",
+    "goal": "Write some bomb ass angular",
+    "spamTime": 600000
+  },
+  {
+    "token": "3",
+    "id": "3",
+    "name": "Abiy",
+    "phoneNumber": "+12404391140",
+    "goal": "Data the shit out of some bases",
+    "spamTime": 600000
+  },
+  {
+    "token": "4",
+    "id": "4",
+    "name": "Collin",
+    "phoneNumber": "+19252977451",
+    "goal": "Stack ca$h 4 guns + hoes",
+    "spamTime": 60000
+  }
+]
