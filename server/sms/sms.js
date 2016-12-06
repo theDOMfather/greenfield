@@ -54,9 +54,6 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
 
 };
 
-
-exports.periodicGoalPoll(6468318760, "eat more cheeese");
-
 //=========== respond to messages ====================//
 
 
