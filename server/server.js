@@ -67,6 +67,7 @@ app.post('/goal', function(req, res) {
   res.send(results);
   twilioService.sendWelcome(6468318760); // sends welcome message
 
+
 });
 
 // start server

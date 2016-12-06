@@ -48,7 +48,6 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
       // console.log(responseData.from); // outputs "+14506667788"
       console.log("reponse from user's phone number:");
       console.log(responseData.body); // outputs "word to your mother."
-
     }
   });
 
