@@ -1,4 +1,3 @@
-
 // configure server
 var path = require('path');
 var express = require('express');
@@ -29,7 +28,7 @@ app.use(passport.session());
 var twilioService = require('./sms/sms.js');
 
 //twilioService.sendWelcome(6468318760); // sends welcome message
-twilioService.periodicGoalPoll('6468318760', "Stop eating shit like I normally do :("); // sends periodig goal question
+//twilioService.periodicGoalPoll('6468318760', "Stop eating shit like I normally do :("); // sends periodig goal question
 
 //twilio response to outbound text messages
 app.get('/messageToConsole', function(req, res) {
@@ -44,7 +43,9 @@ app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 // parse requests
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook', {
@@ -57,12 +58,15 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 app.post('/goal', function(req, res) {
   var newUser = require('./userModel.js');
   newUser.create(req.body);
-  }, function(err, results) {
-	if(err) {
-		res.send(err);
-	}
-	console.log(req.body);
-	res.send(results);
+}, function(err, results) {
+  if (err) {
+    res.send(err);
+  }
+  console.log('request body below yo:');
+  console.log(req.body);
+  res.send(results);
+  twilioService.sendWelcome(6468318760); // sends welcome message
+
 });
 
 // start server

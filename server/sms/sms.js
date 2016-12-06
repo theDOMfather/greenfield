@@ -62,6 +62,7 @@ exports.responseMaker = function(req, res) {
   var twilio = require('twilio');
 
   var twiml = new twilio.TwimlResponse();
+  console.log("twilio request object", req.query);
   if (req.query.Body == 1) {
     twiml.message('Nice job, I guess...');
   } else if (req.query.Body == 2) {
