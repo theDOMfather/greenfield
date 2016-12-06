@@ -1,3 +1,4 @@
+
 // configure server
 var path = require('path');
 var express = require('express');
@@ -43,9 +44,7 @@ app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 // parse requests
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook', {
@@ -55,6 +54,16 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: '/',
   failureRedirect: '/fail'
 }));
+app.post('/goal', function(req, res) {
+  var newUser = require('./userModel.js');
+  newUser.create(req.body);
+  }, function(err, results) {
+	if(err) {
+		res.send(err);
+	}
+	console.log(req.body);
+	res.send(results);
+});
 
 // start server
 app.listen(port);
