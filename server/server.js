@@ -76,8 +76,10 @@ app.get('/messageToConsole', function(req, res) {
 
 //adding third page get request here======
 app.get('/status', function(req, res) {
-  User.find(function(err, users){
-    //
+  User.find(function(err, user){
+    if(err)
+      res.send(err);
+    res.json(user)
   })
 });
 
