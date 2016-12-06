@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+console.log("hello from inside you're scheduler");
+
+
+require('../server/server.js').spam();

@@ -29,6 +29,7 @@ exports.sendWelcome = function(userPhoneNumber) {
 };
 
 
+
 //=========== outbound period question service ====================//
 
 exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
@@ -48,7 +49,6 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
       // console.log(responseData.from); // outputs "+14506667788"
       console.log("reponse from user's phone number:");
       console.log(responseData.body); // outputs "word to your mother."
-
     }
   });
 
@@ -62,6 +62,7 @@ exports.responseMaker = function(req, res) {
   var twilio = require('twilio');
 
   var twiml = new twilio.TwimlResponse();
+  console.log("twilio request object", req.query);
   if (req.query.Body == 1) {
     twiml.message('Nice job, I guess...');
   } else if (req.query.Body == 2) {
@@ -79,7 +80,7 @@ exports.responseMaker = function(req, res) {
 
 
 
-
+//added comment
 
 
 
