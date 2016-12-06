@@ -23,14 +23,20 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//twilio set up begins=====
+//=========== twilio ====================//
+
 var twilioService = require('./sms/sms.js');
 
-//twilioService.sendWelcome(6468318760);
-twilioService.periodicGoalPoll('6468318760', "Stop eating shit like I normally do :(");
-//twilioService.getAllMessages();
-//twilioService.getLastResponse();
+//twilioService.sendWelcome(6468318760); // sends welcome message
+twilioService.periodicGoalPoll('6468318760', "Stop eating shit like I normally do :("); // sends periodig goal question
 
+//twilio response to outbound text messages
+app.get('/messageToConsole', function(req, res) {
+  twilioService.responseMaker(req, res);
+  //link to model
+});
+
+//=========== END twilio ====================//
 app.use('/', express.static(path.join(__dirname, '../client')));
 app.use('/fail', express.static(path.join(__dirname, '../client/assets/doNotWant.jpg')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
@@ -40,10 +46,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
-app.get('/messageToConsole', function(req, res) {
-  console.log(req, res);
-});
 
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook', {

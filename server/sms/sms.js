@@ -35,8 +35,9 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
   twilio.sendMessage({
     to: `+1${userPhoneNumber}`, // Any number Twilio can deliver to
     from: '+14152003022', // A number you bought from Twilio and can use for outbound communication
-    body: `Did you make progress towards? ######################### ${userGoal} ######################### Respond 1 with 'yes' / respond 2 with 'no'` // body of the SMS message
-
+    body: `Did you make progress towards? ######################### ${userGoal} ######################### Respond 1 with 'yes' / respond 2 with 'no'` //,
+      //  mediaUrl: 'https://s-media-cache-ak0.pinimg.com/originals/53/e6/eb/53e6eb8b9396ee2c1cc99b69582a07f3.jpg'
+      // body of the SMS message
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
     if (!err) { // "err" is an error received during the request, if any
@@ -58,22 +59,27 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
 
 exports.responseMaker = function(req, res) {
 
-    var twilio = require('twilio');
+  var twilio = require('twilio');
 
-    var twiml = new twilio.TwimlResponse();
-    if (req.query.Body == 1) {
-        twiml.message('Nice job, I guess...');
-    } else if (req.query.Body == 2) {
-        twiml.message('Wow, does it feel great to fail...all the time?');
-    } else {
-        twiml.message('dude, are you too stupid to know how to type in 1 or 2? Try again!!!!');
-    }
-    res.writeHead(200, {
-        'Content-Type': 'text/xml'
-    });
-    res.end(twiml.toString());
+  var twiml = new twilio.TwimlResponse();
+  if (req.query.Body == 1) {
+    twiml.message('Nice job, I guess...');
+  } else if (req.query.Body == 2) {
+    twiml.message('Wow, does it feel great to fail...all the time?');
+    // twiml.mediahttps: //s-media-cache-ak0.pinimg.com/originals/53/e6/eb/53e6eb8b9396ee2c1cc99b69582a07f3.jpg
+  } else {
+    twiml.message('dude, are you too stupid to know how to type in 1 or 2? Try again!!!!');
+  }
+  res.writeHead(200, {
+    'Content-Type': 'text/xml'
+  });
+  res.end(twiml.toString());
 
 };
+
+
+
+
 
 
 
