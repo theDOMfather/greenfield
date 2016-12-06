@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
 console.log("hello from inside you're scheduler");
+
+require('../server/sms/sms.js')
