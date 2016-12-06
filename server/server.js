@@ -1,4 +1,3 @@
-
 // configure server
 var path = require('path');
 var express = require('express');
@@ -39,7 +38,7 @@ app.get('/messageToConsole', function(req, res) {
 
 //=========== END twilio ====================//
 app.use('/', express.static(path.join(__dirname, '../client')));
-app.use('/fail', express.static(path.join(__dirname, '../client/assets/doNotWant.jpg')));
+//app.use('/fail', express.static(path.join(__dirname, '../client/assets/doNotWant.jpg')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 // parse requests
@@ -55,15 +54,18 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: '/fail'
 }));
 app.post('/goal', function(req, res) {
+  console.log("hello from inside the server" ,req.body );
+  // console.log(req.body);
   var newUser = require('./userModel.js');
-  newUser.create(req.body);
-  }, function(err, results) {
-	if(err) {
-		res.send(err);
-	}
-	console.log(req.body);
-	res.send(results);
+  newUser.create(req.body, function (err, results) {
+    console.log('white shadow here ', req.body);
+    if (err) {
+      res.send(err);
+    }
+    res.send(results);
+  });
 });
+
 
 // start server
 app.listen(port);
