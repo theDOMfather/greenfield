@@ -53,6 +53,31 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
 
 };
 
+//=========== respond to messages ====================//
+
+
+exports.responseMaker = function(req, res) {
+
+    var twilio = require('twilio');
+
+    var twiml = new twilio.TwimlResponse();
+    if (req.query.Body == 1) {
+        twiml.message('Nice job, I guess...');
+    } else if (req.query.Body == 2) {
+        twiml.message('Wow, does it feel great to fail...all the time?');
+    } else {
+        twiml.message('dude, are you too stupid to know how to type in 1 or 2? Try again!!!!');
+    }
+    res.writeHead(200, {
+        'Content-Type': 'text/xml'
+    });
+    res.end(twiml.toString());
+
+};
+
+
+
+
 
 //=========== get last inbound response not tied to user ====================//
 
