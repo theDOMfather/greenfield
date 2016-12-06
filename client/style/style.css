@@ -1,12 +1,16 @@
 body {
 	background: lightblue;
 }
+
 .fb-login {
   text-align: center;
 }
 .fb-login img {
   width: 200px;
 }
+
+
+
 
 form {
   text-align: left;
