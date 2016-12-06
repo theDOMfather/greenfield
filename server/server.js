@@ -48,7 +48,11 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: '/fail'
 }));
 
+
 // new user routes
+//======angular AJAX request listeners below
+//===post request from goals page
+
 app.post('/goal', function(req, res) {
   req.body.responses = Array(90);
   req.body.responses.startDate = Date.now();
@@ -62,12 +66,20 @@ app.post('/goal', function(req, res) {
   //twilioService.sendWelcome(req.body.phoneNumber);
 });
 
+
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
   twilioService.responseMaker(req, res);
   //link to model
 });
 
+
+//adding third page get request here======
+app.get('/status', function(req, res) {
+  User.find(function(err, users){
+    //
+  })
+});
 
 // start server
 app.listen(port);

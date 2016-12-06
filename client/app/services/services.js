@@ -14,7 +14,14 @@ angular.module('app.service',[])
 		return {
 			add: add
 		};	
-});
+})
+.factory('statusFactory', function($http) {
+	return {
+		get : function() {
+			return $http.get('/status');
+		}
+	}
+})
 // .factory('buddyFactory', function($http) {
 // 	var addBuddy = function (data){
 // 		return $http({
