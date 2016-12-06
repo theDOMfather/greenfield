@@ -6,7 +6,7 @@ var userSchema = new mongoose.Schema({
   id: String,
   name: String,
   phoneNumber: String,
-  buddyname: String,
+  buddyName: String,
   goal: String,
   buddyRelation: String,
   buddyPhone: String,
