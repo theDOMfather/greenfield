@@ -82,5 +82,3 @@ exports.spam = function() {
     console.log('spammed the shit out of \'em');
   });
 };
-
-exports.spam();
