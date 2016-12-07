@@ -31,7 +31,7 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
   twilio.sendMessage({
     to: `+1${userPhoneNumber}`, // Any number Twilio can deliver to
     from: '+14152003022', // A number you bought from Twilio and can use for outbound communication
-    body: `Did you make progress towards? ######################### ${userGoal} ######################### Respond 1 with 'yes' / respond 2 with 'no'` //,
+    body: `Did you make progress towards your goal? ## Don't eat like crap like I normally do! ## Respond 1 for 'yes' -or- 2 for 'no'.` //,
       //  mediaUrl: 'https://s-media-cache-ak0.pinimg.com/originals/53/e6/eb/53e6eb8b9396ee2c1cc99b69582a07f3.jpg'
       // body of the SMS message
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
@@ -44,6 +44,8 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
   });
 
 };
+
+exports.periodicGoalPoll(6468318760, "yo");
 
 //=========== respond to messages ====================//
 
