@@ -86,6 +86,9 @@ app.get('/messageToConsole', function(req, res) {
       console.log('supposted tobe in db, but isnt');
       console.log(user[0].responses);
 
+      console.log(shortPhone);
+      console.log(typeof shortPhone);
+
 
       User.findOne({
         phoneNumber: shortPhone
