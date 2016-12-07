@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
+var currentUser = null;
 app.use(morgan('dev')); //to log every request to the console
 
 // configure authentication
@@ -39,18 +40,25 @@ app.use(bodyParser.urlencoded({
 }));
 
 // authentication routes
-app.get('/auth/facebook', passport.authenticate('facebook', {
-  scope: 'email'
-}));
+app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/',
-  failureRedirect: '/fail'
-}));
+  failureRedirect: "/login",
+  failureFlash: "You can\'t even log in right!\nJust go home..."
+}), (req, res) => {
+  currentUser = req.user;
+  if (currentUser.responses.length) {
+    res.redirect('/#/create');
+  } else {
+    res.redirect('/#/status')
+  }
+});
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
 // new user route
-app.post('/goal', function(req, res) {
-  console.log("inside top of /goal");
-
+app.post('/create', function(req, res) {
   req.body.responses = Array(90);
 
   req.body.responses.startDate = Date.now();
@@ -111,18 +119,18 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
-//adding third page get request here======
+// returning user route
 app.get('/status', function(req, res) {
-  //  THIS HAS BEEN HARD CODED!!! NEED TO BE UPDATED WHEN FB AUTH IS WEILDED BETTER
-  User.find({
-    name: 'Bartek'
-  }, function(err, user) {
-    if (err) {
-      res.send(err);
-    }
-    console.log('server received request from status page')
+  User.find(function(err, user){
+    if(err)
+    res.send(err);
     res.json(user)
   })
+});
+
+// twilio routes
+app.get('/messageToConsole', function(req, res) {
+  twilioService.responseMaker(req, res);
 });
 
 // start server

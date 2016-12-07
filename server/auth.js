@@ -1,5 +1,4 @@
-const FacebookStrategy = require('passport-facebook')
-  .Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
 
 // load user model
@@ -30,7 +29,6 @@ module.exports = function(passport) {
       clientSecret: Keys.facebook.clientSecret,
       callbackURL: Keys.facebook.callbackURL
     },
-
     // facebook will send back the token and profile info
     function(token, refreshToken, profile, done) {
       process.nextTick(function() {
@@ -47,11 +45,7 @@ module.exports = function(passport) {
             newUser.token = token;
             newUser.id = profile.id;
             newUser.name = profile.displayName;
-            //newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-
-            // save user to the database
-            new User(newUser)
-              .save(function(err) {
+            User.create(newUser, function(err) {
                 if (err) throw err;
                 else return done(null, newUser);
               });

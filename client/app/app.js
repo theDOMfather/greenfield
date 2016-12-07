@@ -2,16 +2,16 @@ angular.module('app', [
 	'app.service',
 	'app.goal',
 	'app.status',
-	'ngRoute',	
+	'ngRoute'
 	])
 
 .config(function($routeProvider) {
 	$routeProvider
 	.when('/', {
-		templateUrl:"app/goal/goal.html" 
+		templateUrl:"app/login.html"
 	})
-	.when('/goal', {
-		templateUrl:"app/goal/goal.html",
+	.when('/create', {
+		templateUrl:"app/goal/create.html",
 		controller:"goalController"
 	})
 	.when('/status', {
@@ -23,6 +23,3 @@ angular.module('app', [
 	});
 
 });
-
-
-
