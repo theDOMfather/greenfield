@@ -77,11 +77,15 @@ app.get('/messageToConsole', function(req, res) {
       console.log("blank array of responses", user[0].responses);
       // var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.star) / (24 * 60 * 60 * 1000)); // sets index
       var daysSinceGoalCreation = 3; // sets index
+      console.log("body of request", req.query.Body);
 
       user.responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
+      console.log('index of thing', user.responses[daysSinceGoalCreation]);
+
+
 
       User.update({
-        phoneNumber: req.query.From
+        phoneNumber: shortPhone
       }, {
         responses: user.responses
       });
