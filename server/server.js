@@ -62,7 +62,7 @@ app.post('/goal', function(req, res) {
 app.get('/messageToConsole', function(req, res) {
   console.log('user phone numberrrrr', req.query.Form.substring(2));
 
-  var shortPhone = req.query.Form.substring(2);
+  // var shortPhone = req.query.Form.substring(2);
 
   //figure out phone number of request
   User.find({

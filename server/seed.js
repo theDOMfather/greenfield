@@ -14,8 +14,3 @@ MongoClient.connect(url, (err, db) => db.command({
 
 // Step 2: Add data from `data.json`
 fs.readFile(__dirname + '/data.json', (err, users) => err ? console.error(err) : User.create(JSON.parse(users), () => console.log('so many users!')));
-
-
-
-var phone = "+16468318760";
-console.log(phone.slice(2));
