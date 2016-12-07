@@ -76,6 +76,7 @@ app.get('/messageToConsole', function(req, res) {
 
 //adding third page get request here======
 app.get('/status', function(req, res) {
+  //  THIS HAS BEEN HARD CODED!!! NEED TO BE UPDATED WHEN FB AUTH IS WEILDED BETTER
   User.find({name : 'Bartek'},function(err, user){
     if(err){
       res.send(err);
