@@ -1,16 +1,14 @@
 angular.module("app.status", [])
 
 .controller("statusController", function($scope, $http) {
-  // $scope.user = 
+  $scope.user = {};
   
   $http.get('/status')
     .success(function(data) {
-      $scope.todos = data;
-      console.log('this is supposed to be data', data); 
+      $scope.user = data[0];
+      console.log('this is supposed to be $scope.user from status.js ', $scope.user); 
     })
     .error(function(data) {
       console.log('Error: ' + data)
     })
-    
- 
 }); 
