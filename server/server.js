@@ -60,8 +60,30 @@ app.post('/goal', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
+
+  //figure out phone number of request
+  User.findOne({
+    phoneNumber: req.query.From // finds the user in the db
+  }, function(err, user) {
+    if (err) {
+      console.log(err);
+    } else {
+
+      console.log("blank array of responses", user.responses);
+      var daysSinceGoalCreation = Maths.round((Date.now() - user.responses.startDate) / (24 * 60 * 60 * 1000)); // sets index
+
+      user.responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
+
+      User.update({
+        phoneNumber: req.query.From
+      }, {
+        responses: user.responses
+      });
+    }
+  });
+
   twilioService.responseMaker(req, res);
-  //link to model
+
 });
 
 
