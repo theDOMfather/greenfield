@@ -1,26 +1,44 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
+
+
 <head>
-	<title>Goal Tracker App</title>
-	<script src="/modules/angular/angular.js"></script>
-	<script src="/modules/angular-route/angular-route.js"></script>
+    <meta charset="utf-8">
+    <title>Get Hassled</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Webflow" name="generator">
 
-    <script src="app/goal/goal.js"></script>
-    <script src="app/app.js"></script>
-    <script src="app/services/services.js"></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style/style.css" />
-
+    <link href="newStyle.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic%7CLily+Script+One:regular">
 </head>
-<body>	
 
+<body>
+    <div class="w-container">
+        <div class="w-row">
+            <div class="w-col w-col-6 w-col-medium-6">
+                <h1 class="logo-text">Get Hassled</h1>
+                <p class="subtitle">The irreverent way to accomplish your goals, you loser.</p>
+                <ul>
+                    <li>- Daily text message to check on your progress</li>
+                    <li>- Suprising hassles if you fall behind</li>
+                    <li>- Like a personal trainer for hitting your goals</li>
 
-<div ng-view class="container"></div>
- 
+                </ul>
+                <img src="assets/fbButton.png" width="224" />
+            </div>
 
+            <div class="image-column w-col w-col-6 w-col-medium-6"><img class="iphone-image" sizes="(max-width: 479px) 167px, (max-width: 767px) 190px, 335px" src="http://uploads.webflow.com/5847c12409120752653b442e/5847c53acaa931f001d246ff_front%20page.png" srcset="http://uploads.webflow.com/5847c12409120752653b442e/5847c53acaa931f001d246ff_front%20page-p-500x954.png 500w, http://uploads.webflow.com/5847c12409120752653b442e/5847c53acaa931f001d246ff_front%20page.png 670w"
+                    width="335"></div>
+        </div>
+    </div>
+    <div class="color-section">
+        <div class="w-container">
+            <div class="footer-section">
+                <div class="copyright">© 2016 Hassle. All right reserved.</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
 </body>
-
-
 
 </html>
