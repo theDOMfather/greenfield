@@ -88,7 +88,7 @@ app.get('/messageToConsole', function(req, res) {
 
       // this part is fucked up.
       User.update({
-        phoneNumber: shortPhone
+        phoneNumber: "6468318760"
       }, {
         $set: {
           responses: [1, 2, 4]
