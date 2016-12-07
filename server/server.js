@@ -86,8 +86,8 @@ app.get('/messageToConsole', function(req, res) {
       console.log('supposted tobe in db, but isnt');
       console.log(user[0].responses);
 
-
-      db.update({
+      // this part is fucked up.
+      User.update({
         phoneNumber: shortPhone
       }, {
         $set: {
