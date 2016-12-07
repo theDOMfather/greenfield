@@ -1,6 +1,6 @@
 angular.module("app.goal", [])
 
-.controller("goalController", function($scope, goalFactory) {
+.controller("createController", function($scope, createFactory) {
 	$scope.user = {}; // this clear the previous time
 
   $scope.addUser = function() {
