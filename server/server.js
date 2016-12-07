@@ -60,10 +60,9 @@ app.post('/goal', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
-  console.log('user phone numberrrrr', req.query);
-  console.log('user phone numberrrrr', req.query.Form);
+  console.log('user phone numberrrrr', req.query.From);
 
-  var shortPhone = 6461230000;
+  var shortPhone = req.query.From.substring(2);
 
   //figure out phone number of request
   User.find({
@@ -74,6 +73,7 @@ app.get('/messageToConsole', function(req, res) {
       console.log(err);
     } else {
 
+      console.log("blank array of responses", user.responses);
       var daysSinceGoalCreation = Math.round((Date.now() - user.responses.startDate) / (24 * 60 * 60 * 1000)); // sets index
 
       user.responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
