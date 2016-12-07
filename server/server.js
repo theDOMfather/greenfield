@@ -80,7 +80,7 @@ app.get('/messageToConsole', function(req, res) {
       var daysSinceGoalCreation = 3; // sets index
       console.log("body of request", req.query.Body);
 
-      user[0].responses.push(req.query.Body); // made changes to response array
+      user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
       // console.log('index of thing', user.responses[daysSinceGoalCreation]);
 
       console.log('supposted tobe in db, but isnt');
