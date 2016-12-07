@@ -52,9 +52,9 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 app.post('/goal', function(req, res) {
   console.log("inside top of /goal");
 
-  //req.body.responses = Array(90);
+  req.body.responses = Array(90);
 
-  //  req.body.responses.startDate = Date.now();
+  req.body.responses.startDate = Date.now();
   User.create(req.body);
   twilioService.sendWelcome(req.body.phoneNumber);
 });
