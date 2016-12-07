@@ -50,16 +50,12 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 
 // new user routes
 app.post('/goal', function(req, res) {
+  console.log("inside top of /goal");
+
   req.body.responses = Array(90);
   req.body.responses.startDate = Date.now();
   User.create(req.body);
-}, function(err, results) {
-  if (err) {
-    res.send(err);
-  }
-  console.log(req.body);
-  res.send(results);
-  //twilioService.sendWelcome(req.body.phoneNumber);
+  twilioService.sendWelcome(req.body.phoneNumber);
 });
 
 // twilio routes
@@ -80,7 +76,7 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-      twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
+      twilioService.periodicGoalPoll(user.phoneNumber, "this is a test goal");
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');
