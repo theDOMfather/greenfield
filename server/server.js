@@ -83,8 +83,7 @@ app.get('/messageToConsole', function(req, res) {
       user[0].responses.push(req.query.Body); // made changes to response array
       // console.log('index of thing', user.responses[daysSinceGoalCreation]);
 
-      console.log('supposted tobe in db, but isn'
-        t);
+      console.log('supposted tobe in db, but isnt');
 
       User.update({
         phoneNumber: shortPhone
