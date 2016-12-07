@@ -60,10 +60,11 @@ app.post('/goal', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
+  console.log('user phone numberrrrr', req.query.Form);
 
   //figure out phone number of request
-  User.findOne({
-    phoneNumber: req.query.From // finds the user in the db
+  User.find({
+    phoneNumber: "" + req.query.From // finds the user in the db
   }, function(err, user) {
     console.log("user", user);
     if (err) {
