@@ -63,7 +63,7 @@ exports.responseMaker = function(req, res) {
 
   var twiml = new twilio.TwimlResponse();
   if (req.query.Body == 1) {
-    console.log("hellow from inside SMS ROUTER", req.query);
+    console.log("hellow from inside SMS ROUTER", req.query.From);
     twiml.message('Nice job, I guess...');
   } else if (req.query.Body == 2) {
     twiml.message('Wow, does it feel great to fail...all the time?');
