@@ -75,10 +75,10 @@ app.get('/messageToConsole', function(req, res) {
     } else {
 
       console.log("start date!!!!!", user[0].responses);
-      console.log("blank array of responses", user[0].responses);
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
-      console.log("days since gola creation", daysSinceGoalCreation);
-      //var daysSinceGoalCreation = 0; // sets index
+      console.log("day since sign up", user[0].responses.start);
+      //  var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
+      //  console.log("days since gola creation", daysSinceGoalCreation);
+      var daysSinceGoalCreation = 0; // sets index
       console.log("body of request", req.query.Body);
 
       user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
