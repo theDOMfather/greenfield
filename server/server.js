@@ -88,7 +88,7 @@ app.get('/messageToConsole', function(req, res) {
 
 
       User.findOne({
-        phoneNumber: "6468318760"
+        phoneNumber: shortPhone
       }, function(err, doc) {
         doc.responses = user[0].responses;
         doc.save();
