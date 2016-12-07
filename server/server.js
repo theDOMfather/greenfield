@@ -56,15 +56,15 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 app.post('/goal', function(req, res) {
   req.body.responses = Array(90);
   req.body.responses.startDate = Date.now();
-  User.create(req.body);
-}, function(err, results) {
-  if (err) {
-    res.send(err);
-  }
-  console.log(req.body);
-  res.send(results);
-  //twilioService.sendWelcome(req.body.phoneNumber);
+  User.create(req.body, function(err, results) {
+    if (err) {
+      res.send (err);
+    }
+    console.log(req.body);
+    res.send(results);
+  });
 });
+
 
 
 // twilio routes
@@ -76,9 +76,12 @@ app.get('/messageToConsole', function(req, res) {
 
 //adding third page get request here======
 app.get('/status', function(req, res) {
-  User.find(function(err, user){
-    if(err)
+  //  THIS HAS BEEN HARD CODED!!! NEED TO BE UPDATED WHEN FB AUTH IS WEILDED BETTER
+  User.find({name : 'Bartek'},function(err, user){
+    if(err){
       res.send(err);
+    }
+    console.log('server received request from status page')
     res.json(user)
   })
 });
@@ -101,4 +104,4 @@ exports.spam = function() {
   });
 };
 
-exports.spam();
+//exports.spam();
