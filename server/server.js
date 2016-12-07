@@ -60,9 +60,9 @@ app.post('/goal', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
-  console.log('user phone numberrrrr', req.query.Form.substring(2));
+  console.log('user phone numberrrrr', req.query.Body);
 
-  // var shortPhone = req.query.Form.substring(2);
+  var shortPhone = 6461230000;
 
   //figure out phone number of request
   User.find({
