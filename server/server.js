@@ -74,6 +74,7 @@ app.get('/messageToConsole', function(req, res) {
     } else {
 
       console.log("blank array of responses", user[0].responses);
+      console.log("start date!!!!!", user[0].responses.startDate);
       var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.startDate) / (24 * 60 * 60 * 1000)); // sets index
 
       user.responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
