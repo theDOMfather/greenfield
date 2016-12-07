@@ -95,10 +95,11 @@ app.get('/messageToConsole', function(req, res) {
       //   }
       // });
 
-      User.update({
+      User.findOne({
         phoneNumber: "6468318760"
-      }, {
-        responses: [1, 2, 4]
+      }, function(err, doc) {
+        doc.responses = [1, 2, 4];
+        doc.save();
       });
 
       //
