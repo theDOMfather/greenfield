@@ -52,7 +52,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 app.post('/goal', function(req, res) {
   console.log("inside top of /goal");
 
-  req.body.responses = Array(90);
+  //req.body.responses = Array(90);
 
   //  req.body.responses.startDate = Date.now();
   User.create(req.body);
@@ -87,7 +87,7 @@ app.get('/messageToConsole', function(req, res) {
       console.log(user[0].responses);
 
 
-      User.user[0].update({
+      db.update({
         phoneNumber: shortPhone
       }, {
         $set: {
