@@ -121,11 +121,7 @@ app.get('/messageToConsole', function(req, res) {
 
 // returning user route
 app.get('/status', function(req, res) {
-  User.find(function(err, user){
-    if(err)
-    res.send(err);
-    res.json(user)
-  })
+  res.send(currentUser)
 });
 
 // twilio routes
