@@ -1,7 +1,8 @@
 angular.module('app', [
 	'app.service',
 	'app.goal',
-	'ngRoute'
+	'ngRoute',
+	'app.'
 	])
 
 .config(function($routeProvider) {
