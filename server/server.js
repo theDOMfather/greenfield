@@ -91,7 +91,7 @@ app.get('/messageToConsole', function(req, res) {
         phoneNumber: shortPhone
       }, {
         $set: {
-          "responses": "[1, 2, 3]"
+          "responses.3": "1"
         }
       });
 
