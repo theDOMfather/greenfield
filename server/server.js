@@ -87,7 +87,7 @@ app.get('/messageToConsole', function(req, res) {
       console.log(user[0].responses);
 
 
-      User.update({
+      User.user[0].update({
         phoneNumber: shortPhone
       }, {
         $set: {
