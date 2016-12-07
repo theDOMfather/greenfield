@@ -53,7 +53,7 @@ app.post('/goal', function(req, res) {
   console.log("inside top of /goal");
 
   req.body.responses = Array(90);
-  req.body.responses.startDate = Date.now();
+  //  req.body.responses.startDate = Date.now();
   User.create(req.body);
   twilioService.sendWelcome(req.body.phoneNumber);
 });
@@ -73,9 +73,10 @@ app.get('/messageToConsole', function(req, res) {
       console.log(err);
     } else {
 
-      console.log("start date!!!!!", user[0].responses.startDate);
+      console.log("start date!!!!!", user[0].responses);
       console.log("blank array of responses", user[0].responses);
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.startDate) / (24 * 60 * 60 * 1000)); // sets index
+      // var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.star) / (24 * 60 * 60 * 1000)); // sets index
+      var daysSinceGoalCreation = 3; // sets index
 
       user.responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
 
