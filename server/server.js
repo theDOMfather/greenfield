@@ -86,29 +86,13 @@ app.get('/messageToConsole', function(req, res) {
       console.log('supposted tobe in db, but isnt');
       console.log(user[0].responses);
 
-      // this part is fucked up.
-      // User.update({
-      //   phoneNumber: "6468318760"
-      // }, {
-      //   $set: {
-      //     responses: [1, 2, 4]
-      //   }
-      // });
 
       User.findOne({
-        phoneNumber: "6468318760"
+        phoneNumber: shortPhone
       }, function(err, doc) {
-        doc.responses = [1, 2, 4];
+        doc.responses = user[0].responses;
         doc.save();
       });
-
-      //
-      //   User.update({
-      //     phoneNumber: shortPhone
-      //   }, {
-      //     responses:
-      //   });
-
 
     }
   });
