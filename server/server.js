@@ -30,7 +30,6 @@ var twilioService = require('./sms/sms.js');
 
 // server static files
 app.use('/', express.static(path.join(__dirname, '../client')));
-//app.use('/fail', express.static(path.join(__dirname, '../client/assets/doNotWant.jpg')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 // parse requests
@@ -48,11 +47,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: '/fail'
 }));
 
-
-// new user routes
-//======angular AJAX request listeners below
-//===post request from goals page
-
+// new user route
 app.post('/goal', function(req, res) {
   console.log("inside top of /goal");
 
@@ -69,8 +64,6 @@ app.post('/goal', function(req, res) {
   });
   twilioService.sendWelcome(req.body.phoneNumber);
 });
-
-
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
@@ -118,7 +111,6 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
-
 //adding third page get request here======
 app.get('/status', function(req, res) {
   //  THIS HAS BEEN HARD CODED!!! NEED TO BE UPDATED WHEN FB AUTH IS WEILDED BETTER
@@ -144,7 +136,7 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-      twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
+      twilioService.periodicGoalPoll(user.phoneNumber, "this is a test goal");
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');
