@@ -45,12 +45,17 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: "/login",
   failureFlash: "You can\'t even log in right!\nJust go home..."
 }), (req, res) => {
-  currentUser = req.user;
-  if (currentUser.responses.length) {
-    res.redirect('/#/create');
-  } else {
-    res.redirect('/#/status')
-  }
+  // passport will attach user's facebook profile info to request after authenticating
+  User.find({ id: req.user.id }, function (err, users) {
+    if (users.length) {
+      // if user is not in our database, redirect to goal creation page
+      res.redirect('/#/create');
+    } else {
+      // else log user in and redirect to goal status page
+      currentUser = users[0];
+      res.redirect('/#/status')
+    }
+  });
 });
 app.get('/logout', (req, res) => {
   req.logout();

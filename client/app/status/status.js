@@ -6,6 +6,7 @@ angular.module("app.status", [])
   $http.get('/status')
     .success(function(user) {
       $scope.user = user;
+      console.log(user.responses.length);
     })
     .error(function(data) {
       console.console.error(err);

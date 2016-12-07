@@ -11,8 +11,8 @@ angular.module('app', [
 		templateUrl:"app/login.html"
 	})
 	.when('/create', {
-		templateUrl:"app/goal/create.html",
-		controller:"goalController"
+		templateUrl:"app/create/create.html",
+		controller:"createController"
 	})
 	.when('/status', {
 		templateUrl:"app/status/status.html",

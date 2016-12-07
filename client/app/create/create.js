@@ -4,7 +4,7 @@ angular.module("app.goal", [])
 	$scope.user = {}; // this clear the previous time
 
   $scope.addUser = function() {
-   	goalFactory.add($scope.user) //all user inputs
+   	createFactory.add($scope.user) //all user inputs
 
    	.then(function(data) {
    		console.log(data);
