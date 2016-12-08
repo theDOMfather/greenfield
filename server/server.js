@@ -95,7 +95,7 @@ app.get('/messageToConsole', function(req, res) {
     } else {
 
       console.log("start date!!!!!", user[0].responses);
-      console.log("day since sign up", user[0].responses.start);
+      // console.log("day since sign up", user[0].created_at);
       //  var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
       //  console.log("days since gola creation", daysSinceGoalCreation);
       var daysSinceGoalCreation = 0; // sets index
