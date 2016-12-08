@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var timestamps = require('mongoose-timestamp');
 //defining schema=========
 var userSchema = mongoose.Schema({
   token: String,
@@ -14,4 +14,8 @@ var userSchema = mongoose.Schema({
 });
 
 //creating a model======
+////including the timestamps
+UserSchema.plugin(timestamps)
+
 module.exports = mongoose.model('user', userSchema);
+
