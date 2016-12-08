@@ -97,10 +97,27 @@ app.get('/messageToConsole', function(req, res) {
     } else {
 
 
+
+      var oldDate = 1481241115834;
+
+      var newDate=  1481241175981; //60 seconds later
+
+    console.log(newDate-oldDate);
+
+      console.log(newDate-oldDate);
+
+
+// divide by 1,000 to get seconds
+// divide by 60 to get minutes
+// divie by 60 to get hours
+// divide by 24 to get days
+
       console.log("start date!!!!!", user[0].createdAt);
       console.log("day since sign up", user[0].created_at);
-       var daysSinceGoalCreation = Math.round((Date.now() - user[0].createdAt -24*3600) / (24 * 60 * 60 * 1000)); // sets index
-       console.log("days since gola creation", daysSinceGoalCreation);
+       var daysSinceGoalCreation = Math.round((Date.now() - user[0].createdAt - 24*3600*1000) / (24 * 60 * 60 * 1000)); // sets index
+       console.log("exactly 1 day," daysSinceGoalCreation);
+       var daysSinceGoalCreation = Math.round((Date.now() - user[0].createdAt - 24*3600*1001) / (24 * 60 * 60 * 1000)); // sets index
+       console.log("slightylre more than 1 day", daysSinceGoalCreation);
       // var daysSinceGoalCreation = 0; // sets index
       console.log("body of request", req.query.Body);
 
