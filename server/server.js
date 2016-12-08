@@ -92,7 +92,6 @@ app.get('/messageToConsole', function(req, res) {
   User.find({
     phoneNumber: shortPhone // finds the user in the db
   }, function(err, user) {
-    console.log("user", user);
     if (err) {
       console.log(err);
     } else {
