@@ -8,6 +8,9 @@ var app = express();
 // configure database
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+//timestamps
+var timestamps = require('mongoose-timestamp');
+
 mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
