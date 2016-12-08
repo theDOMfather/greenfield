@@ -8,7 +8,11 @@ var app = express();
 // configure database
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
+//timestamps
+var timestamps = require('mongoose-timestamp');
+
+mongoose.connect('mongodb://localhost/hassle');
+// mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
 var currentUser = null;
@@ -146,7 +150,7 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-      twilioService.periodicGoalPoll(user.phoneNumber, "this is a test goal");
+      //twilioService.periodicGoalPoll(user.phoneNumber, "this is a test goal");
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');
