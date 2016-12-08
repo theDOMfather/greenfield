@@ -20,8 +20,17 @@ var gradeUser = function(array) {
     var count = count;
   }
   //calculate the percentage grade/days
-  var percentage = (count / days);
-  //if( percentage === ) 
+  var percentage = (count / days) * 100;
+  console.log(percentage);
+  //if( percentage < 30) {
+      //use array A, use harrasment frequency A
+    //} 
+    //else if (percentage > 30 && percentage < 60 ) {
+    //   use array B
+    // } 
+    // else if (percentage > 60) {
+    //   use array C
+    // }
 };
 //console.log("count outside the for loop: ", count);
 
