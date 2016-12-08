@@ -144,6 +144,8 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
+     twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
+
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');
