@@ -39,5 +39,3 @@ var gradeUser = function(array) {
 //console.log("count outside the for loop: ", count);
 
 gradeUser(array);
-
-
