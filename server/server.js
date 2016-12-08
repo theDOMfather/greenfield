@@ -66,16 +66,16 @@ app.get('/logout', (req, res) => {
 
 // new user route
 app.post('/create', function(req, res) {
-  console.log('bodddddy: ', req.body);
-  req.body.responses = Array(90);
-  req.body.goalStartDate = Date.now();
-  User.create(req.body, function(err, results) {
+  currentUser = req.body;
+  currentUser.responses = Array(90);
+  currentUser.goalStartDate = Date.now();
+  User.create(currentUser, function(err, results) {
     if (err) {
       res.send(err);
     }
     res.send(results);
   });
-  twilioService.sendWelcome(req.body.phoneNumber);
+  twilioService.sendWelcome(currentUser.phoneNumber);
 });
 
 // twilio routes
