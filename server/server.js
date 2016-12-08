@@ -15,7 +15,6 @@ mongoose.connect('mongodb://localhost/hassle');
 // mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
-var currentUser = null;
 app.use(morgan('dev')); //to log every request to the console
 
 // configure authentication
@@ -47,40 +46,40 @@ app.use(bodyParser.urlencoded({
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  failureRedirect: "/login",
-  failureFlash: "You can\'t even log in right!\nJust go home..."
+  failureRedirect: "/"
 }), (req, res) => {
-  // passport will attach user's facebook profile info to request after authenticating
-  User.find({ id: req.user.id }, function (err, users) {
-    console.log(users);
-    if (users.length === 0) {
-      // if user is not in our database, redirect to goal creation page
-      currentUser = req.user;
+    // PASSPORT WILL ATTACH user TO ALL REQUESTS AFTER AUTHENTICATION
+    if (!req.user.goal) {
+      // if user has no goal, allow them to create one
       res.redirect('/app/#/create');
     } else {
       // else log user in and redirect to goal status page
-      currentUser = users[0];
       res.redirect('/app/#/status')
     }
-  });
 });
 app.get('/logout', (req, res) => {
+  // passport attaches logout method to all requests
   req.logout();
   res.redirect('/');
 });
 
+// user info route
+app.get('/user', function(req, res) {
+  console.log('user: ', req.user);
+  res.send(req.user);
+});
+
 // new user route
 app.post('/create', function(req, res) {
-  currentUser = req.body;
-  currentUser.responses = Array(90);
-  currentUser.goalStartDate = Date.now();
-  User.create(currentUser, function(err, results) {
+  req.user.responses = Array(90);
+  req.user.goalStartDate = Date.now();
+  User.create(req.user, function(err, results) {
     if (err) {
       res.send(err);
     }
     res.send(results);
   });
-  twilioService.sendWelcome(currentUser.phoneNumber);
+  twilioService.sendWelcome(req.user.phoneNumber);
 });
 
 // twilio routes
@@ -127,11 +126,6 @@ app.get('/messageToConsole', function(req, res) {
 
   twilioService.responseMaker(req, res);
 
-});
-
-// user info route
-app.get('/user', function(req, res) {
-  res.send(currentUser);
 });
 
 // twilio routes
