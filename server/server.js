@@ -48,16 +48,29 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: '/fail'
 }));
 
+
 // new user routes
+//======angular AJAX request listeners below
+//===post request from goals page
+
 app.post('/goal', function(req, res) {
   console.log("inside top of /goal");
 
   req.body.responses = Array(90);
 
   req.body.responses.startDate = Date.now();
-  User.create(req.body);
+
+  User.create(req.body, function(err, results) {
+    if (err) {
+      res.send(err);
+    }
+    console.log(req.body);
+    res.send(results);
+  });
   twilioService.sendWelcome(req.body.phoneNumber);
 });
+
+
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
@@ -105,6 +118,20 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
+
+//adding third page get request here======
+app.get('/status', function(req, res) {
+  //  THIS HAS BEEN HARD CODED!!! NEED TO BE UPDATED WHEN FB AUTH IS WEILDED BETTER
+  User.find({
+    name: 'Bartek'
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    console.log('server received request from status page')
+    res.json(user)
+  })
+});
 
 // start server
 app.listen(port);
