@@ -9,7 +9,7 @@ body {
   padding-top: 156px;
   background-color: #524237;
   /*background-image: -webkit-linear-gradient(270deg, rgba(109, 163, 173, .4), rgba(64, 48, 38, .9)), url("https://media.licdn.com/mpr/mpr/jc/AAEAAQAAAAAAAAcuAAAAJDc5ZWU0MmFmLTQ2MjktNGE2MS1iZWJiLWJlZGQwMmMxZGZlYQ.jpg");*/
-  background-image: -webkit-linear-gradient(270deg, rgba(109, 163, 173, .4), rgba(64, 48, 38, .9)), url("./assets/picard_bw.jpg");
+  background-image: -webkit-linear-gradient(270deg, rgba(109, 163, 173, .4), rgba(64, 48, 38, .9)), url("./picard_bw.jpg");
   background-size: auto, cover;
   background-repeat: repeat, no-repeat;
   background-attachment: scroll, scroll;
@@ -226,10 +226,4 @@ li {
   .color-section {
     padding-top: 75px;
   }
-}
-
-
-div {
-  border: 1px solid red;
-  color:green;
 }
