@@ -30,7 +30,8 @@ app.use(passport.session());
 var twilioService = require('./sms/sms.js');
 
 // server static files
-app.use('/', express.static(path.join(__dirname, '../client')));
+app.use('/', express.static(path.join(__dirname, '../client/login')));
+app.use('/app', express.static(path.join(__dirname, '../client')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 // parse requests
@@ -51,11 +52,11 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     if (users.length === 0) {
       // if user is not in our database, redirect to goal creation page
       currentUser = req.user;
-      res.redirect('/#/create');
+      res.redirect('/app/#/create');
     } else {
       // else log user in and redirect to goal status page
       currentUser = users[0];
-      res.redirect('/#/status')
+      res.redirect('/app/#/status')
     }
   });
 });
