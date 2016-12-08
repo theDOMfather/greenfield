@@ -2,62 +2,62 @@
 <br />
 
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-8">
+  <div class="col-xs-12 col-sm-6 col-md-8">
 
-        <h3>your info</h3>
-        <hr />
-        <form>
+    <h3>your info</h3>
+    <hr />
+    <form>
 
-            <div class="form-group row">
-                <label for="example-text-input" class="col-xs-4 col-form-label">What do you want to accomplish?</label>
-                <div class="col-xs-8">
-                    <input ng-model="user.goal" class="form-control" type="text" placeholder="Dont eat anything with dirty carbs" id="example-text-input" required>
-                </div>
-            </div>
+      <div class="form-group row">
+        <label for="example-text-input" class="col-xs-4 col-form-label">What do you want to accomplish?</label>
+        <div class="col-xs-8">
+          <input ng-model="user.goal" class="form-control" type="text" placeholder="Dont eat anything with dirty carbs" id="example-text-input" required>
+        </div>
+      </div>
 
-            <div class="form-group row">
-                <label for="example-tel-input" class="col-xs-4 col-form-label">Your cellphone</label>
-                <div class="col-xs-8">
-                    <input ng-model="user.phoneNumber" class="form-control" type="tel" placeholder="1-(555)-555-5555" id="example-tel-input" required>
-                </div>
-            </div>
-            <br />
-
-
-
-            <h3>add a buddy to keep you in line</h3>
-            <hr />
-
-            <div class="form-group row">
-                <label for="example-text-input" class="col-xs-4 col-form-label">Buddy's name</label>
-                <div class="col-xs-8">
-                    <input ng-model="user.buddyName" class="form-control" type="text" placeholder="Dont eat anything with dirty carbs" id="example-text-input" required>
-                </div>
-            </div>
+      <div class="form-group row">
+        <label for="example-tel-input" class="col-xs-4 col-form-label">Your cellphone</label>
+        <div class="col-xs-8">
+          <input ng-model="user.phoneNumber" class="form-control" type="tel" placeholder="1-(555)-555-5555" id="example-tel-input" required>
+        </div>
+      </div>
+      <br />
 
 
-            <div class="form-group row">
-                <label for="example-tel-input" class="col-xs-4 col-form-label">Buddy's cellphone</label>
-                <div class="col-xs-8">
-                    <input ng-model="user.buddyPhone" class="form-control" type="tel" placeholder="1-(555)-555-5555" id="example-tel-input" required>
-                </div>
-            </div>
+
+      <h3>add a buddy to keep you in line</h3>
+      <hr />
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-xs-4 col-form-label">Buddy's name</label>
+        <div class="col-xs-8">
+          <input ng-model="user.buddyName" class="form-control" type="text" placeholder="Dont eat anything with dirty carbs" id="example-text-input" required>
+        </div>
+      </div>
 
 
-            <div class="form-check">
-                <label class="form-check-label">
+      <div class="form-group row">
+        <label for="example-tel-input" class="col-xs-4 col-form-label">Buddy's cellphone</label>
+        <div class="col-xs-8">
+          <input ng-model="user.buddyPhone" class="form-control" type="tel" placeholder="1-(555)-555-5555" id="example-tel-input" required>
+        </div>
+      </div>
+
+
+      <div class="form-check">
+        <label class="form-check-label">
 
                     <input class="form-check-input" type="checkbox" value="" required><small> I agree to the weird terms, accept text messaging charges </small> </label>
-            </div>
-            <br />
+      </div>
+      <br />
 
 
-            <button type="submit" class="btn btn-primary btn-block">Start the machine & start getting hassled</button>
+      <button type="submit" ng-click="addUser()" class="btn btn-primary btn-block">Start the machine & start getting hassled</button>
 
-        </form>
-    </div>
-    <div class="col-xs-6 col-md-4">
-        <div class="image-column w-col w-col-6 w-col-medium-6"><img class="iphone-image" sizes="(max-width: 479px) 167px, (max-width: 767px) 190px, 335px" src="assets/phone_image.png" srcset="assets/phone_image.png 500w, assets/phone_image.png 670w" width="335"></div>
-    </div>
+    </form>
+  </div>
+  <div class="col-xs-6 col-md-4">
+    <div class="image-column w-col w-col-6 w-col-medium-6"><img class="iphone-image" sizes="(max-width: 479px) 167px, (max-width: 767px) 190px, 335px" src="assets/phone_image.png" srcset="assets/phone_image.png 500w, assets/phone_image.png 670w" width="335"></div>
+  </div>
 
 </div>
