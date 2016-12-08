@@ -43,8 +43,6 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
 };
 
 
-// exports.periodicGoalPoll(6468318760, "yo");
-
 //=========== respond to messages ====================//
 
 
@@ -53,9 +51,9 @@ exports.responseMaker = function(req, res) {
   var twilio = require('twilio');
   var twiml = new twilio.TwimlResponse();
 
-    var arrayofMessage1=   
+    var arrayofMessage1=
      ['Nice job, I guess...', 'You made it... what do you think?', 'You are awesome on making progress, Keep Trying.'];
-    var arrayofMessage2 = 
+    var arrayofMessage2 =
      ['Wow, does  it feel great to fail...all the time?','Be cool to make progress, loser','You must make some progress, don\'t you?'];
     var randomChoose1= Math.floor(Math.random() * arrayofMessage1.length);
     var randomChoose2= Math.floor(Math.random() * arrayofMessage2.length);
