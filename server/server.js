@@ -115,7 +115,7 @@ app.get('/messageToConsole', function(req, res) {
       console.log("start date!!!!!", user[0].createdAt);
       console.log("day since sign up", user[0].created_at);
        var daysSinceGoalCreation = Math.round((Date.now() - user[0].createdAt - 24*3600*1000) / (24 * 60 * 60 * 1000)); // sets index
-       console.log("exactly 1 day," daysSinceGoalCreation);
+       console.log("exactly 1 day", daysSinceGoalCreation);
        var daysSinceGoalCreation = Math.round((Date.now() - user[0].createdAt - 24*3600*1001) / (24 * 60 * 60 * 1000)); // sets index
        console.log("slightylre more than 1 day", daysSinceGoalCreation);
       // var daysSinceGoalCreation = 0; // sets index
