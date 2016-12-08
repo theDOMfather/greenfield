@@ -41,7 +41,3 @@ var gradeUser = function(array) {
 gradeUser(array);
 
 
-
-var newArray = new Array(5);
-
-console.log(newArray);
