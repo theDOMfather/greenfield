@@ -14,7 +14,6 @@ exports.sendWelcome = function(userPhoneNumber) {
     body: 'Welcome to Hassle, loser.' // body of the SMS message
 
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
-
     if (!err) { // "err" is an error received during the request, if any
       console.log(responseData.from); // outputs "+14506667788"
       console.log(responseData.body); // outputs "word to your mother."
@@ -52,15 +51,17 @@ exports.periodicGoalPoll(6468318760, "yo");
 exports.responseMaker = function(req, res) {
 
   var twilio = require('twilio');
-  //set the array of message for Twilio random sent back for response '1' or '2'
-  var arrayofMessage1= ['You made it. Wonderful!!!', 'Nice job, I guess...', 'You are awesome on making progress, Keep Trying.'];
-  var randomChoose1 = Math.floor(Math.random() * arrayofMessage1.length);
-
-  var arrayofMessage2 = ['Wow, does it feel great to fail...all the time?','Be cool to make progress, loser','You must make some progress, don\'t you?'];
-  var randomChoose2 = Math.floor(Math.random() * arrayofMessage2.length);
-
   var twiml = new twilio.TwimlResponse();
+
+    var arrayofMessage1=   
+     ['Nice job, I guess...', 'You made it... what do you think?', 'You are awesome on making progress, Keep Trying.'];
+    var arrayofMessage2 = 
+     ['Wow, does  it feel great to fail...all the time?','Be cool to make progress, loser','You must make some progress, don\'t you?'];
+    var randomChoose1= Math.floor(Math.random() * arrayofMessage1.length);
+    var randomChoose2= Math.floor(Math.random() * arrayofMessage2.length);
+
   console.log("hellow from inside SMS ROUTER", req.query.From);
+
   if (req.query.Body == 1) {
     twiml.message(arrayofMessage1[randomChoose1]);
   } else if (req.query.Body == 2) {

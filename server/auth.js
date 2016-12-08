@@ -2,10 +2,10 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require('mongoose');
 
 // load user model
-const User = require('./userModel.js');
+var User = require('./userModel.js');
 
 // load API keys
-const Keys = require('./keys.js');
+var Keys = require('./keys.js');
 
 module.exports = function(passport) {
 
