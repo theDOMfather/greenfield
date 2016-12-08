@@ -45,7 +45,7 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
 
 };
 
-exports.periodicGoalPoll(6468318760, "yo");
+// exports.periodicGoalPoll(6468318760, "yo");
 
 //=========== respond to messages ====================//
 
