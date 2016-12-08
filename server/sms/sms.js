@@ -21,7 +21,6 @@ exports.sendWelcome = function(userPhoneNumber) {
 
     }
   });
-
 };
 
 
@@ -53,13 +52,19 @@ exports.periodicGoalPoll(6468318760, "yo");
 exports.responseMaker = function(req, res) {
 
   var twilio = require('twilio');
+  //set the array of message for Twilio random sent back for response '1' or '2'
+  var arrayofMessage1= ['You made it. Wonderful!!!', 'Nice job, I guess...', 'You are awesome on making progress, Keep Trying.'];
+  var randomChoose1 = Math.floor(Math.random() * arrayofMessage1.length);
+
+  var arrayofMessage2 = ['Wow, does it feel great to fail...all the time?','Be cool to make progress, loser','You must make some progress, don\'t you?'];
+  var randomChoose2 = Math.floor(Math.random() * arrayofMessage2.length);
 
   var twiml = new twilio.TwimlResponse();
   console.log("hellow from inside SMS ROUTER", req.query.From);
   if (req.query.Body == 1) {
-    twiml.message('Nice job, I guess...');
+    twiml.message(arrayofMessage1[randomChoose1]);
   } else if (req.query.Body == 2) {
-    twiml.message('Wow, does it feel great to fail...all the time?');
+    twiml.message(arrayofMessage2[randomChoose2]);
     // twiml.mediahttps: //s-media-cache-ak0.pinimg.com/originals/53/e6/eb/53e6eb8b9396ee2c1cc99b69582a07f3.jpg
   } else {
     twiml.message('dude, are you too stupid to know how to type in 1 or 2? Try again!!!!');
@@ -70,12 +75,6 @@ exports.responseMaker = function(req, res) {
   res.end(twiml.toString());
 
 };
-
-
-
-
-
-
 
 
 
@@ -96,7 +95,6 @@ exports.getLastResponse = function() {
     });
     return promise;
   })
-
   .then(function(data) {
     if (lastResponse === "1") {
       twilio.sendMessage({
