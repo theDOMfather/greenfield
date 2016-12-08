@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
+var currentUser = null;
 app.use(morgan('dev')); //to log every request to the console
 
 // configure authentication
@@ -30,7 +31,6 @@ var twilioService = require('./sms/sms.js');
 
 // server static files
 app.use('/', express.static(path.join(__dirname, '../client')));
-//app.use('/fail', express.static(path.join(__dirname, '../client/assets/doNotWant.jpg')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
 
 // parse requests
@@ -40,37 +40,43 @@ app.use(bodyParser.urlencoded({
 }));
 
 // authentication routes
-app.get('/auth/facebook', passport.authenticate('facebook', {
-  scope: 'email'
-}));
+app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/',
-  failureRedirect: '/fail'
-}));
+  failureRedirect: "/login",
+  failureFlash: "You can\'t even log in right!\nJust go home..."
+}), (req, res) => {
+  // passport will attach user's facebook profile info to request after authenticating
+  User.find({ id: req.user.id }, function (err, users) {
+    console.log(users);
+    if (users.length === 0) {
+      // if user is not in our database, redirect to goal creation page
+      currentUser = req.user;
+      res.redirect('/#/create');
+    } else {
+      // else log user in and redirect to goal status page
+      currentUser = users[0];
+      res.redirect('/#/status')
+    }
+  });
+});
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
-
-// new user routes
-//======angular AJAX request listeners below
-//===post request from goals page
-
-app.post('/goal', function(req, res) {
-  console.log("inside top of /goal");
-
-  req.body.responses = Array(90);
-
-  req.body.responses.startDate = Date.now();
-
-  User.create(req.body, function(err, results) {
+// new user route
+app.post('/create', function(req, res) {
+  currentUser = req.body;
+  currentUser.responses = Array(90);
+  currentUser.goalStartDate = Date.now();
+  User.create(currentUser, function(err, results) {
     if (err) {
       res.send(err);
     }
-    console.log(req.body);
     res.send(results);
   });
-  twilioService.sendWelcome(req.body.phoneNumber);
+  twilioService.sendWelcome(currentUser.phoneNumber);
 });
-
-
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
@@ -118,19 +124,14 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
+// user info route
+app.get('/user', function(req, res) {
+  res.send(currentUser);
+});
 
-//adding third page get request here======
-app.get('/status', function(req, res) {
-  //  THIS HAS BEEN HARD CODED!!! NEED TO BE UPDATED WHEN FB AUTH IS WEILDED BETTER
-  User.find({
-    name: 'Bartek'
-  }, function(err, user) {
-    if (err) {
-      res.send(err);
-    }
-    console.log('server received request from status page')
-    res.json(user)
-  })
+// twilio routes
+app.get('/messageToConsole', function(req, res) {
+  twilioService.responseMaker(req, res);
 });
 
 // start server
@@ -144,7 +145,7 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-      twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
+      twilioService.periodicGoalPoll(user.phoneNumber, "this is a test goal");
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');
