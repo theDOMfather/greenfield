@@ -54,31 +54,78 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 //===post request from goals page
 
 app.post('/goal', function(req, res) {
+  console.log("inside top of /goal");
+
   req.body.responses = Array(90);
+
   req.body.responses.startDate = Date.now();
+
   User.create(req.body, function(err, results) {
     if (err) {
-      res.send (err);
+      res.send(err);
     }
     console.log(req.body);
     res.send(results);
   });
+  twilioService.sendWelcome(req.body.phoneNumber);
 });
 
 
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
+  console.log('user phone numberrrrr', req.query.From);
+
+  var shortPhone = req.query.From.substring(2);
+
+  //figure out phone number of request
+  User.find({
+    phoneNumber: shortPhone // finds the user in the db
+  }, function(err, user) {
+    console.log("user", user);
+    if (err) {
+      console.log(err);
+    } else {
+
+      console.log("start date!!!!!", user[0].responses);
+      console.log("day since sign up", user[0].responses.start);
+      //  var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
+      //  console.log("days since gola creation", daysSinceGoalCreation);
+      var daysSinceGoalCreation = 0; // sets index
+      console.log("body of request", req.query.Body);
+
+      user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
+      // console.log('index of thing', user.responses[daysSinceGoalCreation]);
+
+      console.log('supposted tobe in db, but isnt');
+      console.log(user[0].responses);
+
+      console.log(shortPhone);
+      console.log(typeof shortPhone);
+
+
+      User.findOne({
+        phoneNumber: shortPhone
+      }, function(err, doc) {
+        doc.responses = user[0].responses;
+        doc.save();
+      });
+
+    }
+  });
+
   twilioService.responseMaker(req, res);
-  //link to model
+
 });
 
 
 //adding third page get request here======
 app.get('/status', function(req, res) {
   //  THIS HAS BEEN HARD CODED!!! NEED TO BE UPDATED WHEN FB AUTH IS WEILDED BETTER
-  User.find({name : 'Bartek'},function(err, user){
-    if(err){
+  User.find({
+    name: 'Bartek'
+  }, function(err, user) {
+    if (err) {
       res.send(err);
     }
     console.log('server received request from status page')
@@ -103,5 +150,3 @@ exports.spam = function() {
     console.log('spammed the shit out of \'em');
   });
 };
-
-//exports.spam();
