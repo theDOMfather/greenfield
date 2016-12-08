@@ -15,7 +15,7 @@ var userSchema = mongoose.Schema({
 
 //creating a model======
 ////including the timestamps
-UserSchema.plugin(timestamps)
+userSchema.plugin(timestamps)
 
 module.exports = mongoose.model('user', userSchema);
 
