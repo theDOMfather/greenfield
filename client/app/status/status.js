@@ -3,12 +3,12 @@ angular.module("app.status", [])
 .controller("statusController", function($scope, $http) {
   $scope.user = {};
 
-  $http.get('/status')
+  $http.get('/user')
     .success(function(user) {
       $scope.user = user;
-      console.log(user.responses.length);
+      console.log(user.responses);
     })
     .error(function(data) {
-      console.console.error(err);
+      console.error(err);
     })
 });

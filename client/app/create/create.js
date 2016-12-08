@@ -1,14 +1,14 @@
 angular.module("app.goal", [])
 
-.controller("createController", function($scope, createFactory) {
-	$scope.user = {}; // this clear the previous time
+.controller("createController", function($scope, $http, $location) {
+	$scope.user = {};
+  $http.get('/user')
+    .success((user) => {$scope.user = user; console.log(user)})
+    .error((err) => console.error(err));
 
   $scope.addUser = function() {
-   	createFactory.add($scope.user) //all user inputs
-
-   	.then(function(data) {
-   		console.log(data);
-   		// $scope.data= data;
-   	});
+    $http.post('/create', $scope.user)
+      .success(() => $location.path('/status'))
+      .error(() => $location.path('/'));
   };
 });

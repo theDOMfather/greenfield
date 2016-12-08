@@ -47,8 +47,10 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 }), (req, res) => {
   // passport will attach user's facebook profile info to request after authenticating
   User.find({ id: req.user.id }, function (err, users) {
-    if (users.length) {
+    console.log(users);
+    if (users.length === 0) {
       // if user is not in our database, redirect to goal creation page
+      currentUser = req.user;
       res.redirect('/#/create');
     } else {
       // else log user in and redirect to goal status page
@@ -64,15 +66,13 @@ app.get('/logout', (req, res) => {
 
 // new user route
 app.post('/create', function(req, res) {
+  console.log('bodddddy: ', req.body);
   req.body.responses = Array(90);
-
-  req.body.responses.startDate = Date.now();
-
+  req.body.goalStartDate = Date.now();
   User.create(req.body, function(err, results) {
     if (err) {
       res.send(err);
     }
-    console.log(req.body);
     res.send(results);
   });
   twilioService.sendWelcome(req.body.phoneNumber);
@@ -124,9 +124,9 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
-// returning user route
-app.get('/status', function(req, res) {
-  res.send(currentUser)
+// user info route
+app.get('/user', function(req, res) {
+  res.send(currentUser);
 });
 
 // twilio routes
