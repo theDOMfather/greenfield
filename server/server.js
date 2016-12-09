@@ -83,15 +83,12 @@ app.post('/create', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
-  console.log('user phone numberrrrr', req.query.From);
-
   var shortPhone = req.query.From.substring(2);
 
   //figure out phone number of request
   User.find({
     phoneNumber: shortPhone // finds the user in the db
   }, function(err, user) {
-    console.log("user", user);
     if (err) {
       console.log(err);
     } else {
@@ -103,7 +100,6 @@ app.get('/messageToConsole', function(req, res) {
         doc.responses = user[0].responses;
         doc.save();
       });
-
     }
   });
 
@@ -143,62 +139,41 @@ exports.spam = function() {
 =======================================*/
   //1 is yes, 2 is no
   //sample array of responses
-  var array2 = [1, 2, 2, undefined, undefined, 2, 2, 1, 2, 1 , 1, 1, 2, 2, 2, 2, 1, 1, 1];
-
-
-
-  //days of attempts at goal from database (current date - start date)
-
-
-//***export this later***
-app.get('/test', function(req, res) {
-  // console.log(req.body);
-  //var shortPhone = req.query.From.substring(2);
   
-  var gradeUser = function(array) {
-    //var days = 5; //days of attempts at goal hard coded for now
-    
-    User.findOne({
-      phoneNumber: '1-800-THINGS2'
-    }, 'goalStartDate', function(err, startDate) {
-      if (err) console.error('error on reqeust' , err);
-      console.log("start date ", startDate);
-      
-      // console.log(queryResult);
-      var days = (Date.now() - startDate) / (1000 * 60 * 60 * 24)
-      //grab shortened array
-      var daysOnGoal = array.slice(0, days).sort();
-      console.log( "sorted responses:  ", daysOnGoal );
-
-      // loop through our daysOnGoal array and count up the 2's
-      var count = 0;
-      for ( var i = 0; i < daysOnGoal.length; i++ ) {
-        if( daysOnGoal[i] === 2  || daysOnGoal[i] === null ) {
-          count = count += 1;
+  exports.gradeUser = function() {
+  // query database for all users
+  User.find((err, users) => {
+    // iterate through and apply periodic goal poll
+    users.forEach(user => {
+      //read responses for user
+        //store the length of array in a variable (give length of attempt at goal)
+      var denominator = user.responses.length;
+      var count1;
+      user.responses.forEach(function(tuple) {
+        if(tuple[1] === 1) {
+          count1++;
         }
-        var count = count;
-      }
-      //calculate the percentage grade/days
-      var percentage = (count / days) * 100;
-      console.log(percentage);
-      //if( percentage < 30) {
-          //use array A, use harrasment frequency A
-        //}
-        //else if (percentage > 30 && percentage < 60 ) {
-        //   use array B
-        // }
-        // else if (percentage > 60) {
-        //   use array C
-        // }
-      res.send()
-    })
-  };
-  //console.log("count outside the for loop: ", count);
-
-  gradeUser(array2);
-})
-
-
+      })
+      
+        //calculate percentage by number of 1's divided by total
+      var newGrade = count1/denominator*100
+      console.log(newGrade);
+      User.findOne({
+        //query database for user phonenumber
+        phoneNumber: user.phoneNumber
+      }, function(err, doc) {
+          //update grade 
+        doc.grade = newGrade;
+        doc.save();
+      });
+    });
+    //update cron job
+  });
+  //add logic for send periodic messages to populate a tuple with the current date and null/undefined
+};
+  
+exports.gradeUser();
+  
 
 
 
