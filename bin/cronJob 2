@@ -3,5 +3,6 @@
 
 
 require('../server/server.js')
-  .spam();
+  .spam()
+  .gradeUser();
 console.log("loaded bin file / crong job...");

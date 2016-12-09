@@ -83,15 +83,12 @@ app.post('/create', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
-  console.log('user phone numberrrrr', req.query.From);
-
   var shortPhone = req.query.From.substring(2);
 
   //figure out phone number of request
   User.find({
     phoneNumber: shortPhone // finds the user in the db
   }, function(err, user) {
-    console.log("user", user);
     if (err) {
       console.log(err);
     } else {
@@ -103,7 +100,6 @@ app.get('/messageToConsole', function(req, res) {
         doc.responses = user[0].responses;
         doc.save();
       });
-
     }
   });
 
@@ -116,9 +112,6 @@ app.get('/messageToConsole', function(req, res) {
   twilioService.responseMaker(req, res);
 });
 
-// start server
-app.listen(port);
-console.log('Listening on port ' + port + '...');
 
 // spam routine
 exports.spam = function() {
@@ -136,3 +129,58 @@ exports.spam = function() {
     console.log('spammed the shit out of \'em');
   });
 };
+
+
+//1 is yes, 2 is no
+
+
+/*======================================
+=======classifying USER HERE ===========
+=======================================*/
+  //1 is yes, 2 is no
+  //sample array of responses
+  
+  exports.gradeUser = function() {
+  // query database for all users
+  User.find((err, users) => {
+    // iterate through and apply periodic goal poll
+    users.forEach(user => {
+      //read responses for user
+        //store the length of array in a variable (give length of attempt at goal)
+      var denominator = user.responses.length;
+      var count1;
+      user.responses.forEach(function(tuple) {
+        if(tuple[1] === 1) {
+          count1++;
+        }
+      })
+      
+        //calculate percentage by number of 1's divided by total
+      var newGrade = count1/denominator*100
+      console.log(newGrade);
+      User.findOne({
+        //query database for user phonenumber
+        phoneNumber: user.phoneNumber
+      }, function(err, doc) {
+          //update grade 
+        doc.grade = newGrade;
+        doc.save();
+      });
+    });
+    //update cron job
+  });
+  //add logic for send periodic messages to populate a tuple with the current date and null/undefined
+};
+  
+exports.gradeUser();
+  
+
+
+
+
+
+// start server
+app.listen(port);
+console.log('Listening on port ' + port + '...');
+
+

@@ -10,7 +10,8 @@ var userSchema = mongoose.Schema({
   buddyPhone: String,
   goal: String,
   goalStartDate: Number,
-  responses: Array
+  responses: Array,
+  grade: Number // this is to calculate the score based on users responses...
 });
 
 //creating a model======
