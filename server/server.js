@@ -8,9 +8,7 @@ var app = express();
 // configure database
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-//timestamps
 var timestamps = require('mongoose-timestamp');
-
 mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
@@ -69,7 +67,10 @@ app.get('/user', function(req, res) {
 
 // new user route
 app.post('/create', function(req, res) {
+  //console.log(req);
+
   User.findById(req.body._id, function(err, user) {
+    console.log('user', user);
     user.goal = req.body.goal;
     user.phoneNumber = req.body.phoneNumber;
     user.buddyName = req.body.buddyName;
@@ -92,8 +93,27 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else {
+<<<<<<< e4db0748a1e1ffcb61160ccdb976c774d0b2ebb4
       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
       user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
+=======
+
+      console.log("start date!!!!!", user[0].responses);
+      console.log("day since sign up", user[0].responses.start);
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
+      //console.log("days since gola creation", daysSinceGoalCreation);
+      console.log("body of request", req.query.Body);
+
+      user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
+      // console.log('index of thing', user.responses[daysSinceGoalCreation]);
+
+      console.log('supposted tobe in db, but isnt');
+      console.log(user[0].responses);
+
+      console.log(shortPhone);
+      console.log(typeof shortPhone);
+
+
       User.findOne({
         phoneNumber: shortPhone
       }, function(err, doc) {
@@ -119,11 +139,9 @@ exports.spam = function() {
   User.find((err, users) => {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
-      // if it's their last day, drop their ass
       twilio.periodicGoalPoll(user.phoneNumber, user.goal);
       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
-
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');

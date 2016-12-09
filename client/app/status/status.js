@@ -5,4 +5,5 @@ angular.module("app.status", [])
   $http.get('/user')
     .success((user) => {$scope.user = user; console.log("this is from status.js", $scope.user)})
     .error((err) => console.error(err));
+
 });
