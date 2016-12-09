@@ -11,8 +11,7 @@ var mongoose = require('mongoose');
 //timestamps
 var timestamps = require('mongoose-timestamp');
 
-//mongoose.connect('mongodb://localhost/hassle');
- mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
+mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
 app.use(morgan('dev')); //to log every request to the console
@@ -131,8 +130,7 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-     twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
-
+      twilio.periodicGoalPoll(user.phoneNumber, user.goal);
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');
