@@ -45,13 +45,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{{user.respone.date}}</td>
-          <td>{{user.response.value}}</td>
+        <tr ng-repeat="response in user.responses track by $index">
+          <td>{{response[0]}}</td>
+          <td>{{response[1]}}</td>
         </tr>
         <tr>
           <td>to be removed</td>
-          <td>to bew removed</td>
+          <td>to be removed</td>
         </tr>
       </tbody>
     </table>
