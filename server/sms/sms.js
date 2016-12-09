@@ -43,6 +43,8 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
   });
 };
 
+
+
 //=========== respond to messages ====================//
 
 
