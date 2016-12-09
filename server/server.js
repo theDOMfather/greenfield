@@ -97,21 +97,32 @@ app.get('/messageToConsole', function(req, res) {
       console.log(err);
     } else {
 
-      console.log("start date!!!!!", user[0].responses);
-      // console.log("day since sign up", user[0].created_at);
-      //  var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
-      //  console.log("days since gola creation", daysSinceGoalCreation);
-      var daysSinceGoalCreation = 0; // sets index
-      console.log("body of request", req.query.Body);
+      var oldDate = 1481241115834;
+
+      var newDate=  1481241175981; //60 seconds later
+
+    console.log(newDate-oldDate);
+
+      console.log(newDate-oldDate);
+
+
+// divide by 1,000 to get seconds
+// divide by 60 to get minutes
+// divie by 60 to get hours
+// divide by 24 to get days
+
+      console.log("user start time", user[0].goalStartDate);
+      console.log('days since joining');
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
+
+
+      console.log('days since joining +1');
+       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate - 24*3600*1000) / (24 * 60 * 60 * 1000)); // sets index
+
+       console.log('days since joining +1.001');
+       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate - 24*3600*1001) / (24 * 60 * 60 * 1000)); // sets index
 
       user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
-      // console.log('index of thing', user.responses[daysSinceGoalCreation]);
-
-      console.log('supposted tobe in db, but isnt');
-      console.log(user[0].responses);
-
-      console.log(shortPhone);
-      console.log(typeof shortPhone);
 
 
       User.findOne({
