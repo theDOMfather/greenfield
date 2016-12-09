@@ -111,16 +111,19 @@ app.get('/messageToConsole', function(req, res) {
 // divie by 60 to get hours
 // divide by 24 to get days
 
-      console.log("user start time", user[0].goalStartDate);
-      console.log('days since joining');
+      console.log("Day of goal creation", user[0].goalStartDate);
+
       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
+      console.log('days since joining', daysSinceGoalCreation);
 
-
-      console.log('days since joining +1');
        var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate - 24*3600*1000) / (24 * 60 * 60 * 1000)); // sets index
+       console.log('days since joining +1', daysSinceGoalCreation);
 
-       console.log('days since joining +1.001');
+
        var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate - 24*3600*1001) / (24 * 60 * 60 * 1000)); // sets index
+       console.log('days since joining +1.0001', daysSinceGoalCreation);
+
+
 
       user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
 
