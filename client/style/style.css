@@ -1,3 +1,6 @@
+
+
+
 body {
 	height: 100%;
   background-color: rgb(238, 242, 237);
@@ -46,6 +49,7 @@ h1 {
 
 
 form {
+<<<<<<< 7c26947a3d126e1f3d9ce693cc0d1da45c9b5a55
 box-shadow: none;
 }
 
@@ -88,6 +92,29 @@ box-shadow: none;
     padding: 1em;
     text-align: left;
     line-height: 1.5em;
+=======
+	box-shadow: none;
+}
+
+
+.image {
+   position: relative;
+   width: 100%; /* for IE 6 */
+}
+
+p {
+	position: absolute;
+
+	float: left;
+	/*width: 200px;*/
+	 text-shadow: none;
+	 font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+   top: 200px;
+   /*width: 10px;*/
+	 /*word-wrap: normal;*/
+   font-size : 12px;
+   margin : -7px 10px 0px 115px;
+>>>>>>> added styling for adding text while typing
 }
 
 
