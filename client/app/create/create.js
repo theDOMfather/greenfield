@@ -7,7 +7,7 @@ angular.module("app.goal", [])
     .error((err) => console.error(err));
 
   $scope.addUser = function() {
-    createFactory.add($scope.user);
-    $location.path('/status');
+    createFactory.add($scope.user)
+      .then(() => $location.path('/status'));
   };
 });

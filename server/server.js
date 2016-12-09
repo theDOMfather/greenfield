@@ -65,21 +65,21 @@ app.get('/logout', (req, res) => {
 
 // user info route
 app.get('/user', function(req, res) {
-  console.log('user: ', req.user);
   res.send(req.user);
 });
 
 // new user route
 app.post('/create', function(req, res) {
-  req.user.responses = Array(90);
-  req.user.goalStartDate = Date.now();
-  User.create(req.user, function(err, results) {
-    if (err) {
-      res.send(err);
-    }
-    res.send(results);
+  User.findById(req.body._id, function(err, user) {
+    user.goal = req.body.goal;
+    user.phoneNumber = req.body.phoneNumber;
+    user.buddyName = req.body.buddyName;
+    user.buddyPhone = req.body.buddyPhone;
+    user.responses = Array(90);
+    user.goalStartDate = Date.now();
+    user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
+    twilioService.sendWelcome(user.phoneNumber);
   });
-  twilioService.sendWelcome(req.user.phoneNumber);
 });
 
 // twilio routes
@@ -98,7 +98,7 @@ app.get('/messageToConsole', function(req, res) {
     } else {
 
       console.log("start date!!!!!", user[0].responses);
-      // console.log("day since sign up", user[0].created_at);
+      console.log("day since sign up", user[0].responses.start);
       //  var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
       //  console.log("days since gola creation", daysSinceGoalCreation);
       var daysSinceGoalCreation = 0; // sets index
@@ -144,7 +144,6 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-      //twilioService.periodicGoalPoll(user.phoneNumber, "this is a test goal");
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');

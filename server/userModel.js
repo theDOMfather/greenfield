@@ -5,10 +5,9 @@ var userSchema = mongoose.Schema({
   token: String,
   id: String,
   name: String,
-  phoneNumber: String,
   goal: String,
+  phoneNumber: String,
   buddyName: String,
-  buddyRelation: String,
   buddyPhone: String,
   responses: Array
 });
