@@ -97,26 +97,7 @@ app.get('/messageToConsole', function(req, res) {
       console.log(err);
     } else {
 
-      var oldDate = 1481241115834;
-
-      var newDate=  1481241175981; //60 seconds later
-
-    console.log(newDate-oldDate);
-
-      console.log(newDate-oldDate);
-
-
-// divide by 1,000 to get seconds
-// divide by 60 to get minutes
-// divie by 60 to get hours
-// divide by 24 to get days
-
-      console.log("Day of goal creation", user[0].goalStartDate);
-
-
-       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate + 10*60*1000) / (10 * 60 * 1000)); // sets index currently 10 min blocks
-       console.log('days since joining +1.0001', daysSinceGoalCreation);
-
+  var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate + 10*60*1000) / (10 * 60 * 1000)); // sets index currently 10 min blocks
       user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
 
 

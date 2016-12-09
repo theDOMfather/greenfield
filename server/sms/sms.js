@@ -51,17 +51,17 @@ exports.responseMaker = function(req, res) {
   var twilio = require('twilio');
   var twiml = new twilio.TwimlResponse();
 
-  console.log("sms responses", SMSresponses.positiveResponses);
+  console.log("sms responses", SMSResponses.positiveResponses);
 
 
-  var randomPositive= Math.floor(Math.random() * SMSresponses.positiveResponses.length);
+  var randomPositive= Math.floor(Math.random() * SMSResponses.positiveResponses.length);
 
-  var randomNegative= Math.floor(Math.random() * SMSresponses.negativeResponses.length);
+  var randomNegative= Math.floor(Math.random() * SMSResponses.negativeResponses.length);
 
   if (req.query.Body == 1) {
-    twiml.message(SMSresponses.positiveResponses[randomPositive]);
+    twiml.message(SMSResponses.positiveResponses[randomPositive]);
   } else if (req.query.Body == 2) {
-    twiml.message(SMSresponses.negativeResponses[randomNegative]);
+    twiml.message(SMSResponses.negativeResponses[randomNegative]);
     // twiml.mediahttps: //s-media-cache-ak0.pinimg.com/originals/53/e6/eb/53e6eb8b9396ee2c1cc99b69582a07f3.jpg
   } else {
     twiml.message(`dude, it's 1 or 2 for a response...`);
