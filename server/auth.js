@@ -25,26 +25,30 @@ module.exports = function(passport) {
 
   // pull in our info from keys.js
   passport.use(new FacebookStrategy({
-      clientID: Keys.facebook.clientID,
-      clientSecret: Keys.facebook.clientSecret,
-      callbackURL: Keys.facebook.callbackURL
-    },
-    // facebook will send back the token and profile info
-    function(token, refreshToken, profile, done) {
-      process.nextTick(function() {
-        User.findOne({ id: profile.id }, function(err, user) {
-          if (err) {
-            return done(err);
-          } else if (user) {
-            return done(null, user);
-          } else {
-            var newUser = new User();
-            newUser.token = token;
-            newUser.id = profile.id;
-            newUser.name = profile.displayName;
-            newUser.save((err) => err ? done(err) : done(null, newUser));
-          }
-        })
-      });
-    }));
+    clientID: Keys.facebook.clientID,
+    clientSecret: Keys.facebook.clientSecret,
+    callbackURL: Keys.facebook.callbackURL
+  },
+  // facebook will send back the token and profile info
+  function(token, refreshToken, profile, done) {
+    process.nextTick(function() {
+      // use facebook info to find matching user in our database
+      User.findOne({ id: profile.id }, function(err, user) {
+        if (err) {
+          return done(err);
+        } else if (user) {
+          // pass user back to passport if found
+          return done(null, user);
+        } else {
+          // create new user if none is found
+          var newUser = new User();
+          newUser.token = token;
+          newUser.id = profile.id;
+          newUser.name = profile.displayName;
+          // pass new user back to passport after saving to database
+          newUser.save((err) => err ? done(err) : done(null, newUser));
+        }
+      })
+    });
+  }));
 };
