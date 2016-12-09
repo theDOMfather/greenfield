@@ -48,13 +48,13 @@
 
       <!-- TOS ACCEPT -->
       <div class="form-check">
-        <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" value="" required><small> I agree to the weird terms, accept text messaging charges </small> </label>
+        <input ng-model="user.acceptsTerms" class="form-check-input" type="checkbox" required />
+        <label class="form-check-label"><small> I agree to the weird terms, accept text messaging charges </small></label>
       </div>
       <br />
 
 
-      <button type="submit" class="btn btn-primary btn-block" ng-disabled="goalForm.$invalid">Start the machine & start getting hassled</button>
+      <button type="submit" class="btn btn-primary btn-block" ng-disabled="goalForm.$invalid || !user.acceptsTerms">Start the machine & start getting hassled</button>
 
     </form>
   </div>
