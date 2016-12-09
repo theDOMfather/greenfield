@@ -113,17 +113,9 @@ app.get('/messageToConsole', function(req, res) {
 
       console.log("Day of goal creation", user[0].goalStartDate);
 
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
-      console.log('days since joining', daysSinceGoalCreation);
 
-       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate + 24*3600*1000) / (24 * 60 * 60 * 1000)); // sets index
-       console.log('days since joining +1', daysSinceGoalCreation);
-
-
-       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate + 24*3600*1000*2) / (24 * 60 * 60 * 1000)); // sets index
+       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate + 10*60*1000) / (24 * 60 * 60 * 1000)); // sets index currently 10 min blocks
        console.log('days since joining +1.0001', daysSinceGoalCreation);
-
-
 
       user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
 
