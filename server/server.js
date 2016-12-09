@@ -135,20 +135,30 @@ exports.spam = function() {
 };
 
 
-
 //1 is yes, 2 is no
 
-var array = [1, 2, 2, undefined, undefined, 2, 2, 1, 2, 1 , 1, 1, 2, 2, 2, 2, 1, 1, 1];
 
-// 8 positive
-// 2 undefined
-// 9 negative
+/*======================================
+=======classifying USER HERE ===========
+=======================================*/
+  //1 is yes, 2 is no
+  //sample array of responses
+  var array = [1, 2, 2, undefined, undefined, 2, 2, 1, 2, 1 , 1, 1, 2, 2, 2, 2, 1, 1, 1];
 
-//days of attempts at goal from database (current date - start date)
-var days = 5;
 
 
+  //days of attempts at goal from database (current date - start date)
+
+
+//***export this later***
 var gradeUser = function(array) {
+  var days = 5; //days of attempts at goal hard coded for now
+
+  // User.find({
+  //   phoneNumber: shortPhone
+  // }), function(err, user) {
+  //   console.log("user", user);
+  // }
   //grab shortened array
   var daysOnGoal = array.slice(0, days).sort();
   console.log( "sorted responses:  ", daysOnGoal );
