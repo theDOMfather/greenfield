@@ -51,6 +51,8 @@ exports.responseMaker = function(req, res) {
   var twilio = require('twilio');
   var twiml = new twilio.TwimlResponse();
 
+  console.log("sms responses", SMSresponses.positiveResponses);
+
 
   var randomPositive= Math.floor(Math.random() * SMSresponses.positiveResponses.length);
 
