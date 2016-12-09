@@ -102,7 +102,7 @@ app.get('/messageToConsole', function(req, res) {
 
       console.log("start date!!!!!", user[0].responses);
       console.log("day since sign up", user[0].responses.start);
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (60 * 1000)); // sets index
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
       //console.log("days since gola creation", daysSinceGoalCreation);
       console.log("body of request", req.query.Body);
 
@@ -146,7 +146,7 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       twilio.periodicGoalPoll(user.phoneNumber, user.goal);
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (60 * 1000)); 
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); 
       user.responses[daysSinceGoalCreation]= [Date.now(), 'fail.'];
 
       // if it's their last day, drop their ass 
