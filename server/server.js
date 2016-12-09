@@ -8,13 +8,7 @@ var app = express();
 // configure database
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-//timestamps
 var timestamps = require('mongoose-timestamp');
-
-<<<<<<< e4db0748a1e1ffcb61160ccdb976c774d0b2ebb4
-=======
-//mongoose.connect('mongodb://localhost/hassle');
->>>>>>> make tupel for user's responses array
 mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
@@ -106,7 +100,7 @@ app.get('/messageToConsole', function(req, res) {
 
       console.log("start date!!!!!", user[0].responses);
       console.log("day since sign up", user[0].responses.start);
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (60 * 1000)); // sets index
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
       //console.log("days since gola creation", daysSinceGoalCreation);
       console.log("body of request", req.query.Body);
 
