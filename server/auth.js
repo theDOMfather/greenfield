@@ -16,7 +16,7 @@ module.exports = function(passport) {
 
   // used to deserialize the user
   passport.deserializeUser(function(id, done) {
-    User.find({
+    User.findOne({
       'id': id
     }, function(err, user) {
       done(err, user);
@@ -32,11 +32,19 @@ module.exports = function(passport) {
     // facebook will send back the token and profile info
     function(token, refreshToken, profile, done) {
       process.nextTick(function() {
-        var user = {};
-        user.token = token;
-        user.id = profile.id;
-        user.name = profile.displayName;
-        return done(null, user);
+        User.findOne({ id: profile.id }, function(err, user) {
+          if (err) {
+            return done(err);
+          } else if (user) {
+            return done(null, user);
+          } else {
+            var newUser = new User();
+            newUser.token = token;
+            newUser.id = profile.id;
+            newUser.name = profile.displayName;
+            newUser.save((err) => err ? done(err) : done(null, newUser));
+          }
+        })
       });
     }));
 };

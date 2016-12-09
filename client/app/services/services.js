@@ -1,24 +1,15 @@
 angular.module('app.service', [])
 
 .factory('createFactory',  function($http) {
-	var add = function(data) {
+	var add = function(user) {
 		return $http({
 			method:'POST',
 			url:'/create',
-			data: JSON.stringify(data)
+			data: JSON.stringify(user)
 		})
-		.then(function(data) {
-			return data;
-		});
-    };
-		return {
-			add: add
-		};
-})
-.factory('statusFactory', function($http) {
-  return {
-    get: function() {
-      return $http.get('/status');
-    }
   };
+
+	return {
+		add: add
+	};
 });

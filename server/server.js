@@ -15,7 +15,6 @@ mongoose.connect('mongodb://localhost/hassle');
 // mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
-var currentUser = null;
 app.use(morgan('dev')); //to log every request to the console
 
 // configure authentication
@@ -47,40 +46,40 @@ app.use(bodyParser.urlencoded({
 // authentication routes
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  failureRedirect: "/login",
-  failureFlash: "You can\'t even log in right!\nJust go home..."
+  failureRedirect: "/"
 }), (req, res) => {
-  // passport will attach user's facebook profile info to request after authenticating
-  User.find({ id: req.user.id }, function (err, users) {
-    console.log(users);
-    if (users.length === 0) {
-      // if user is not in our database, redirect to goal creation page
-      currentUser = req.user;
+    // PASSPORT WILL ATTACH user TO ALL REQUESTS AFTER AUTHENTICATION
+    if (!req.user.goal) {
+      // if user has no goal, allow them to create one
       res.redirect('/app/#/create');
     } else {
       // else log user in and redirect to goal status page
-      currentUser = users[0];
       res.redirect('/app/#/status')
     }
-  });
 });
 app.get('/logout', (req, res) => {
+  // passport attaches logout method to all requests
   req.logout();
   res.redirect('/');
 });
 
+// user info route
+app.get('/user', function(req, res) {
+  res.send(req.user);
+});
+
 // new user route
 app.post('/create', function(req, res) {
-  currentUser = req.body;
-  currentUser.responses = Array(90);
-  currentUser.goalStartDate = Date.now();
-  User.create(currentUser, function(err, results) {
-    if (err) {
-      res.send(err);
-    }
-    res.send(results);
+  User.findById(req.body._id, function(err, user) {
+    user.goal = req.body.goal;
+    user.phoneNumber = req.body.phoneNumber;
+    user.buddyName = req.body.buddyName;
+    user.buddyPhone = req.body.buddyPhone;
+    user.responses = Array(90);
+    user.goalStartDate = Date.now();
+    user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
+    twilioService.sendWelcome(user.phoneNumber);
   });
-  twilioService.sendWelcome(currentUser.phoneNumber);
 });
 
 // twilio routes
@@ -99,7 +98,7 @@ app.get('/messageToConsole', function(req, res) {
     } else {
 
       console.log("start date!!!!!", user[0].responses);
-      // console.log("day since sign up", user[0].created_at);
+      console.log("day since sign up", user[0].responses.start);
       //  var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
       //  console.log("days since gola creation", daysSinceGoalCreation);
       var daysSinceGoalCreation = 0; // sets index
@@ -129,11 +128,6 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
-// user info route
-app.get('/user', function(req, res) {
-  res.send(currentUser);
-});
-
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
   twilioService.responseMaker(req, res);
@@ -150,7 +144,6 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-      //twilioService.periodicGoalPoll(user.phoneNumber, "this is a test goal");
     });
     // celebrate completion
     console.log('spammed the shit out of \'em');
