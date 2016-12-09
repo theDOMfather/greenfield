@@ -47,7 +47,53 @@ h1 {
 
 form {
 box-shadow: none;
+}
 
-
+.phone-container {
+  position: relative;
 
 }
+
+.talk-bubble {
+    margin: 40px;
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    background-color: lightgrey;
+    position: absolute;
+    left: 12px;
+    top: 100px;
+    font-size: 12px;
+}
+.tri-right.right-in:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 38px;
+    right: auto;
+    top: auto;
+    bottom: -20px;
+    border: 12px solid;
+    border-color: lightgrey transparent transparent lightgrey;
+}
+
+.round {
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+}
+
+.talktext {
+    padding: 1em;
+    text-align: left;
+    line-height: 1.5em;
+}
+
+
+
+
+
+
+
+
