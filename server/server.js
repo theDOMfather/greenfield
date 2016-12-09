@@ -93,26 +93,8 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-<<<<<<< e4db0748a1e1ffcb61160ccdb976c774d0b2ebb4
       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
       user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
-=======
-
-      console.log("start date!!!!!", user[0].responses);
-      console.log("day since sign up", user[0].responses.start);
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
-      //console.log("days since gola creation", daysSinceGoalCreation);
-      console.log("body of request", req.query.Body);
-
-      user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
-      // console.log('index of thing', user.responses[daysSinceGoalCreation]);
-
-      console.log('supposted tobe in db, but isnt');
-      console.log(user[0].responses);
-
-      console.log(shortPhone);
-      console.log(typeof shortPhone);
-
 
       User.findOne({
         phoneNumber: shortPhone
@@ -127,11 +109,9 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
-// twilio routes
-app.get('/messageToConsole', function(req, res) {
-  twilioService.responseMaker(req, res);
-});
-
+// start server
+app.listen(port);
+console.log('Listening on port ' + port + '...');
 
 // spam routine
 exports.spam = function() {
@@ -157,7 +137,7 @@ exports.spam = function() {
 =======================================*/
   //1 is yes, 2 is no
   //sample array of responses
-  
+
   exports.gradeUser = function() {
   // query database for all users
   User.find((err, users) => {
@@ -172,7 +152,7 @@ exports.spam = function() {
           count1++;
         }
       })
-      
+
         //calculate percentage by number of 1's divided by total
       var newGrade = count1/denominator*100
       console.log(newGrade);
@@ -180,7 +160,7 @@ exports.spam = function() {
         //query database for user phonenumber
         phoneNumber: user.phoneNumber
       }, function(err, doc) {
-          //update grade 
+          //update grade
         doc.grade = newGrade;
         doc.save();
       });
@@ -189,9 +169,9 @@ exports.spam = function() {
   });
   //add logic for send periodic messages to populate a tuple with the current date and null/undefined
 };
-  
+
 exports.gradeUser();
-  
+
 
 
 
@@ -200,5 +180,3 @@ exports.gradeUser();
 // start server
 app.listen(port);
 console.log('Listening on port ' + port + '...');
-
-
