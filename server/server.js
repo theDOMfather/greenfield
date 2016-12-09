@@ -11,8 +11,7 @@ var mongoose = require('mongoose');
 //timestamps
 var timestamps = require('mongoose-timestamp');
 
-//mongoose.connect('mongodb://localhost/hassle');
- mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
+mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
 app.use(morgan('dev')); //to log every request to the console
@@ -75,7 +74,7 @@ app.post('/create', function(req, res) {
     user.phoneNumber = req.body.phoneNumber;
     user.buddyName = req.body.buddyName;
     user.buddyPhone = req.body.buddyPhone;
-    user.responses = Array(90);
+    user.responses = [];
     user.goalStartDate = Date.now();
     user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
     twilioService.sendWelcome(user.phoneNumber);
@@ -96,11 +95,8 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-
-  var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate + 10*60*1000) / (10 * 60 * 1000)); // sets index currently 10 min blocks
-      user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
-
-
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
+      user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
       User.findOne({
         phoneNumber: shortPhone
       }, function(err, doc) {
@@ -131,7 +127,9 @@ exports.spam = function() {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
       // if it's their last day, drop their ass
-     twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
+      twilio.periodicGoalPoll(user.phoneNumber, user.goal);
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
+      user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
 
     });
     // celebrate completion
