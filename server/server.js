@@ -171,12 +171,3 @@ exports.spam = function() {
 };
 
 exports.gradeUser();
-
-
-
-
-
-
-// start server
-app.listen(port);
-console.log('Listening on port ' + port + '...');
