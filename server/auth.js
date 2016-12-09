@@ -11,7 +11,7 @@ module.exports = function(passport) {
 
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.id); //save in the session 
   });
 
   // used to deserialize the user
@@ -19,7 +19,7 @@ module.exports = function(passport) {
     User.findOne({
       'id': id
     }, function(err, user) {
-      done(err, user);
+      done(err, user);   
     });
   });
 
