@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 
 //mongoose.connect('mongodb://localhost/hassle');
-mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
+ mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
 app.use(morgan('dev')); //to log every request to the console
@@ -92,37 +92,26 @@ app.get('/messageToConsole', function(req, res) {
   User.find({
     phoneNumber: shortPhone // finds the user in the db
   }, function(err, user) {
+    console.log("user", user);
     if (err) {
       console.log(err);
     } else {
 
-
-
-      var oldDate = 1481241115834;
-
-      var newDate=  1481241175981; //60 seconds later
-
-    console.log(newDate-oldDate);
-
-      console.log(newDate-oldDate);
-
-
-// divide by 1,000 to get seconds
-// divide by 60 to get minutes
-// divie by 60 to get hours
-// divide by 24 to get days
-
-      console.log("start date!!!!!", user[0].createdAt);
-      console.log("day since sign up", user[0].created_at);
-       var daysSinceGoalCreation = Math.round((Date.now() - user[0].createdAt - 24*3600*1000) / (24 * 60 * 60 * 1000)); // sets index
-       console.log("exactly 1 day", daysSinceGoalCreation);
-       var daysSinceGoalCreation = Math.round((Date.now() - user[0].createdAt - 24*3600*1001) / (24 * 60 * 60 * 1000)); // sets index
-       console.log("slightylre more than 1 day", daysSinceGoalCreation);
-      // var daysSinceGoalCreation = 0; // sets index
+      console.log("start date!!!!!", user[0].responses);
+      // console.log("day since sign up", user[0].created_at);
+      //  var daysSinceGoalCreation = Math.round((Date.now() - user[0].responses.start) / (24 * 60 * 60 * 1000)); // sets index
+      //  console.log("days since gola creation", daysSinceGoalCreation);
+      var daysSinceGoalCreation = 0; // sets index
       console.log("body of request", req.query.Body);
 
       user[0].responses[daysSinceGoalCreation] = req.query.Body; // made changes to response array
       // console.log('index of thing', user.responses[daysSinceGoalCreation]);
+
+      console.log('supposted tobe in db, but isnt');
+      console.log(user[0].responses);
+
+      console.log(shortPhone);
+      console.log(typeof shortPhone);
 
 
       User.findOne({
