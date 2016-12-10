@@ -17,8 +17,6 @@ getLastThreeResponses = function(responses){
 
 // var responsesArray = [ ["date","1"], ['date', "2"], ['date', "2"]  ];
 
-console.log(getLastThreeResponses(responsesArray));
-
 
 // generate random time sometime in teh next 24 hrs to send the message
   var timeFromNowToHarass = function(){
