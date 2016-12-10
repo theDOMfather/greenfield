@@ -87,7 +87,7 @@ app.post('/create', function(req, res) {
     user.harassBuddy = false;
     user.grade = 100;
 
-    user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
+    //user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
     twilioService.sendWelcome(user.phoneNumber);
   });
 });
