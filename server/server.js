@@ -103,7 +103,7 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1000)); // sets index
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1100)); // sets index and add 100 ms for delay to avoid null
 
       var message = req.query.Body;
       if (message === '1') {
@@ -142,7 +142,7 @@ exports.spam = function() {
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
 
       //calculate days since goal start
-      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1000)); // sets index modified to be slightly faster
+      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1100)); // sets index modified to be slightly faster
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
 
 
