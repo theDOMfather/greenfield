@@ -117,7 +117,7 @@ app.get('/messageToConsole', function(req, res) {
         phoneNumber: shortPhone
       }, function(err, doc) {
         doc.responses = user[0].responses;
-        doc.save();
+    //    doc.save();
       });
     }
   });
