@@ -1,5 +1,3 @@
-
-
 body {
 	height: 100%;
   background-color: rgb(238, 242, 237);
@@ -25,12 +23,12 @@ hr {
 }
 
 .logo {
-	max-width: 100%;
+	max-width: 20%;
 	align:top;
 }
 
 .navbar-right {
-  /*margin-top: 10px;*/
+  padding-bottom: none;
 }
 
 form {
@@ -54,19 +52,18 @@ box-shadow: none;
 }
 
 .talk-bubble {
-  margin: 40px;
-  display: inline-block;
-  width: 200px;
-  height: auto;
-  background-color: lightgrey;
-  position: absolute;
-  left: 12px;
-  top: 100px;
-  font-family: 'Helvetica';
-  font-size: 12px;
+    margin: 40px;
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    background-color: lightgrey;
+    position: absolute;
+    left: 12px;
+    top: 100px;
+    font-family: 'Helvetica';
+    font-size: 12px;
 }
 .tri-right.right-in:after {
-
     content: ' ';
     position: absolute;
     width: 0;
@@ -87,49 +84,20 @@ box-shadow: none;
 
 
 .round {
-
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
-
 }
 
 .talktext {
-  padding: 1em;
-  text-align: left;
-  line-height: 1.5em;
+    padding: 1em;
+    text-align: left;
+    line-height: 1.5em;
 }
-
 
 .p-complete {
   max-width: 375px;
 }
 
-.navbar-brand {
-    position: absolute;
-    top: -10px;
-    left: 0px;
-    width: 200px;
-    height: 50px;
-    padding: 15px 15px;
-    font-size: 18px;
-    line-height: 20px;
-}
-
 .btn-complete {
-  border-radius: 5px;
-}
-
-p {
-	position: absolute;
-
-	float: left;
-	/*width: 200px;*/
-	 text-shadow: none;
-	 font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-   top: 200px;
-   /*width: 10px;*/
-	 /*word-wrap: normal;*/
-   font-size : 12px;
-   margin : -7px 10px 0px 115px;
- }
+border-radius: 5px;}
