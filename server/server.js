@@ -141,51 +141,28 @@ exports.spam = function() {
       user.save();
 
   });
-
-
-
-
     // celebrate completion
     console.log('spammed the shit out of \'em');
   });
 };
 
+// assign grades to users based on response history
+exports.gradeUsers = function() {
+// query database for all users
+  User.find((err, users) => {
+    users.forEach(user => {
+      if(user.responses && user.responses.length) {
 
-/*======================================
-=======classifying USER HERE ===========
-=======================================*/
-  //1 is yes, 2 is no
-  //sample array of responses
+        // calculate percentage of positive ('1') responses
+        var progress = user.responses.reduce((acc, tuple) => {tuple[1] === '1' ? ++acc : acc}, 0);
+        user.grade = progress / user.responses.length * 100;
 
-//   exports.gradeUser = function() {
-//   // query database for all users
-//   User.find((err, users) => {
-//     // iterate through and apply periodic goal poll
-//     users.forEach(user => {
-//
-//       if(user.responses.length <1) {
-//         //do nothing
-//       } else{
-//         //read responses for user
-//         //store the length of array in a variable (give length of attempt at goal)
-//
-//         var denominator = user.responses.length;
-//         var count1 =0;
-//         user.responses.forEach(function(tuple) {
-//           if(tuple[1] === 1) {
-//             count1++;
-//           }
-//         });
-//         var newGrade = count1/denominator*100;
-//         user.newGrade =newGrade;
-//         user.save();
-//       }
-//     });
-//     //update cron job
-//   });
-//   //add logic for send periodic messages to populate a tuple with the current date and null/undefined
-// };
-
+        // update database entry
+        user.save();
+      }
+    });
+  });
+};
 
 // start server
 app.listen(port);
