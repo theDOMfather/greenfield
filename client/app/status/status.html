@@ -1,35 +1,35 @@
-<h1>Account stats</h1>
-
-<br />
 
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-8">
-    <h3 ng-model="user.name">{{user.name}}'s info</h3>
+    <h1 ng-model="user.name">{{user.name}}</h1>
+
+    <br />
+    <h3 ng-model="user.goal">goal: {{user.goal}}</h3>
     <hr />
 
     <div>
 
       <table class="table table-striped">
-        <div ng-model="user.goal">
-          goal: {{user.goal}}
-        </div>
-
         <div ng-model="user.buddyName">
           buddy name: {{user.buddyName}}
         </div>
 
         <div ng-model=user.buddyPhone>
-          buddy phone : {{user.buddyPhone}}
+          buddy phone: ({{user.buddyPhone.slice(0, 3)}}) {{user.buddyPhone.slice(3, 6)}}-{{user.buddyPhone.slice(6)}}
         </div>
       </table>
+
+      <p class="p-complete">
+        <small>If you say you're done with this goal we'll go ahead and text your buddy to confirm completion before allowing you to register a new goal.</small>
+      </p>
+      <a href="#/complete"><button class="btn-complete">I'm so done!</button></a>
 
     </div>
 
 
-    <h3>your stats</h3>
+    <h3>your response history</h3>
 
     <hr />
-    <h4>Your daily text responses</h4>
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
         <p> 60% of time complete </p>
@@ -37,12 +37,12 @@
       </div>
     </div>
     <table class="table table-striped">
-      <thead>
+      <!-- <thead>
         <tr>
           <th>Date</th>
           <th>Response</th>
         </tr>
-      </thead>
+      </thead> -->
       <tbody>
         <tr ng-repeat="response in user.responses track by $index">
           <td>{{response[0]}}</td>

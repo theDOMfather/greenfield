@@ -8,7 +8,9 @@ angular.module('app', [
 .config(function($routeProvider) {
 	$routeProvider
 	.when('/', {
-		templateUrl:"app/login.html"
+		controller: function() { window.location.replace('/'); },
+    template: '<div></div>'
+
 	})
 	.when('/create', {
 		templateUrl:"app/create/create.html",
