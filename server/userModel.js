@@ -11,7 +11,9 @@ var userSchema = mongoose.Schema({
   goal: String,
   goalStartDate: Number,
   responses: Array,
-  grade: Number // this is to calculate the score based on users responses...
+  grade: Number, // this is to calculate the score based on users responses...
+  harassment: Boolean,  // this sets flag for if user should be harassed..
+  harrasmentBuddy: Boolean  // this sets flag for if user's buddy should be harassed...
 });
 
 //creating a model======
@@ -19,4 +21,3 @@ var userSchema = mongoose.Schema({
 userSchema.plugin(timestamps);
 
 module.exports = mongoose.model('user', userSchema);
-

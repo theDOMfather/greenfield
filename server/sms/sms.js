@@ -7,7 +7,6 @@ var twilio = require('twilio')(Keys.twilio.TWILIO_ACCOUNT_SID, Keys.twilio.TWILI
 //===========send welcome message ====================//
 
 exports.sendWelcome = function(userPhoneNumber) {
-  console.log(userPhoneNumber);
 
   twilio.sendMessage({
     to: `+1${userPhoneNumber}`, // Any number Twilio can deliver to
@@ -16,9 +15,7 @@ exports.sendWelcome = function(userPhoneNumber) {
 
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
     if (!err) { // "err" is an error received during the request, if any
-      console.log(responseData.from); // outputs "+14506667788"
       console.log(responseData.body); // outputs "word to your mother."
-
     }
   });
 };
@@ -36,9 +33,42 @@ exports.periodicGoalPoll = function(userPhoneNumber, userGoal) {
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
     if (!err) { // "err" is an error received during the request, if any
-      console.log("reponse from user's phone number:");
       console.log(responseData.body); // outputs "word to your mother."
 
+    }
+  });
+};
+
+//=========== outbound harassment message to USER ====================//
+
+exports.harassUser = function(userPhoneNumber) {
+  console.log("harras User was called and exeucted");
+  twilio.sendMessage({
+    to: `+1${userPhoneNumber}`, // Any number Twilio can deliver to
+    from: '+14152003022', // A number you bought from Twilio and can use for outbound communication
+    body: `You suck and will keep getting this message until you don't suck anymore` //,
+      //  mediaUrl: 'https://s-media-cache-ak0.pinimg.com/originals/53/e6/eb/53e6eb8b9396ee2c1cc99b69582a07f3.jpg'
+      // body of the SMS message
+  }, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+    if (!err) { // "err" is an error received during the request, if any
+    }
+  });
+};
+
+
+//=========== outbound harassment message to USER ====================//
+
+exports.harassBuddy = function(buddyPhone) {
+  twilio.sendMessage({
+    to: `+1${buddyPhone}`, // Any number Twilio can deliver to
+    from: '+14152003022', // A number you bought from Twilio and can use for outbound communication
+    body: `You're getting annoyed bc your buddy is falling behind on their goal.` //,
+      //  mediaUrl: 'https://s-media-cache-ak0.pinimg.com/originals/53/e6/eb/53e6eb8b9396ee2c1cc99b69582a07f3.jpg'
+      // body of the SMS message
+  }, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+    if (!err) { // "err" is an error received during the request, if any
     }
   });
 };
@@ -52,9 +82,6 @@ exports.responseMaker = function(req, res) {
 
   var twilio = require('twilio');
   var twiml = new twilio.TwimlResponse();
-
-  console.log("sms responses", SMSResponses.positiveResponses);
-
 
   var randomPositive= Math.floor(Math.random() * SMSResponses.positiveResponses.length);
 
@@ -87,7 +114,6 @@ exports.getLastResponse = function() {
   var promise = new Promise(function(resolve, reject) {
 
     twilio.messages.list(function(err, data) {
-      console.log(data.messages[1].body);
       lastResponse = data.messages[1].body;
       //go to db
       resolve(data);
@@ -102,14 +128,12 @@ exports.getLastResponse = function() {
         body: `you must be very proud of yourself` // body of the SMS message
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
         if (!err) { // "err" is an error received during the request, if any
-          console.log(responseData.body); // outputs "word to your mother."
         }
       });
 
     }
 
     if (lastResponse === "2") {
-      console.log('two selected');
       twilio.sendMessage({
         to: `+1${6468318760}`, // Any number Twilio can deliver to
         from: '+14152003022', // A number you bought from Twilio and can use for outbound communication

@@ -1,3 +1,5 @@
+// jshint esversion: 6
+
 // configure server
 var path = require('path');
 var express = require('express');
@@ -29,6 +31,9 @@ app.use(passport.session());
 // configure twilio
 var twilioService = require('./sms/sms.js');
 
+
+var harassmentEngine = require('./sms/harassmentEngine.js');
+
 // server static files
 app.use('/', express.static(path.join(__dirname, '../client/login')));
 app.use('/app', express.static(path.join(__dirname, '../client')));
@@ -51,7 +56,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
       res.redirect('/app/#/create');
     } else {
       // else log user in and redirect to goal status page
-      res.redirect('/app/#/status')
+      res.redirect('/app/#/status');
     }
 });
 app.get('/logout', (req, res) => {
@@ -77,6 +82,10 @@ app.post('/create', function(req, res) {
     user.buddyPhone = req.body.buddyPhone;
     user.responses = [];
     user.goalStartDate = Date.now();
+    user.harassment = false;
+    user.harassementBuddy = false;
+    user.grade = 100;
+
     user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
     twilioService.sendWelcome(user.phoneNumber);
   });
@@ -109,28 +118,35 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
-// start server
-app.listen(port);
-console.log('Listening on port ' + port + '...');
 
 // spam routine
 exports.spam = function() {
-  // query database for all users
   User.find((err, users) => {
-    // iterate through and apply periodic goal poll
     users.forEach(user => {
-      twilio.periodicGoalPoll(user.phoneNumber, user.goal);
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
+
+      // send harassment messages
+      var harassmentState = harassmentEngine.harassmentChecker(user);
+      user.harassment = harassmentState.harassUser;
+      user.harrasmentBuddy = harassmentState.harassBuddy;
+
+      // send out goal survey
+      twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
+
+      //calculate days since goal start
+      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (24 * 60 * 60 * 1000)); // sets index
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
-    });
+
+      user.save();
+
+  });
+
     // celebrate completion
     console.log('spammed the shit out of \'em');
   });
 };
 
 
-//1 is yes, 2 is no
-
+exports.spam();
 
 /*======================================
 =======classifying USER HERE ===========
@@ -143,31 +159,32 @@ exports.spam = function() {
   User.find((err, users) => {
     // iterate through and apply periodic goal poll
     users.forEach(user => {
-      //read responses for user
-        //store the length of array in a variable (give length of attempt at goal)
-      var denominator = user.responses.length;
-      var count1;
-      user.responses.forEach(function(tuple) {
-        if(tuple[1] === 1) {
-          count1++;
-        }
-      })
 
-        //calculate percentage by number of 1's divided by total
-      var newGrade = count1/denominator*100
-      console.log(newGrade);
-      User.findOne({
-        //query database for user phonenumber
-        phoneNumber: user.phoneNumber
-      }, function(err, doc) {
-          //update grade
-        doc.grade = newGrade;
-        doc.save();
-      });
+      if(user.responses.length <1) {
+        //do nothing
+      } else{
+        //read responses for user
+        //store the length of array in a variable (give length of attempt at goal)
+
+        var denominator = user.responses.length;
+        var count1 =0;
+        user.responses.forEach(function(tuple) {
+          if(tuple[1] === 1) {
+            count1++;
+            console.log(count1);
+          }
+        });
+        var newGrade = count1/denominator*100;
+        user.newGrade =newGrade;
+        user.save();
+      }
     });
     //update cron job
   });
   //add logic for send periodic messages to populate a tuple with the current date and null/undefined
 };
 
-exports.gradeUser();
+
+// start server
+app.listen(port);
+console.log('Listening on port ' + port + '...');
