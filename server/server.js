@@ -141,7 +141,7 @@ exports.spam = function() {
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
 
       //calculate days since goal start
-      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1000)); // sets index
+      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1100)); // sets index modified to be slightly faster
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
       console.log('days since goal creation', daysSinceGoalCreation);
       console.log('user.responses', user.responses);
