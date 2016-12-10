@@ -146,7 +146,7 @@ exports.spam = function() {
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
       console.log('days since goal creation', daysSinceGoalCreation);
       console.log('user.responses', user.responses);
-      user.save((err, updatedUser) => err ? console.log(error) : console.log(updatedUser));
+      user.save((err, updatedUser) => err ? console.log("error from save", error) : console.log("confirmation from mongo", updatedUser));
   });
 
 
