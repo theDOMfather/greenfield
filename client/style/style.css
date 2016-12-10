@@ -2,25 +2,23 @@
 body {
 	height: 100%;
   background-color: rgb(238, 242, 237);
-  /*background-image: -webkit-linear-gradient(270deg, rgba(109, 163, 173, .4), rgba(64, 48, 38, .9)), url("https://media.licdn.com/mpr/mpr/jc/AAEAAQAAAAAAAAcuAAAAJDc5ZWU0MmFmLTQ2MjktNGE2MS1iZWJiLWJlZGQwMmMxZGZlYQ.jpg");*/
-  /*background-image: -webkit-linear-gradient(270deg, rgba(109, 163, 173, .4), rgba(64, 48, 38, .9)), url("./assets/picard_bw.jpg");*/
-  /*background-size: auto, cover;*/
-  /*background-repeat: repeat, no-repeat;*/
-  /*background-attachment: scroll, scroll;*/
-  /*color: #f4ecec;*/
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   line-height: 20px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
 }
 
+.container {
+  max-width: 900px;
+}
+
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
 }
 
 .logo {
@@ -37,7 +35,6 @@ h1 {
   font-size: 48px;
   text-align: center;
 }
-
 
 form {
   box-shadow: none;
@@ -107,4 +104,8 @@ form {
 
 .btn-complete {
   border-radius: 5px;
+}
+
+.res-text {
+  text-align: right;
 }

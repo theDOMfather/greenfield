@@ -104,14 +104,7 @@ app.get('/messageToConsole', function(req, res) {
       console.log(err);
     } else {
       var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1000)); // sets index
-
-      var message = req.query.Body;
-      if (message === '1') {
-        message = 'ok, I guess...';
-      } else if (message === '2') {
-        message = 'you blew it';
-      }
-      user[0].responses[daysSinceGoalCreation] = [Date.now(), message]; // made changes to response array
+      user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
 
       User.findOne({
         phoneNumber: shortPhone
