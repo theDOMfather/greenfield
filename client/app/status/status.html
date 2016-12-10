@@ -1,19 +1,16 @@
-<h1>{{user.name}}</h1>
+<h1 ng-model="user.name">{{user.name}}</h1>
 
 <br />
 
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-8">
-    <h3 ng-model="user.name">your info</h3>
+    <h3 ng-model="user.goal">goal: {{user.goal}}</h3>
     <hr />
 
     <div>
 
-      <table class="table table-striped">
-        <div ng-model="user.goal">
-          goal: {{user.goal}}
-        </div>
 
+      <table class="table table-striped">
         <div ng-model="user.buddyName">
           buddy name: {{user.buddyName}}
         </div>
@@ -23,13 +20,17 @@
         </div>
       </table>
 
+      <p class="p-complete">
+        <small>If you say you're done with this goal we'll go ahead and text your buddy to confirm completion before allowing you to register a new goal.</small>
+      </p>
+      <button class="btn-complete">I'm so done!</button>
+
     </div>
 
 
-    <h3>your stats</h3>
+    <h3>your response history</h3>
 
     <hr />
-    <h4>Your daily text responses</h4>
     <div class="progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
         <p> 60% of time complete </p>

@@ -108,3 +108,10 @@ p {
    margin : -7px 10px 0px 115px;
 >>>>>>> added styling for adding text while typing
 }
+
+.p-complete {
+  max-width: 375px;
+}
+
+.btn-complete {
+border-radius: 5px;}
