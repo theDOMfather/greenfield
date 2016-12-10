@@ -4,13 +4,13 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-8">
 
-    <h3>your info</h3>
+    <h3>your info <small>(required)</small></h3>
     <hr />
     <form name="goalForm" ng-submit="addUser()" novalidate>
 
       <!--  GOAL -->
       <div class="form-group row">
-        <label for="example-text-input" class="col-xs-4 col-form-label">What do you want to accomplish?</label>
+        <label for="example-text-input" class="col-xs-4 col-form-label">* What do you want to accomplish?</label>
         <div class="col-xs-8">
           <input ng-model="user.goal" class="form-control" type="text" placeholder="Get off your ass!" id="example-text-input" required>
         </div>
@@ -18,7 +18,7 @@
 
       <!-- PHONE NUMBER -->
       <div class="form-group row">
-        <label for="example-tel-input" class="col-xs-4 col-form-label">Your cellphone</label>
+        <label for="example-tel-input" class="col-xs-4 col-form-label">* Your cellphone</label>
         <div class="col-xs-8">
           <input ng-model="user.phoneNumber" class="form-control" type="tel" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$" placeholder="(555)-555-5555" id="example-tel-input" required>
         </div>
@@ -32,24 +32,25 @@
 
       <!-- BUDDY NAME -->
       <div class="form-group row">
-        <label for="example-text-input" class="col-xs-4 col-form-label">Buddy's name</label>
+        <label for="example-text-input" class="col-xs-4 col-form-label">  Buddy's name</label>
         <div class="col-xs-8">
-          <input ng-model="user.buddyName" class="form-control" type="text" placeholder="Don't make us call your mother..." id="example-text-input" required>
+          <input ng-model="user.buddyName" class="form-control" type="text" placeholder="Don't make us call your mother..." id="example-text-input">
         </div>
       </div>
 
       <!-- BUDDY PHONE -->
       <div class="form-group row">
-        <label for="example-tel-input" class="col-xs-4 col-form-label">Buddy's cellphone</label>
+        <label for="example-tel-input" class="col-xs-4 col-form-label">  Buddy's cellphone</label>
         <div class="col-xs-8">
-          <input ng-model="user.buddyPhone" class="form-control" type="tel" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$" placeholder="(555)-555-5555" id="example-tel-input" required>
+          <input ng-model="user.buddyPhone" class="form-control" type="tel" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$" placeholder="(555)-555-5555" id="example-tel-input">
         </div>
       </div>
 
       <!-- TOS ACCEPT -->
       <div class="form-check">
+        <label class="form-check-label">*
         <input ng-model="user.acceptsTerms" class="form-check-input" type="checkbox" required />
-        <label class="form-check-label"><small> I agree to the weird terms, accept text messaging charges </small></label>
+        <small> I agree to the weird terms, accept text messaging charges, and generally sign away all rights </small></label>
       </div>
       <br />
 
