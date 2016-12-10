@@ -15,14 +15,14 @@
         </div>
 
         <div ng-model=user.buddyPhone>
-          buddy phone : {{user.buddyPhone}}
+          buddy phone: ({{user.buddyPhone.slice(0, 3)}}) {{user.buddyPhone.slice(3, 6)}}-{{user.buddyPhone.slice(6)}}
         </div>
       </table>
 
       <p class="p-complete">
         <small>If you say you're done with this goal we'll go ahead and text your buddy to confirm completion before allowing you to register a new goal.</small>
       </p>
-      <button class="btn-complete">I'm so done!</button>
+      <a href="#/complete"><button class="btn-complete">I'm so done!</button></a>
 
     </div>
 
@@ -37,12 +37,12 @@
       </div>
     </div>
     <table class="table table-striped">
-      <thead>
+      <!-- <thead>
         <tr>
           <th>Date</th>
           <th>Response</th>
         </tr>
-      </thead>
+      </thead> -->
       <tbody>
         <tr ng-repeat="response in user.responses track by $index">
           <td>{{response[0]}}</td>

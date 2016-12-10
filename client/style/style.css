@@ -1,6 +1,3 @@
-
-
-
 body {
 	height: 100%;
   background-color: rgb(238, 242, 237);
@@ -31,7 +28,7 @@ hr {
 }
 
 .navbar-right {
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 form {
@@ -46,7 +43,6 @@ h1 {
 
 
 form {
-<<<<<<< 7c26947a3d126e1f3d9ce693cc0d1da45c9b5a55
 box-shadow: none;
 }
 
@@ -56,63 +52,40 @@ box-shadow: none;
 }
 
 .talk-bubble {
-    margin: 40px;
-    display: inline-block;
-    width: 200px;
-    height: auto;
-    background-color: lightgrey;
-    position: absolute;
-    left: 12px;
-    top: 100px;
-    font-family: 'Helvetica';
-    font-size: 12px;
+  margin: 40px;
+  display: inline-block;
+  width: 200px;
+  height: auto;
+  background-color: lightgrey;
+  position: absolute;
+  left: 12px;
+  top: 100px;
+  font-family: 'Helvetica';
+  font-size: 12px;
 }
 .tri-right.right-in:after {
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 38px;
-    right: auto;
-    top: auto;
-    bottom: -20px;
-    border: 12px solid;
-    border-color: lightgrey transparent transparent lightgrey;
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 38px;
+  right: auto;
+  top: auto;
+  bottom: -20px;
+  border: 12px solid;
+  border-color: lightgrey transparent transparent lightgrey;
 }
 
 .round {
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
 }
 
 .talktext {
-    padding: 1em;
-    text-align: left;
-    line-height: 1.5em;
-=======
-	box-shadow: none;
-}
-
-
-.image {
-   position: relative;
-   width: 100%; /* for IE 6 */
-}
-
-p {
-	position: absolute;
-
-	float: left;
-	/*width: 200px;*/
-	 text-shadow: none;
-	 font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-   top: 200px;
-   /*width: 10px;*/
-	 /*word-wrap: normal;*/
-   font-size : 12px;
-   margin : -7px 10px 0px 115px;
->>>>>>> added styling for adding text while typing
+  padding: 1em;
+  text-align: left;
+  line-height: 1.5em;
 }
 
 .p-complete {
@@ -120,4 +93,5 @@ p {
 }
 
 .btn-complete {
-border-radius: 5px;}
+  border-radius: 5px;
+}
