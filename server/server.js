@@ -103,15 +103,8 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1100)); // sets index and add 100 ms for delay to avoid null
-
-      var message = req.query.Body;
-      if (message === '1') {
-        message = 'ok, I guess...';
-      } else if (message === '2') {
-        message = 'you blew it';
-      }
-      user[0].responses[daysSinceGoalCreation] = [Date.now(), message]; // made changes to response array
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1000)); // sets index
+      user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
 
       User.findOne({
         phoneNumber: shortPhone
