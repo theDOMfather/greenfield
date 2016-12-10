@@ -7,7 +7,7 @@ angular.module("app.status", [])
     .success(function(user) {
     	$scope.user = user;
     	$scope.user.responses = $scope.user.responses.map(function(item){
-    		return [moment(item[0]).format(), item[1]];
+    		return [moment(item[0]).format('YYY/MM/DD'), item[1]];
     	});
     });
 
