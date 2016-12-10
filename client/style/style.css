@@ -1,5 +1,4 @@
 
-
 body {
 	height: 100%;
   background-color: rgb(238, 242, 237);
@@ -29,10 +28,6 @@ hr {
 	align:top;
 }
 
-.navbar-right {
-  /*margin-top: 10px;*/
-}
-
 form {
   text-align: left;
 }
@@ -45,12 +40,11 @@ h1 {
 
 
 form {
-box-shadow: none;
+  box-shadow: none;
 }
 
 .phone-container {
   position: relative;
-
 }
 
 .talk-bubble {
@@ -65,33 +59,29 @@ box-shadow: none;
   font-family: 'Helvetica';
   font-size: 12px;
 }
+
 .tri-right.right-in:after {
-
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 38px;
-    right: auto;
-    top: auto;
-    bottom: -20px;
-    border: 12px solid;
-    border-color: lightgrey transparent transparent lightgrey;
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 38px;
+  right: auto;
+  top: auto;
+  bottom: -20px;
+  border: 12px solid;
+  border-color: lightgrey transparent transparent lightgrey;
 }
-
 
 .arrow-top {
   float: right;
   left: 5px;
 }
 
-
 .round {
-
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
 }
 
 .talktext {
@@ -100,36 +90,21 @@ box-shadow: none;
   line-height: 1.5em;
 }
 
-
 .p-complete {
   max-width: 375px;
 }
 
 .navbar-brand {
-    position: absolute;
-    top: -10px;
-    left: 0px;
-    width: 200px;
-    height: 50px;
-    padding: 15px 15px;
-    font-size: 18px;
-    line-height: 20px;
+  position: absolute;
+  top: -10px;
+  left: 0px;
+  width: 200px;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
 }
 
 .btn-complete {
   border-radius: 5px;
 }
-
-p {
-	position: absolute;
-
-	float: left;
-	/*width: 200px;*/
-	 text-shadow: none;
-	 font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-   top: 200px;
-   /*width: 10px;*/
-	 /*word-wrap: normal;*/
-   font-size : 12px;
-   margin : -7px 10px 0px 115px;
- }
