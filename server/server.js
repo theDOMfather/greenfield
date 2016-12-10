@@ -144,18 +144,24 @@ exports.spam = function() {
       //calculate days since goal start
       var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1100)); // sets index modified to be slightly faster
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
+
+
       console.log('days since goal creation', daysSinceGoalCreation);
       console.log('user.responses', user.responses);
-      user.save((err, updatedUser) => err ? console.log("error from save", error) : console.log("confirmation from mongo", updatedUser));
-  });
 
+      User.findOne({
+        phoneNumber: user.phoneNumber
+      }, function(err, doc) {
+        doc.responses = user.responses;
+        doc.save();
+      });
 
-
-
-    // celebrate completion
-    console.log('spammed the shit out of \'em');
+      //    user.save((err, updatedUser) => err ? console.log("error from save", error) : console.log("confirmation from mongo", updatedUser))
+    });
   });
 };
+
+
 
 
 /*======================================
