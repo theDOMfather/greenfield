@@ -83,8 +83,8 @@ app.post('/create', function(req, res) {
     user.buddyPhone = req.body.buddyPhone;
     user.responses = [];
     user.goalStartDate = Date.now();
-    user.harassment = false;
-    user.harassementBuddy = false;
+    user.harassUser = false;
+    user.harassBuddy = false;
     user.grade = 100;
 
     user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
@@ -127,8 +127,8 @@ exports.spam = function() {
 
       // send harassment messages
       var harassmentState = harassmentEngine.harassmentChecker(user);
-      user.harassment = harassmentState.harassUser;
-      user.harrasmentBuddy = harassmentState.harassBuddy;
+      user.harassUser = harassmentState.harassUser;
+      user.harassBuddy = harassmentState.harassBuddy;
 
       // send out goal survey
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
@@ -170,7 +170,6 @@ exports.spam = function() {
         user.responses.forEach(function(tuple) {
           if(tuple[1] === 1) {
             count1++;
-            console.log(count1);
           }
         });
         var newGrade = count1/denominator*100;
