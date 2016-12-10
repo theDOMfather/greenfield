@@ -10,7 +10,6 @@ angular.module('app', [
 	.when('/', {
 		controller: function() { window.location.replace('/'); },
     template: '<div></div>'
-
 	})
 	.when('/create', {
 		templateUrl:"app/create/create.html",
