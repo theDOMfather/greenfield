@@ -9,13 +9,12 @@ body {
   /*background-size: auto, cover;*/
   /*background-repeat: repeat, no-repeat;*/
   /*background-attachment: scroll, scroll;*/
-  /*font-family: 'Open Sans', sans-serif;*/
   /*color: #f4ecec;*/
+  font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   line-height: 20px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
 }
-
 
 hr {
     display: block;
@@ -31,11 +30,17 @@ hr {
 	align:top;
 }
 
+.navbar-right {
+  margin-top: 10px; 
+}
+
 form {
   text-align: left;
 }
 
 h1 {
+  font-family: 'Lily Script One', sans-serif;
+  font-size: 48px;
   text-align: center;
 }
 
@@ -59,6 +64,7 @@ box-shadow: none;
     position: absolute;
     left: 12px;
     top: 100px;
+    font-family: 'Helvetica';
     font-size: 12px;
 }
 .tri-right.right-in:after {
