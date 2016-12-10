@@ -7,7 +7,7 @@ angular.module("app.status", [])
       $scope.user = user;
       $scope.responses = user.responses.map((tuple) => {
         if (tuple[1] === '1') {
-          tuple[1] = 'you didn\'t suck!';
+          tuple[1] = 'you didn\'t suck';
         } else if (tuple[1] === '2') {
           tuple[1] = 'you blew it';
         }
