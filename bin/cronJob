@@ -2,4 +2,4 @@
 
 require('../server/server.js')
   .spam();
-  //.gradeUser();
+  .gradeUsers();
