@@ -153,34 +153,34 @@ exports.spam = function() {
   //1 is yes, 2 is no
   //sample array of responses
 
-  exports.gradeUser = function() {
-  // query database for all users
-  User.find((err, users) => {
-    // iterate through and apply periodic goal poll
-    users.forEach(user => {
-
-      if(user.responses.length <1) {
-        //do nothing
-      } else{
-        //read responses for user
-        //store the length of array in a variable (give length of attempt at goal)
-
-        var denominator = user.responses.length;
-        var count1 =0;
-        user.responses.forEach(function(tuple) {
-          if(tuple[1] === 1) {
-            count1++;
-          }
-        });
-        var newGrade = count1/denominator*100;
-        user.newGrade =newGrade;
-        user.save();
-      }
-    });
-    //update cron job
-  });
-  //add logic for send periodic messages to populate a tuple with the current date and null/undefined
-};
+//   exports.gradeUser = function() {
+//   // query database for all users
+//   User.find((err, users) => {
+//     // iterate through and apply periodic goal poll
+//     users.forEach(user => {
+//
+//       if(user.responses.length <1) {
+//         //do nothing
+//       } else{
+//         //read responses for user
+//         //store the length of array in a variable (give length of attempt at goal)
+//
+//         var denominator = user.responses.length;
+//         var count1 =0;
+//         user.responses.forEach(function(tuple) {
+//           if(tuple[1] === 1) {
+//             count1++;
+//           }
+//         });
+//         var newGrade = count1/denominator*100;
+//         user.newGrade =newGrade;
+//         user.save();
+//       }
+//     });
+//     //update cron job
+//   });
+//   //add logic for send periodic messages to populate a tuple with the current date and null/undefined
+// };
 
 
 // start server
