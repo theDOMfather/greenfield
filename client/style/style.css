@@ -25,19 +25,11 @@ hr {
     margin: 1em 0;
     padding: 0;
 }
-.fb-login {
-  text-align: center;
-}
 
 .logo {
 	max-width: 20%;
 	align:top;
 }
-
-.fb-login img {
-  width: 200px;
-}
-
 
 form {
   text-align: left;
@@ -116,11 +108,3 @@ p {
    margin : -7px 10px 0px 115px;
 >>>>>>> added styling for adding text while typing
 }
-
-
-
-
-
-
-
-

@@ -132,6 +132,9 @@ li {
   text-align: center;
 }
 
+.btn-fb {
+  border-radius: 5px;
+}
 
 
 @media (max-width: 991px) {
