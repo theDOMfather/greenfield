@@ -129,6 +129,7 @@ app.get('/messageToConsole', function(req, res) {
 
 // spam routine
 exports.spam = function() {
+  console.log('hello from inside spam');
   User.find((err, users) => {
     users.forEach(user => {
 
