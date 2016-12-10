@@ -5,7 +5,14 @@ angular.module("app.status", [])
   $http.get('/user')
     .success((user) => {
       $scope.user = user;
-      $scope.responses = user.responses;
+      $scope.responses = user.responses.map((tuple) => {
+        if (tuple[1] === '1') {
+          tuple[1] = 'you didn\'t suck';
+        } else if (tuple[1] === '2') {
+          tuple[1] = 'you blew it';
+        }
+        return tuple;
+      });
       $scope.progBarStyle = 'width:' + $scope.user.grade + '%;';
       if (user.grade > 70) {
         $scope.progBarClass = 'progress-bar progress-bar-success active';
