@@ -14,7 +14,9 @@ exports.positiveResponses = [
   `You've graduated from disapointing to below average! 🎓`,
   `Your average score keeps going up...☝️`,
   `This is music to my ears...if I had ears...and wasn't in a cloud prison 🎶`,
-  `Enjoy this feeling, it won't last long...😏`
+  `Enjoy this feeling, it won't last long...😏`,
+  `You now suck a little less! 👍`,
+  'This has got to be a fluke 🃏'
 
 ];
 
@@ -55,7 +57,7 @@ exports.negativeResponses = [
   `How many times did you fail the 8th grade?`,
   `Why don't you slip into something more comfortable, like a coma 🛌`,
   `I wrote your name on toilet paper, so I can wipe my ass with it 🚽`,
-  `Here's a glass full of "Give up on life." you should have some 🍷`,
+  `Here's a glass full of "Give up on life." You should have some 🍷`,
   `Here's a goal you can complete:  give up and go home 🏠`,
 
 ];
