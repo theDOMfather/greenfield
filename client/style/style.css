@@ -66,22 +66,32 @@ box-shadow: none;
   font-size: 12px;
 }
 .tri-right.right-in:after {
-  content: ' ';
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 38px;
-  right: auto;
-  top: auto;
-  bottom: -20px;
-  border: 12px solid;
-  border-color: lightgrey transparent transparent lightgrey;
+
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 38px;
+    right: auto;
+    top: auto;
+    bottom: -20px;
+    border: 12px solid;
+    border-color: lightgrey transparent transparent lightgrey;
 }
 
+
+.arrow-top {
+  float: right;
+  left: 5px;
+}    
+
+
 .round {
-  border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
+
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+
 }
 
 .talktext {

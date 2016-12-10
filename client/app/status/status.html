@@ -11,9 +11,10 @@
 
       <table class="table table-striped">
         <div ng-model="user.buddyName">
-          buddy name: {{user.buddyName}}
+            <label class="col-sm-2 control-label">Buddy Name:</label>
+         <div class="col-sm-10">
+        <p class="form-control-static">{{user.buddyName}}</p>
         </div>
-
         <div ng-model=user.buddyPhone>
           buddy phone: ({{user.buddyPhone.slice(0, 3)}}) {{user.buddyPhone.slice(3, 6)}}-{{user.buddyPhone.slice(6)}}
         </div>
@@ -45,7 +46,7 @@
       </thead> -->
       <tbody>
         <tr ng-repeat="response in user.responses track by $index">
-          <td>{{response[0]}}</td>
+          <td>{{response[0].slice(0,10)}}</td>
           <td>{{response[1]}}</td>
         </tr>
       </tbody>
@@ -56,8 +57,8 @@
     <div class="image-column w-col w-col-6 w-col-medium-6 phone-container"><img class="iphone-image" sizes="(max-width: 479px) 167px, (max-width: 767px) 190px, 335px" src="assets/phone_image.png" srcset="assets/phone_image.png 500w, assets/phone_image.png 670w" width="335">
   <div class="talk-bubble tri-right round right-in">
   <div class="talktext">How did you do on your goal of:  # {{user.goal}} #<br><br> Reply 1 for 'yes'/ 2 for 'no'</div>
-  </div>
     </div>
   </div>
+ 
 
 </div>

@@ -6,8 +6,15 @@ angular.module('app.service', [])
 			method:'POST',
 			url:'/create',
 			data: JSON.stringify(user)
-		})
-  };
+		});
+    };
+
+    // var getDate = function(date) {
+    // 	 return  moment.unix(date);
+
+    // };
+
+
 
 	return {
 		add: add
