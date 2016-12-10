@@ -136,10 +136,14 @@ exports.spam = function() {
       //calculate days since goal start
       var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1000)); // sets index
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
-
+      console.log('days since goal creation', daysSinceGoalCreation);
+      console.log('user.responses', user.responses);
       user.save();
 
   });
+
+
+
 
     // celebrate completion
     console.log('spammed the shit out of \'em');
