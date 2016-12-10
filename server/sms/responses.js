@@ -30,7 +30,7 @@ exports.negativeResponses = [
   `You make me sick, and I don't have feelings...`,
   `I just sharted in my console.`,
   `It's prob time you look at yourself in the mirorr and admit you suck`,
-  `I told you so`,
+  `I told you so🖕`,
   `You smell better than you look...or is it the otherway around?`,
   `You hair looks great, today`,
   `give up time...`,
