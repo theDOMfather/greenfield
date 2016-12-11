@@ -112,7 +112,7 @@ app.get('/messageToConsole', function(req, res) {
   }, function(err, user) {
     if (err) {
       console.log(err);
-    } else {
+    } else if (user) {
       var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
       console.log('days since goal creation', daysSinceGoalCreation);
 
