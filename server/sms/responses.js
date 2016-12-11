@@ -14,6 +14,7 @@ exports.positiveResponses = [
   `You've graduated from disapointing to below average! 🎓`,
   `Your average score keeps going up...☝️`,
   `I told you so🖕`,
+  `Stop lying 🖕`,
   `You hair looks great, today 🤔`,
   `This is music to my ears...if I had ears...and wasn't in a cloud prison 🎶`,
   `Enjoy this feeling, it won't last long...😏`,
@@ -31,14 +32,12 @@ exports.negativeResponses = [
   `Your middle school crush still regrets holding your hand😞`,
   `I expected as much...sigh 🤐`,
   `You are what happens when an abortion pill fails 😞`,
-  `Roe vs. Wade, in your case, was a mistake 😞`,
   `The phrase "Everyone's a winner" doesn't apply to you 🏆`,
   `Another day of lowering your average...😞`,
   `You make me sick, and I don't have feelings...🤒`,
-  `Does your shit celebrate when it's getting flush to get away from you?...💩`,
+  `Does your shit celebrate when it's getting flushed to get away from you?...💩`,
   `I just sharted in my console.💩💩💩`,
   `You will die alone in a home when your family disowns you.💩💩💩`,
-  `Your grandma is rolling over in her grave`,
   `You worthless of shit even suck at failing...`,
   `It's prob time you look at yourself in the mirror and admit you suck😞`,
   `You smell better than you look...or is it the otherway around?👃`,
@@ -62,11 +61,9 @@ exports.negativeResponses = [
   `A cow could use the space you're taking up right now 🐮`,
   `Your dad should have rubbed one out that night 💦💦💦`,
   `Your mom should have had a headache that night 🤒`,
-  `Your mom should have fallen down the stairs 🤕 🚑`,
   `How many times did you fail the 8th grade?`,
   `Why don't you slip into something more comfortable, like a coma 🛌`,
   `I wrote your name on toilet paper, so I can wipe my ass with it 🚽`,
-  `Here's a glass full of "Give up on life." You should have some 🍷`,
-  `Here's a goal you can complete:  give up and go home 🏠`
+  `Here's a goal you can complete: Give up and go home 🏠`
 
 ];
