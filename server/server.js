@@ -135,6 +135,10 @@ app.get('/messageToConsole', function(req, res) {
 
 app.post('/externaHarassmentAPI', function(req, res) {
   console.log("received this data from harassment API", req);
+  console.log("boddy data", req.body);
+
+
+  res.send("account creation failed");
 
   // build future version for harassment ability by others...
 
