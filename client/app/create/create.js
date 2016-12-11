@@ -1,4 +1,4 @@
-angular.module("app.goal", [])
+angular.module("app.create", [])
 
 .controller("createController", function($scope, $http, $location, createFactory) {
 	$scope.user = {};

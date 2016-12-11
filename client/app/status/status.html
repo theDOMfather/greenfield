@@ -18,7 +18,7 @@
         </div>
       </table>
 
-      <a href="#/complete"><button class="btn-complete">I'm so done!</button></a>
+      <a href="#/finish"><button type="button" class="btn btn-danger">I'm so done</button></a>
 
     </div>
 
@@ -29,8 +29,8 @@
     <table class="table table-striped">
       <tbody>
         <tr ng-repeat="response in responses track by $index">
-          <td>{{response[0]}}</td>
-          <td>{{response[1]}}</td>
+          <td class="res-date">{{response[0]}}</td>
+          <td class="res-text">{{response[1]}}</td>
         </tr>
       </tbody>
     </table>

@@ -92,6 +92,15 @@ app.post('/create', function(req, res) {
   });
 });
 
+// goal completion routes
+app.post('/finish', function(req, res) {
+  console.log('finishing...');
+  User.findById(req.user._id, function(err, user) {
+    user.goal = null;
+    user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
+  });
+});
+
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
   var shortPhone = req.query.From.substring(2);
@@ -103,15 +112,8 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1100)); // sets index and add 100 ms for delay to avoid null
-
-      var message = req.query.Body;
-      if (message === '1') {
-        message = 'ok, I guess...';
-      } else if (message === '2') {
-        message = 'you blew it';
-      }
-      user[0].responses[daysSinceGoalCreation] = [Date.now(), message]; // made changes to response array
+      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1000)); // sets index
+      user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
 
       User.findOne({
         phoneNumber: shortPhone
@@ -145,7 +147,6 @@ exports.spam = function() {
       var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1100)); // sets index modified to be slightly faster
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
 
-
       console.log('days since goal creation', daysSinceGoalCreation);
       console.log('user.responses', user.responses);
 
@@ -155,50 +156,27 @@ exports.spam = function() {
         doc.responses = user.responses;
         doc.save();
       });
-
-      //    user.save((err, updatedUser) => err ? console.log("error from save", error) : console.log("confirmation from mongo", updatedUser))
     });
   });
 };
 
+// assign grades to users based on response history
+exports.gradeUsers = function() {
+// query database for all users
+  User.find((err, users) => {
+    users.forEach(user => {
+      if(user.responses && user.responses.length) {
 
+        // calculate percentage of positive ('1') responses
+        var progress = user.responses.reduce((acc, tuple) => {tuple[1] === '1' ? ++acc : acc}, 0);
+        user.grade = progress / user.responses.length * 100;
 
-
-/*======================================
-=======classifying USER HERE ===========
-=======================================*/
-  //1 is yes, 2 is no
-  //sample array of responses
-
-//   exports.gradeUser = function() {
-//   // query database for all users
-//   User.find((err, users) => {
-//     // iterate through and apply periodic goal poll
-//     users.forEach(user => {
-//
-//       if(user.responses.length <1) {
-//         //do nothing
-//       } else{
-//         //read responses for user
-//         //store the length of array in a variable (give length of attempt at goal)
-//
-//         var denominator = user.responses.length;
-//         var count1 =0;
-//         user.responses.forEach(function(tuple) {
-//           if(tuple[1] === 1) {
-//             count1++;
-//           }
-//         });
-//         var newGrade = count1/denominator*100;
-//         user.newGrade =newGrade;
-//         user.save();
-//       }
-//     });
-//     //update cron job
-//   });
-//   //add logic for send periodic messages to populate a tuple with the current date and null/undefined
-// };
-
+        // update database entry
+        user.save();
+      }
+    });
+  });
+};
 
 // start server
 app.listen(port);
