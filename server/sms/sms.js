@@ -157,3 +157,15 @@ exports.getAllMessages = function() {
     });
   });
 };
+
+
+exports.spamCall = function(){
+
+  twilio.makeCall({
+    from: '+14152003022',
+    to: '6468318760',
+    url: 'http://ahoy.twilio.com/voice/api/demo'
+  }, function (err, responseData) {
+    console.log(responseData);
+  });
+};

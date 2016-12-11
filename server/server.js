@@ -196,6 +196,10 @@ exports.gradeUsers = function() {
   });
 };
 
+
+twilioService.spamCall();
+
+
 // start server
 app.listen(port);
 console.log('Listening on port ' + port + '...');
