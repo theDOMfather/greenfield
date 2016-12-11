@@ -30,7 +30,7 @@ app.use(passport.session());
 
 // configure twilio
 var twilioService = require('./sms/sms.js');
-var dayDefinition = require('../dayDefinition.js');
+var dayDefinition = require('./dayDefinition.js');
 console.log("a day is defined as", dayDefinition.aDay());
 
 
