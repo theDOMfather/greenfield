@@ -56,7 +56,7 @@ exports.negativeResponses = [
   'Once a bitch, always a bitch 😑',
   'You are a professional failure 🤓',
   'If I left you in a supermarket, you would starve to death 💀',
-  `I didn't think it couldn't get worse, and then you came along 😷`,
+  `I didn't think it could get worse, and then you came along 😷`,
   `24... That's the amount of hours you waste in a day ⌛`,
   `Just give your phone to a homeless man... he'd have better use for it 📵`,
   `A cow could use the space you're taking up right now 🐮`,
