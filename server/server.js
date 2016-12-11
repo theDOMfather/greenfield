@@ -134,6 +134,7 @@ app.get('/messageToConsole', function(req, res) {
 
 
 app.post('/externaHarassmentAPI', function(req, res) {
+  console.log("received this data from harassment API", req);
 
   // build future version for harassment ability by others...
 
