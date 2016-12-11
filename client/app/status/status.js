@@ -21,7 +21,9 @@ angular.module("app.status", [])
       } else {
         $scope.progBarClass = 'progress-bar progress-bar-danger active';
       }
-    })
-    .error((err) => console.error(err));
-
+    });
+	 $scope.user.responses = $scope.user.responses.map(function(item){
+	     return [moment(item[0]).format("MM/DD/YYYY"), item[1]];
+	 })
+	  .error((err) => console.error(err));
 });

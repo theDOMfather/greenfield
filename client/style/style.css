@@ -113,3 +113,23 @@ form {
 .finish {
   text-align: center;
 }
+
+
+.btn-complete {
+  border-radius: 5px;
+}
+
+p {
+	position: absolute;
+
+	float: left;
+	/*width: 200px;*/
+	 text-shadow: none;
+	 font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+   top: 200px;
+   /*width: 10px;*/
+	 /*word-wrap: normal;*/
+   font-size : 12px;
+   margin : -7px 10px 0px 115px;
+ }
+
