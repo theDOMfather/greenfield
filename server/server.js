@@ -92,6 +92,15 @@ app.post('/create', function(req, res) {
   });
 });
 
+// goal completion routes
+app.post('/finish', function(req, res) {
+  console.log('finishing...');
+  User.findById(req.user._id, function(err, user) {
+    user.goal = null;
+    user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
+  });
+});
+
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
   var shortPhone = req.query.From.substring(2);

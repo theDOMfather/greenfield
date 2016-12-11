@@ -1,6 +1,7 @@
 angular.module('app', [
 	'app.service',
-	'app.goal',
+	'app.create',
+  'app.finish',
 	'app.status',
 	'ngRoute'
 	])
@@ -19,6 +20,10 @@ angular.module('app', [
 		templateUrl:"app/status/status.html",
 		controller:"statusController"
 	})
+  .when('/finish', {
+    templateUrl:"app/finish/finish.html",
+    controller:"finishController"
+  })
 	.otherwise({
 		redirectTo: '/'
 	});
