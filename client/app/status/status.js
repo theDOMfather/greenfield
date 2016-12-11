@@ -33,24 +33,8 @@ angular.module("app.status", [])
         $scope.message = 'Rainbow dash is incredibly dissappointed in your performance. Get your shit together...';
       }
     });
-    $scope.user.responses = $scope.user.responses.map(function(item){
-    		return [moment(item[0]).format('YYY/MM/DD'), item[1]];
-    })  
-    .error((err) => console.error(err));
-  $scope.imageSrc = '';
-
-  $http.get('/user')
-    .success(function(user) {
-    	$scope.user = user;
-    	$scope.user.responses = $scope.user.responses.map(function(item){
-    		return [moment(item[0]).format("MM/DD/YYYY"), item[1]];
-    	});
-
-    $scope.click = function() {
-    	$scope.imageSrc= "assets/present1.gif";
-    };
-
-
-  });
-
+	 $scope.user.responses = $scope.user.responses.map(function(item){
+	     return [moment(item[0]).format("MM/DD/YYYY"), item[1]];
+	 })
+	  .error((err) => console.error(err));
 });
