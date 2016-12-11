@@ -107,28 +107,21 @@ app.get('/messageToConsole', function(req, res) {
   var shortPhone = req.query.From.substring(2);
 
   //figure out phone number of request
-  User.find({
+  User.findOne({
     phoneNumber: shortPhone // finds the user in the db
   }, function(err, user) {
     if (err) {
       console.log(err);
     } else {
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
+      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
       console.log('days since goal creation', daysSinceGoalCreation);
 
-
-      var message = req.query.Body;
-      if (message === '1') {
-        message = 'ok, I guess...';
-      } else if (message === '2') {
-        message = 'you blew it';
-      }
-      user[0].responses[daysSinceGoalCreation] = [Date.now(), message]; // made changes to response array
+      user.responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
 
       User.findOne({
         phoneNumber: shortPhone
       }, function(err, doc) {
-        doc.responses = user[0].responses;
+        doc.responses = user.responses;
         doc.save();
       });
     }
