@@ -8,6 +8,7 @@ angular.module("app.status", [])
 
       $scope.responses = user.responses.map((tuple) => {
         if (tuple) {
+          tuple[0] = moment(tuple[0]).format("MM/DD/YYYY");
           if (tuple[1] === '1') {
             tuple[1] = 'you didn\'t suck';
           } else if (tuple[1] === '2') {
