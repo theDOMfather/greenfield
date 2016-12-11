@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-require('../server/server.js')
-  .spam();
-  .gradeUsers();
+var server = require('../server/server.js');
+server.spam();
+server.gradeUsers();

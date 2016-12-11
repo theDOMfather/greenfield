@@ -30,6 +30,8 @@ app.use(passport.session());
 
 // configure twilio
 var twilioService = require('./sms/sms.js');
+var dayDefinition = require('./dayDefinition.js');
+console.log("a day is defined as", dayDefinition.aDay());
 
 
 var harassmentEngine = require('./sms/harassmentEngine.js');
@@ -105,25 +107,35 @@ app.get('/messageToConsole', function(req, res) {
   var shortPhone = req.query.From.substring(2);
 
   //figure out phone number of request
-  User.find({
+  User.findOne({
     phoneNumber: shortPhone // finds the user in the db
   }, function(err, user) {
     if (err) {
       console.log(err);
     } else {
-      var daysSinceGoalCreation = Math.round((Date.now() - user[0].goalStartDate) / (10 * 60 * 1000)); // sets index
-      user[0].responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
+      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
+      console.log('days since goal creation', daysSinceGoalCreation);
+
+      user.responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
 
       User.findOne({
         phoneNumber: shortPhone
       }, function(err, doc) {
-        doc.responses = user[0].responses;
+        doc.responses = user.responses;
         doc.save();
       });
     }
   });
 
   twilioService.responseMaker(req, res);
+
+});
+
+
+
+app.post('/externaHarassmentAPI', function(req, res) {
+
+  // build future version for harassment ability by others...
 
 });
 
@@ -143,8 +155,10 @@ exports.spam = function() {
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
 
       //calculate days since goal start
-      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / (10 * 60 * 1100)); // sets index modified to be slightly faster
+      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
       user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
+      console.log('days since goal creation', daysSinceGoalCreation);
+
 
       console.log('days since goal creation', daysSinceGoalCreation);
       console.log('user.responses', user.responses);
