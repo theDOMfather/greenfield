@@ -106,8 +106,17 @@ form {
   text-align: right;
 }
 
+.status p{
+  margin-top: 25px;
+  text-align: center;
+}
+
+.img-status {
+  width: 100%;
+}
+
 .pic-finish {
-  margin-right: 50px; 
+  margin-right: 50px;
 }
 
 .finish {
