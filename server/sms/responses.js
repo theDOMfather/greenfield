@@ -65,5 +65,4 @@ exports.negativeResponses = [
   `Why don't you slip into something more comfortable, like a coma 🛌`,
   `I wrote your name on toilet paper, so I can wipe my ass with it 🚽`,
   `Here's a goal you can complete: Give up and go home 🏠`
-
 ];

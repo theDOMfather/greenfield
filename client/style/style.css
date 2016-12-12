@@ -106,12 +106,12 @@ form {
   text-align: right;
 }
 
-.status p{
+.status p {
   margin-top: 25px;
   text-align: center;
 }
 
-.img-status {
+.status img {
   width: 100%;
 }
 

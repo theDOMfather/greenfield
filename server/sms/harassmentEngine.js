@@ -7,7 +7,9 @@ getLastThreeResponses = function(responses){
   var arrayOfResponses = [];
   if (responses.length >2){
     for (var i = responses.length-1; i> responses.length - 4; i--) {
-      arrayOfResponses.push(responses[i][1]);
+      if (responses[i]) {
+        arrayOfResponses.push(responses[i][1]);
+      }
     }
   return arrayOfResponses;
   } else{
