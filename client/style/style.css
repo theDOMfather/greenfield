@@ -122,3 +122,20 @@ form {
 .finish {
   text-align: center;
 }
+
+
+#goal-icon{
+	width: 50%;
+	height: auto;
+}
+
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+/*div{
+	border: 1px red solid;
+}*/
