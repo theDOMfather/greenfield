@@ -36,10 +36,18 @@
   </div>
 
   <div class="status col-xs-6 col-md-4" ng-model="user.goal">
-    <img class="img-status" src="{{image}}" />
     <p>{{message}}</p>
+    <img class="img-status" src={{image}} />
+    <h3>your grade</h3>
+    <hr />
+
+    <div class="progress">
+      <div class={{progBarClass}} role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style={{progBarStyle}}>
+        <strong> {{user.grade}}% </strong>
+      </div>
+    </div>
   </div>
-  
+
 
 
 </div>

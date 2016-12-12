@@ -32,7 +32,7 @@ var twilioService = require('./sms/sms.js');
 var dayDefinition = require('./dayDefinition.js');
 console.log("a day is defined as", dayDefinition.aDay());
 
-
+// configure harassment logic
 var harassmentEngine = require('./sms/harassmentEngine.js');
 
 // server static files
@@ -135,22 +135,11 @@ app.get('/messageToConsole', function(req, res) {
 });
 
 // dev testing route
-// gets all users and rolls back their goalStartDates according to request before running spam and grade routines
-app.get('/test', function(req, res) {
-  // console.log('body:', req.body);
-//  var days = + req.body.days;
-
-  // User.findOne({name: req.body.name}, function(err, user) {
-  //   user.goalStartDate -= days*24*60*60*1000;
-  //   user.responses = user.responses.map(tuple => tuple ? [tuple[0] - days*24*60*60*1000, tuple[1]] : null);
-  //   User.update({_id: user._id}, {goalStartDate: user.goalStartDate, responses: user.responses}, err => err ? console.error(err) : null);
-  // });
-
-  setTimeout(exports.spam, 1000);
-  //setTimeout(exports.gradeUsers, 1000);
-  res.send('' + days);
+app.post('/test', function(req, res) {
+  exports.spam();
+  exports.gradeUsers();
+  res.send();
 });
-
 
 app.post('/externaHarassmentAPI', function(req, res) {
   // console.log("received this data from harassment API", req);
@@ -162,7 +151,6 @@ app.post('/externaHarassmentAPI', function(req, res) {
   // build future version for harassment ability by others...
 
 });
-
 
 // spam routine
 exports.spam = function() {
@@ -192,7 +180,7 @@ exports.spam = function() {
   exports.gradeUsers();
 };
 
-// assign grades to users based on response history
+// invokes grade function for all users
 exports.gradeUsers = function() {
 // query database for all users
   User.find((err, users) => {
@@ -200,6 +188,7 @@ exports.gradeUsers = function() {
   });
 };
 
+// grades users based on their response history
 function grade(user) {
   if(user.responses && user.responses.length) {
 
