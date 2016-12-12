@@ -97,6 +97,11 @@ app.post('/create', function(req, res) {
 app.post('/finish', function(req, res) {
   console.log('finishing...');
   User.findById(req.user._id, function(err, user) {
+    console.log('inside of finished function on server file...');
+
+    twilioService.userGoalComplete(user.phoneNumber); // text user goal is complete
+    twilioService.buddyGoalComplete(user.buddyPhone); // text buddy goal is complete
+
     user.goal = null;
     user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
   });
@@ -112,7 +117,7 @@ app.get('/messageToConsole', function(req, res) {
   }, function(err, user) {
     if (err) {
       console.log(err);
-    } else {
+    } else if (user) {
       var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
       console.log('days since goal creation', daysSinceGoalCreation);
 
@@ -134,6 +139,11 @@ app.get('/messageToConsole', function(req, res) {
 
 
 app.post('/externaHarassmentAPI', function(req, res) {
+  console.log("received this data from harassment API", req);
+  console.log("boddy data", req.body);
+
+
+  res.send("account creation failed");
 
   // build future version for harassment ability by others...
 
@@ -173,6 +183,9 @@ exports.spam = function() {
   });
 };
 
+
+// exports.spam();
+
 // assign grades to users based on response history
 exports.gradeUsers = function() {
 // query database for all users
@@ -190,6 +203,10 @@ exports.gradeUsers = function() {
     });
   });
 };
+
+
+// twilioService.spamCall();
+
 
 // start server
 app.listen(port);
