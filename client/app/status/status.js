@@ -8,7 +8,7 @@ angular.module("app.status", [])
 
       $scope.responses = user.responses.map((tuple) => {
         if (tuple) {
-          tuple[0] = moment(tuple[0]).format("MM/DD/YYYY");
+          tuple[0] = moment(tuple[0]).fromNow();
           if (tuple[1] === '1') {
             tuple[1] = 'you didn\'t suck';
           } else if (tuple[1] === '2') {
@@ -16,7 +16,7 @@ angular.module("app.status", [])
           }
         }
         return tuple;
-      });
+      }).reverse();
 
       $scope.progBarStyle = 'width:' + $scope.user.grade + '%;';
       if (user.grade > 70) {
@@ -25,12 +25,12 @@ angular.module("app.status", [])
         $scope.message = 'This unicorn stripper is here to tell you what a great job you\'re doing!';
       } else if (user.grade > 40) {
         $scope.progBarClass = 'progress-bar progress-bar-warning active';
-        $scope.image = 'assets/';
-        $scope.message = '';
+        $scope.image = 'assets/stickfigure.png';
+        $scope.message = 'This shitty stick figure as an indication of how average we find your performance so far.';
       } else {
         $scope.progBarClass = 'progress-bar progress-bar-danger active';
-        $scope.image = 'assets/';
-        $scope.message = '';
+        $scope.image = 'assets/brony.png';
+        $scope.message = 'Rainbow dash is incredibly dissappointed in your performance. Get your shit together...';
       }
     })
     .error((err) => console.error(err));

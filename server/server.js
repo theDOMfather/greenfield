@@ -215,7 +215,7 @@ exports.gradeUsers = function() {
         var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
         user.grade = progress / user.responses.length * 100;
 
-        // update database entry
+        // update database entry 
         User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
       }
     });
