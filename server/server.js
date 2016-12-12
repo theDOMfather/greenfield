@@ -118,7 +118,6 @@ app.get('/messageToConsole', function(req, res) {
       console.log(err);
     } else if (user) {
       var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
-      console.log('days since goal creation', daysSinceGoalCreation);
 
       user.responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
 
@@ -154,8 +153,8 @@ app.post('/test', function(req, res) {
 
 
 app.post('/externaHarassmentAPI', function(req, res) {
-  console.log("received this data from harassment API", req);
-  console.log("boddy data", req.body);
+  // console.log("received this data from harassment API", req);
+  // console.log("body data", req.body);
 
 
   res.send("account creation failed");
