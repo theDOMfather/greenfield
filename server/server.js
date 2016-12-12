@@ -119,7 +119,11 @@ app.get('/messageToConsole', function(req, res) {
     } else if (user) {
 
       if (user.responses.length > 0){ // ensure that at least spam message has been sent, populated by an fail to be replaced
-        user.responses.push([Date.now(), req.query.Body]); // push to response array
+
+      var lastIndexToReplace = user.responses.length -1;
+      console.log("index to replace", lastIndexToReplace);
+
+        user.responses[lastIndexToReplace] = [Date.now(), req.query.Body]; // push to response array
       }
 
       User.findOne({
