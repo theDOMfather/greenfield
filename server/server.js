@@ -136,6 +136,22 @@ app.get('/messageToConsole', function(req, res) {
 
 });
 
+// dev testing route
+// gets all users and rolls back their goalStartDates according to request before running spam and grade routines
+app.post('/test', function(req, res) {
+  console.log('body:', req.body);
+  var days = + req.body.days;
+
+  User.findOne({name: req.body.name}, function(err, user) {
+    user.goalStartDate -= days*24*60*60*1000;
+    user.responses = user.responses.map(tuple => tuple ? [tuple[0] - days*24*60*60*1000, tuple[1]] : null);
+    User.update({_id: user._id}, {goalStartDate: user.goalStartDate, responses: user.responses}, err => err ? console.error(err) : null);
+  });
+
+  setTimeout(exports.spam, 1000);
+  setTimeout(exports.gradeUsers, 1000);
+  res.send('' + days);
+});
 
 
 app.post('/externaHarassmentAPI', function(req, res) {
@@ -175,12 +191,14 @@ exports.spam = function() {
 
       User.findOne({
         phoneNumber: user.phoneNumber
-      }, function(err, doc) {
-        doc.responses = user.responses;
-        doc.save();
+      }, function(err, updateUser) {
+        updateUser.responses = user.responses;
+        updateUser.save();
       });
     });
   });
+  
+  exports.gradeUsers();
 };
 
 
@@ -194,18 +212,15 @@ exports.gradeUsers = function() {
       if(user.responses && user.responses.length) {
 
         // calculate percentage of positive ('1') responses
-        var progress = user.responses.reduce((acc, tuple) => {tuple[1] === '1' ? ++acc : acc}, 0);
+        var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
         user.grade = progress / user.responses.length * 100;
 
         // update database entry
-        user.save();
+        User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
       }
     });
   });
 };
-
-
-// twilioService.spamCall();
 
 
 // start server
