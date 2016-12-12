@@ -143,13 +143,13 @@ app.get('/messageToConsole', function(req, res) {
 // gets all users and rolls back their goalStartDates according to request before running spam and grade routines
 app.post('/test', function(req, res) {
   console.log('body:', req.body);
-  var days = + req.body.days;
+//  var days = + req.body.days;
 
-  User.findOne({name: req.body.name}, function(err, user) {
-    user.goalStartDate -= days*24*60*60*1000;
-    user.responses = user.responses.map(tuple => tuple ? [tuple[0] - days*24*60*60*1000, tuple[1]] : null);
-    User.update({_id: user._id}, {goalStartDate: user.goalStartDate, responses: user.responses}, err => err ? console.error(err) : null);
-  });
+  // User.findOne({name: req.body.name}, function(err, user) {
+  //   user.goalStartDate -= days*24*60*60*1000;
+  //   user.responses = user.responses.map(tuple => tuple ? [tuple[0] - days*24*60*60*1000, tuple[1]] : null);
+  //   User.update({_id: user._id}, {goalStartDate: user.goalStartDate, responses: user.responses}, err => err ? console.error(err) : null);
+  // });
 
   setTimeout(exports.spam, 1000);
   //setTimeout(exports.gradeUsers, 1000);
@@ -198,7 +198,7 @@ exports.spam = function() {
 };
 
 
-exports.spam();
+//exports.spam();
 //
 // // assign grades to users based on response history
 // exports.gradeUsers = function() {
