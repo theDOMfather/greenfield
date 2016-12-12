@@ -172,21 +172,14 @@ exports.spam = function() {
     users.forEach(user => {
 
       // send harassment messages
-      var harassmentState = harassmentEngine.harassmentChecker(user);
-      user.harassUser = harassmentState.harassUser;
-      user.harassBuddy = harassmentState.harassBuddy;
+      // var harassmentState = harassmentEngine.harassmentChecker(user);
+      // user.harassUser = harassmentState.harassUser;
+      // user.harassBuddy = harassmentState.harassBuddy;
 
       // send out goal survey
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
 
-      //calculate days since goal start
-      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
-      user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
-      console.log('days since goal creation', daysSinceGoalCreation);
-
-
-      console.log('days since goal creation', daysSinceGoalCreation);
-      console.log('user.responses', user.responses);
+      user.responses.push([Date.now(), 'new fail.']); // made changes to response array
 
       User.findOne({
         phoneNumber: user.phoneNumber
@@ -196,7 +189,7 @@ exports.spam = function() {
       });
     });
   });
-  
+
   exports.gradeUsers();
 };
 
@@ -214,7 +207,7 @@ exports.gradeUsers = function() {
         var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
         user.grade = progress / user.responses.length * 100;
 
-        // update database entry 
+        // update database entry
         User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
       }
     });
