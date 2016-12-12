@@ -1,4 +1,5 @@
 // jshint esversion: 6
+
 // configure server
 var path = require('path');
 var express = require('express');
@@ -9,11 +10,12 @@ var app = express();
 // configure database
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var timestamps = require('mongoose-timestamp');
 mongoose.connect('mongodb://bartek:hassle1@ds119598.mlab.com:19598/heroku_4800qm90');
 var db = mongoose.connection;
 var User = require('./userModel.js');
-app.use(morgan('dev')); //to log every request to the console
+
+// log every request to the console
+app.use(morgan('dev'));
 
 // configure authentication
 var session = require('express-session');
@@ -29,13 +31,11 @@ app.use(passport.session());
 
 // configure twilio
 var twilioService = require('./sms/sms.js');
-var dayDefinition = require('./dayDefinition.js');
-console.log("a day is defined as", dayDefinition.aDay());
 
 // configure harassment logic
 var harassmentEngine = require('./sms/harassmentEngine.js');
 
-// server static files
+// serve static files
 app.use('/', express.static(path.join(__dirname, '../client/login')));
 app.use('/app', express.static(path.join(__dirname, '../client')));
 app.use('/modules', express.static(path.join(__dirname, '../node_modules')));
@@ -51,7 +51,7 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   failureRedirect: "/"
 }), (req, res) => {
-    // PASSPORT WILL ATTACH user TO ALL REQUESTS AFTER AUTHENTICATION
+    // passport attaches user information to all incoming requests
     if (!req.user.goal) {
       // if user has no goal, allow them to create one
       res.redirect('/app/#/create');
@@ -82,10 +82,9 @@ app.post('/create', function(req, res) {
     user.buddyName = req.body.buddyName;
     user.buddyPhone = req.body.buddyPhone;
     user.responses = [];
-    user.goalStartDate = Date.now();
+    user.grade = 100;
     user.harassUser = false;
     user.harassBuddy = false;
-    user.grade = 100;
 
     user.save((err, updatedUser) => err ? res.send(err) : res.send(updatedUser));
     twilioService.sendWelcome(user.phoneNumber);
@@ -116,40 +115,35 @@ app.get('/messageToConsole', function(req, res) {
   }, function(err, user) {
     if (err) {
       console.log(err);
-    } else if (user) {
+    } else if (user && user.responses && user.responses.length) {
+      // ensure that at least spam message has been sent, populated by an fail to be replaced
 
-      if (user.responses.length > 0){ // ensure that at least spam message has been sent, populated by an fail to be replaced
+      // overwrite response at last entry in response array
+      user.responses[user.responses.length - 1] = [Date.now(), req.query.Body];
 
-      var lastIndexToReplace = user.responses.length -1;
-      console.log("index to replace", lastIndexToReplace);
-
-        user.responses[lastIndexToReplace] = [Date.now(), req.query.Body]; // push to response array
-      }
-
+      // update user in database and invoke grading function on user
       User.update({_id: user._id}, {responses: user.responses}, grade.call(user));
     }
   });
 
+  // send text message response
   twilioService.responseMaker(req, res);
 
 });
 
-// dev testing route
+// dev testing route for manually invoking spam functions
 app.post('/test', function(req, res) {
   exports.spam();
   exports.gradeUsers();
   res.send();
 });
 
+// API route for possible future development
 app.post('/externaHarassmentAPI', function(req, res) {
   // console.log("received this data from harassment API", req);
   // console.log("body data", req.body);
 
-
-  res.send("account creation failed");
-
-  // build future version for harassment ability by others...
-
+  res.send("Piss off your friends!");
 });
 
 // spam routine
@@ -182,7 +176,7 @@ exports.spam = function() {
 
 // invokes grade function for all users
 exports.gradeUsers = function() {
-// query database for all users
+  // query database for all users
   User.find((err, users) => {
     users.forEach(grade);
   });
