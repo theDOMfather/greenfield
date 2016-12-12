@@ -119,8 +119,6 @@ exports.responseMaker = function(req, res) {
   var randomPositive= Math.floor(Math.random() * SMSResponses.positiveResponses.length);
 
   var randomNegative= Math.floor(Math.random() * SMSResponses.negativeResponses.length);
-  console.log("request from inside responseMaker", req);
-  console.log("request from inside responseMaker QUERY", req.query);
 
   if (req.query.Body == 1) {
     twiml.message(SMSResponses.positiveResponses[randomPositive]);

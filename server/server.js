@@ -117,9 +117,10 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else if (user) {
-      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
 
-      user.responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
+      if (user.responses.length > 0){ // ensure that at least spam message has been sent, populated by an fail to be replaced
+        user.responses.push([Date.now(), req.query.Body]); // push to response array
+      }
 
       User.findOne({
         phoneNumber: shortPhone
@@ -193,7 +194,7 @@ exports.spam = function() {
 };
 
 
-// exports.spam();
+exports.spam();
 
 // assign grades to users based on response history
 exports.gradeUsers = function() {
