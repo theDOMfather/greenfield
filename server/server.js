@@ -108,11 +108,11 @@ app.post('/finish', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
-  var shortPhone = req.query.From.substring(2);
+  var from = req.query.From.substring(2);
 
   //figure out phone number of request
   User.findOne({
-    phoneNumber: shortPhone // finds the user in the db
+    phoneNumber: from // finds the user in the db
   }, function(err, user) {
     if (err) {
       console.log(err);
@@ -126,12 +126,7 @@ app.get('/messageToConsole', function(req, res) {
         user.responses[lastIndexToReplace] = [Date.now(), req.query.Body]; // push to response array
       }
 
-      User.findOne({
-        phoneNumber: shortPhone
-      }, function(err, doc) {
-        doc.responses = user.responses;
-        doc.save();
-      });
+      User.update({_id: user._id}, {responses: user.responses}, grade.call(user));
     }
   });
 
@@ -176,9 +171,9 @@ exports.spam = function() {
     users.forEach(user => {
 
       // send harassment messages
-      // var harassmentState = harassmentEngine.harassmentChecker(user);
-      // user.harassUser = harassmentState.harassUser;
-      // user.harassBuddy = harassmentState.harassBuddy;
+      var harassmentState = harassmentEngine.harassmentChecker(user);
+      user.harassUser = harassmentState.harassUser;
+      user.harassBuddy = harassmentState.harassBuddy;
 
       // send out goal survey
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
@@ -194,30 +189,28 @@ exports.spam = function() {
     });
   });
 
-  // exports.gradeUsers();
+  exports.gradeUsers();
 };
 
+// assign grades to users based on response history
+exports.gradeUsers = function() {
+// query database for all users
+  User.find((err, users) => {
+    users.forEach(grade);
+  });
+};
 
-//exports.spam();
-//
-// // assign grades to users based on response history
-// exports.gradeUsers = function() {
-// // query database for all users
-//   User.find((err, users) => {
-//     users.forEach(user => {
-//       if(user.responses && user.responses.length) {
-//
-//         // calculate percentage of positive ('1') responses
-//         var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
-//         user.grade = progress / user.responses.length * 100;
-//
-//         // update database entry
-//         User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
-//       }
-//     });
-//   });
-// };
+function grade(user) {
+  if(user.responses && user.responses.length) {
 
+    // calculate percentage of positive ('1') responses
+    var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
+    user.grade = Math.round(progress / user.responses.length * 100);
+
+    // update database entry
+    User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
+  }
+}
 
 // start server
 app.listen(port);
