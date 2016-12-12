@@ -141,8 +141,8 @@ app.get('/messageToConsole', function(req, res) {
 
 // dev testing route
 // gets all users and rolls back their goalStartDates according to request before running spam and grade routines
-app.post('/test', function(req, res) {
-  console.log('body:', req.body);
+app.get('/test', function(req, res) {
+  // console.log('body:', req.body);
 //  var days = + req.body.days;
 
   // User.findOne({name: req.body.name}, function(err, user) {
@@ -153,7 +153,7 @@ app.post('/test', function(req, res) {
 
   setTimeout(exports.spam, 1000);
   //setTimeout(exports.gradeUsers, 1000);
-  res.send('' + days);
+  // res.send('' + days);
 });
 
 
