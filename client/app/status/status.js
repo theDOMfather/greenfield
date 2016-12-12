@@ -32,9 +32,7 @@ angular.module("app.status", [])
         $scope.image = 'assets/brony.png';
         $scope.message = 'Rainbow dash is incredibly dissappointed in your performance. Get your shit together...';
       }
-    });
-	 $scope.user.responses = $scope.user.responses.map(function(item){
-	     return [moment(item[0]).format("MM/DD/YYYY"), item[1]];
-	 })
-	  .error((err) => console.error(err));
+    })
+    .error((err) => console.error(err));
+
 });
