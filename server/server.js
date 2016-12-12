@@ -190,29 +190,29 @@ exports.spam = function() {
     });
   });
 
-  exports.gradeUsers();
+  // exports.gradeUsers();
 };
 
 
 exports.spam();
-
-// assign grades to users based on response history
-exports.gradeUsers = function() {
-// query database for all users
-  User.find((err, users) => {
-    users.forEach(user => {
-      if(user.responses && user.responses.length) {
-
-        // calculate percentage of positive ('1') responses
-        var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
-        user.grade = progress / user.responses.length * 100;
-
-        // update database entry
-        User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
-      }
-    });
-  });
-};
+//
+// // assign grades to users based on response history
+// exports.gradeUsers = function() {
+// // query database for all users
+//   User.find((err, users) => {
+//     users.forEach(user => {
+//       if(user.responses && user.responses.length) {
+//
+//         // calculate percentage of positive ('1') responses
+//         var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
+//         user.grade = progress / user.responses.length * 100;
+//
+//         // update database entry
+//         User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
+//       }
+//     });
+//   });
+// };
 
 
 // start server
