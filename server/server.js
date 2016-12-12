@@ -1,5 +1,4 @@
 // jshint esversion: 6
-
 // configure server
 var path = require('path');
 var express = require('express');

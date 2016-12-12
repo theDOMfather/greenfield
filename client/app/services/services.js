@@ -9,13 +9,6 @@ angular.module('app.service', [])
 		});
     };
 
-    // var getDate = function(date) {
-    // 	 return  moment.unix(date);
-
-    // };
-
-
-
 	return {
 		add: add
 	};
