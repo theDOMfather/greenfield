@@ -149,7 +149,7 @@ exports.getLastResponse = function() {
     twilio.messages.list(function(err, data) {
       lastResponse = data.messages[1].body;
       //go to db
-      resolve(data);
+      resolve(data); //fance promise
     });
     return promise;
   })

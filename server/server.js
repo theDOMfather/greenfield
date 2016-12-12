@@ -117,10 +117,14 @@ app.get('/messageToConsole', function(req, res) {
     if (err) {
       console.log(err);
     } else if (user) {
-      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
-      console.log('days since goal creation', daysSinceGoalCreation);
 
-      user.responses[daysSinceGoalCreation] = [Date.now(), req.query.Body]; // made changes to response array
+      if (user.responses.length > 0){ // ensure that at least spam message has been sent, populated by an fail to be replaced
+
+      var lastIndexToReplace = user.responses.length -1;
+      console.log("index to replace", lastIndexToReplace);
+
+        user.responses[lastIndexToReplace] = [Date.now(), req.query.Body]; // push to response array
+      }
 
       User.findOne({
         phoneNumber: shortPhone
@@ -137,25 +141,25 @@ app.get('/messageToConsole', function(req, res) {
 
 // dev testing route
 // gets all users and rolls back their goalStartDates according to request before running spam and grade routines
-app.post('/test', function(req, res) {
-  console.log('body:', req.body);
-  var days = + req.body.days;
+app.get('/test', function(req, res) {
+  // console.log('body:', req.body);
+//  var days = + req.body.days;
 
-  User.findOne({name: req.body.name}, function(err, user) {
-    user.goalStartDate -= days*24*60*60*1000;
-    user.responses = user.responses.map(tuple => tuple ? [tuple[0] - days*24*60*60*1000, tuple[1]] : null);
-    User.update({_id: user._id}, {goalStartDate: user.goalStartDate, responses: user.responses}, err => err ? console.error(err) : null);
-  });
+  // User.findOne({name: req.body.name}, function(err, user) {
+  //   user.goalStartDate -= days*24*60*60*1000;
+  //   user.responses = user.responses.map(tuple => tuple ? [tuple[0] - days*24*60*60*1000, tuple[1]] : null);
+  //   User.update({_id: user._id}, {goalStartDate: user.goalStartDate, responses: user.responses}, err => err ? console.error(err) : null);
+  // });
 
   setTimeout(exports.spam, 1000);
-  setTimeout(exports.gradeUsers, 1000);
+  //setTimeout(exports.gradeUsers, 1000);
   res.send('' + days);
 });
 
 
 app.post('/externaHarassmentAPI', function(req, res) {
-  console.log("received this data from harassment API", req);
-  console.log("boddy data", req.body);
+  // console.log("received this data from harassment API", req);
+  // console.log("body data", req.body);
 
 
   res.send("account creation failed");
@@ -172,21 +176,14 @@ exports.spam = function() {
     users.forEach(user => {
 
       // send harassment messages
-      var harassmentState = harassmentEngine.harassmentChecker(user);
-      user.harassUser = harassmentState.harassUser;
-      user.harassBuddy = harassmentState.harassBuddy;
+      // var harassmentState = harassmentEngine.harassmentChecker(user);
+      // user.harassUser = harassmentState.harassUser;
+      // user.harassBuddy = harassmentState.harassBuddy;
 
       // send out goal survey
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
 
-      //calculate days since goal start
-      var daysSinceGoalCreation = Math.round((Date.now() - user.goalStartDate) / ( dayDefinition.aDay() + 30000) ); // sets index and add 3 seconds for delay to avoid null
-      user.responses[daysSinceGoalCreation] = [Date.now(), 'fail.']; // made changes to response array
-      console.log('days since goal creation', daysSinceGoalCreation);
-
-
-      console.log('days since goal creation', daysSinceGoalCreation);
-      console.log('user.responses', user.responses);
+      user.responses.push([Date.now(), 'new fail.']); // made changes to response array
 
       User.findOne({
         phoneNumber: user.phoneNumber
@@ -196,30 +193,30 @@ exports.spam = function() {
       });
     });
   });
-  
-  exports.gradeUsers();
+
+  // exports.gradeUsers();
 };
 
 
-// exports.spam();
-
-// assign grades to users based on response history
-exports.gradeUsers = function() {
-// query database for all users
-  User.find((err, users) => {
-    users.forEach(user => {
-      if(user.responses && user.responses.length) {
-
-        // calculate percentage of positive ('1') responses
-        var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
-        user.grade = progress / user.responses.length * 100;
-
-        // update database entry 
-        User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
-      }
-    });
-  });
-};
+//exports.spam();
+//
+// // assign grades to users based on response history
+// exports.gradeUsers = function() {
+// // query database for all users
+//   User.find((err, users) => {
+//     users.forEach(user => {
+//       if(user.responses && user.responses.length) {
+//
+//         // calculate percentage of positive ('1') responses
+//         var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
+//         user.grade = progress / user.responses.length * 100;
+//
+//         // update database entry
+//         User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
+//       }
+//     });
+//   });
+// };
 
 
 // start server
