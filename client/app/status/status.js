@@ -1,9 +1,12 @@
 angular.module("app.status", [])
 
-.controller("statusController", function($scope, $http) {
+.controller("statusController", function($scope, $http, $location) {
   $scope.user = {};
   $http.get('/user')
     .success((user) => {
+      if (!user) {
+        $location.path('/');
+      }
       $scope.user = user;
 
       $scope.responses = user.responses.map((tuple) => {
@@ -25,11 +28,11 @@ angular.module("app.status", [])
         $scope.message = 'This unicorn stripper is here to tell you what a great job you\'re doing!';
       } else if (user.grade > 40) {
         $scope.progBarClass = 'progress-bar progress-bar-warning active';
-        $scope.image = 'assets/stickfigure.png';
-        $scope.message = 'This shitty stick figure as an indication of how average we find your performance so far.';
+        $scope.image = 'assets/sloth.png';
+        $scope.message = 'Take this sloth\'s vacant stare as an indication of how perfectly average we find you.';
       } else {
         $scope.progBarClass = 'progress-bar progress-bar-danger active';
-        $scope.image = 'assets/brony.png';
+        $scope.image = 'assets/rainbowdash.png';
         $scope.message = 'Rainbow dash is incredibly dissappointed in your performance. Get your shit together...';
       }
     })
