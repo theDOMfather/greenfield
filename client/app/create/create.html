@@ -16,16 +16,16 @@
         </div>
       </div>
 
-      <!-- PHONE NUMBER -->
+        <!-- PHONE NUMBER -->
       <div class="form-group row">
-        <label for="example-tel-input" class="col-xs-4 col-form-label">* Your cellphone</label>
+      <label for="example-tel-input" class="col-xs-4 col-form-label">* Your cellphone</label>
         <div class="col-xs-8">
-          <input ng-model="user.phoneNumber" class="form-control" type="tel" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$" placeholder="(555)-555-5555" id="example-tel-input" required>
+          <input ng-model="user.phoneNumber" class="form-control" phone-input type="text"  placeholder="(555)-555-5555" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$" id="example-tel-input" required>
         </div>
       </div>
       <br />
 
-
+  
 
       <h3>add a buddy to keep you in line</h3>
       <hr />
@@ -42,7 +42,7 @@
       <div class="form-group row">
         <label for="example-tel-input" class="col-xs-4 col-form-label">  Buddy's cellphone</label>
         <div class="col-xs-8">
-          <input ng-model="user.buddyPhone" class="form-control" type="tel" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$" placeholder="(555)-555-5555" id="example-tel-input">
+          <input ng-model="user.buddyPhone" class="form-control" phone-input type="text" pattern="^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$" placeholder="(555)-555-5555" id="example-tel-input">
         </div>
       </div>
 
@@ -60,13 +60,15 @@
     </form>
   </div>
   <div class="col-xs-6 col-md-4" ng-model="user.goal">
+<<<<<<< d71dce0c74edc725400d18e40bf94b31cb896f2b
     <div class="image-column w-col w-col-6 w-col-medium-6 phone-container"><img class="iphone-image" sizes="(max-width: 479px) 167px, (max-width: 767px) 190px, 335px" src="assets/phone_image_create.png" srcset="assets/phone_image_create.png 500w, assets/phone_image_create.png 670w" width="335">
 
+=======
+    <div class="image-column w-col w-col-6 w-col-medium-6 phone-container"><img class="iphone-image" sizes="(max-width: 479px) 167px, (max-width: 767px) 190px, 335px" src="assets/phone_image.png" srcset="assets/phone_image.png 500w, assets/phone_image.png 670w" width="335">
+>>>>>>> logo redirected to status page
       <div class="talk-bubble tri-right round right-in">
         <div class="talktext">How did you do on your goal of: # {{user.goal}} #<br><br> Reply 1 for 'yes'/ 2 for 'no'</div>
       </div>
-
-
   </div>
 
 </div>

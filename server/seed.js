@@ -6,7 +6,7 @@ const db = mongoose.connect(url).connection;
 const User = require('./userModel.js');
 
 // Step 1: Drop old data
-MongoClient.connect(url, (err, db) => db.command({
+MongoClient.connect(url, (err, db) => db.command({ 
   'dropDatabase': 1
 }));
 
