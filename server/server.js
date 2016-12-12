@@ -32,7 +32,7 @@ var twilioService = require('./sms/sms.js');
 var dayDefinition = require('./dayDefinition.js');
 console.log("a day is defined as", dayDefinition.aDay());
 
-
+// configure harassment logic
 var harassmentEngine = require('./sms/harassmentEngine.js');
 
 // server static files
@@ -108,11 +108,11 @@ app.post('/finish', function(req, res) {
 
 // twilio routes
 app.get('/messageToConsole', function(req, res) {
-  var shortPhone = req.query.From.substring(2);
+  var from = req.query.From.substring(2);
 
   //figure out phone number of request
   User.findOne({
-    phoneNumber: shortPhone // finds the user in the db
+    phoneNumber: from // finds the user in the db
   }, function(err, user) {
     if (err) {
       console.log(err);
@@ -126,12 +126,7 @@ app.get('/messageToConsole', function(req, res) {
         user.responses[lastIndexToReplace] = [Date.now(), req.query.Body]; // push to response array
       }
 
-      User.findOne({
-        phoneNumber: shortPhone
-      }, function(err, doc) {
-        doc.responses = user.responses;
-        doc.save();
-      });
+      User.update({_id: user._id}, {responses: user.responses}, grade.call(user));
     }
   });
 
@@ -140,22 +135,11 @@ app.get('/messageToConsole', function(req, res) {
 });
 
 // dev testing route
-// gets all users and rolls back their goalStartDates according to request before running spam and grade routines
-app.get('/test', function(req, res) {
-  // console.log('body:', req.body);
-//  var days = + req.body.days;
-
-  // User.findOne({name: req.body.name}, function(err, user) {
-  //   user.goalStartDate -= days*24*60*60*1000;
-  //   user.responses = user.responses.map(tuple => tuple ? [tuple[0] - days*24*60*60*1000, tuple[1]] : null);
-  //   User.update({_id: user._id}, {goalStartDate: user.goalStartDate, responses: user.responses}, err => err ? console.error(err) : null);
-  // });
-
-  setTimeout(exports.spam, 1000);
-  //setTimeout(exports.gradeUsers, 1000);
-  res.send('' + days);
+app.post('/test', function(req, res) {
+  exports.spam();
+  exports.gradeUsers();
+  res.send();
 });
-
 
 app.post('/externaHarassmentAPI', function(req, res) {
   // console.log("received this data from harassment API", req);
@@ -168,7 +152,6 @@ app.post('/externaHarassmentAPI', function(req, res) {
 
 });
 
-
 // spam routine
 exports.spam = function() {
   console.log('hello from inside spam');
@@ -176,9 +159,9 @@ exports.spam = function() {
     users.forEach(user => {
 
       // send harassment messages
-      // var harassmentState = harassmentEngine.harassmentChecker(user);
-      // user.harassUser = harassmentState.harassUser;
-      // user.harassBuddy = harassmentState.harassBuddy;
+      var harassmentState = harassmentEngine.harassmentChecker(user);
+      user.harassUser = harassmentState.harassUser;
+      user.harassBuddy = harassmentState.harassBuddy;
 
       // send out goal survey
       twilioService.periodicGoalPoll(user.phoneNumber, user.goal);
@@ -194,30 +177,29 @@ exports.spam = function() {
     });
   });
 
-  // exports.gradeUsers();
+  exports.gradeUsers();
 };
 
+// invokes grade function for all users
+exports.gradeUsers = function() {
+// query database for all users
+  User.find((err, users) => {
+    users.forEach(grade);
+  });
+};
 
-//exports.spam();
-//
-// // assign grades to users based on response history
-// exports.gradeUsers = function() {
-// // query database for all users
-//   User.find((err, users) => {
-//     users.forEach(user => {
-//       if(user.responses && user.responses.length) {
-//
-//         // calculate percentage of positive ('1') responses
-//         var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
-//         user.grade = progress / user.responses.length * 100;
-//
-//         // update database entry
-//         User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
-//       }
-//     });
-//   });
-// };
+// grades users based on their response history
+function grade(user) {
+  if(user.responses && user.responses.length) {
 
+    // calculate percentage of positive ('1') responses
+    var progress = user.responses.reduce((acc, tuple) => tuple ? (tuple[1] === '1' ? ++acc : acc) : null, 0);
+    user.grade = Math.round(progress / user.responses.length * 100);
+
+    // update database entry
+    User.update({_id: user._id}, {grade: user.grade}, err => err ? console.error(err) : null);
+  }
+}
 
 // start server
 app.listen(port);
