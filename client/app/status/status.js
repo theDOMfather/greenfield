@@ -1,9 +1,12 @@
 angular.module("app.status", [])
 
-.controller("statusController", function($scope, $http) {
+.controller("statusController", function($scope, $http, $location) {
   $scope.user = {};
   $http.get('/user')
     .success((user) => {
+      if (!user) {
+        $location.path('/');
+      }
       $scope.user = user;
 
       $scope.responses = user.responses.map((tuple) => {
