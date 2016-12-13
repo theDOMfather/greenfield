@@ -1,8 +1,8 @@
-# Project Name
+Get Hassled - Goal Tracker 
 
-> Pithy project description
+Greenfield project 
 
-## Team
+Team Memebers
 
   - __Product Owner__: teamMember
   - __Scrum Master__: teamMember
@@ -20,7 +20,7 @@
 
 ## Usage
 
-> Some usage instructions
+> Daily checkin on your progress to track your goal. 
 
 ## Requirements
 
