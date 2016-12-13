@@ -119,22 +119,21 @@ form {
   margin-right: 50px;
 }
 
+.btn-finish {
+  margin-top: 10px;
+}
+
 .finish {
   text-align: center;
 }
-
-
 
 #goal-icon{
 	width: 50%;
 	height: auto;
 }
 
-
 .vcenter {
   display: inline-block;
   vertical-align: middle;
   float: none;
 }
-
-
