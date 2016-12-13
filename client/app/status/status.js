@@ -2,6 +2,11 @@ angular.module("app.status", [])
 
 .controller("statusController", function($scope, $http, $location) {
   $scope.user = {};
+  $scope.finished = false;
+  $scope.finish = function() {
+    $scope.finished = !$scope.finished;
+  }
+
   $http.get('/user')
     .success((user) => {
       if (!user) {
