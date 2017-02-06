@@ -4,9 +4,6 @@ const mongoose = require('mongoose');
 // load user model
 var User = require('./userModel.js');
 
-// load API keys
-var Keys = require('./keys.js');
-
 module.exports = function(passport) {
 
   // used to serialize the user for the session
@@ -23,11 +20,10 @@ module.exports = function(passport) {
     });
   });
 
-  // pull in our info from keys.js
   passport.use(new FacebookStrategy({
-    clientID: Keys.facebook.clientID,
-    clientSecret: Keys.facebook.clientSecret,
-    callbackURL: Keys.facebook.callbackURL
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL
   },
   // facebook will send back the token and profile info
   function(token, refreshToken, profile, done) {

@@ -1,7 +1,6 @@
 // jshint esversion: 6
-var Keys = require('../keys');
 var SMSResponses = require('./responses');
-var twilio = require('twilio')(Keys.twilio.TWILIO_ACCOUNT_SID, Keys.twilio.TWILIO_AUTH_TOKEN);
+var twilio = require('twilio')(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
 
 
 //===========send welcome message ====================//
