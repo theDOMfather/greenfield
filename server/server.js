@@ -1,6 +1,7 @@
 // jshint esversion: 6
 
 // configure server
+require('dotenv').config();
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
